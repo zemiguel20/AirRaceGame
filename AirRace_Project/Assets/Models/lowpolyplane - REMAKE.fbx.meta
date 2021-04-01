@@ -1,39 +1,39 @@
 fileFormatVersion: 2
 guid: 839212688f31d50469abaf62e004f7ff
 ModelImporter:
-  serializedVersion: 20200
+  serializedVersion: 21100
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Armor
-    second: {fileID: 2100000, guid: d8e26610c35315745b39ae7ff5fcec9b, type: 2}
+    second: {fileID: 2100000, guid: 4fa608c5bc7643244b512dfdf8fa73ec, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BladeBase
-    second: {fileID: 2100000, guid: 723d4a595b15e744eb45d73b6fafa9f3, type: 2}
+    second: {fileID: 2100000, guid: 8f1f4214093cd4f4ea0d4fd23d076d81, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: BladeTip
-    second: {fileID: 2100000, guid: bfa6a88b66c201c4d8e071df8b0fd4c7, type: 2}
+    second: {fileID: 2100000, guid: 166ca8b0e6dcbe84daa3dd7f9abbbb01, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: FanBase
-    second: {fileID: 2100000, guid: 32f8597ad66535d4db6af7605eeb3d58, type: 2}
+    second: {fileID: 2100000, guid: b4e61d1d73fee93438af0a74b362f69a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Glass
-    second: {fileID: 2100000, guid: 3664d79f8f304c7448e952d165d76b0a, type: 2}
+    second: {fileID: 2100000, guid: ac3a8d5716f424a45b6f4c5fd339cbc7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: PlaneBase
-    second: {fileID: 2100000, guid: a93a53e4b3b1eee4b8ef234ac4c4f974, type: 2}
+    second: {fileID: 2100000, guid: 0be80e325a0f6974f89de476c6c0b809, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
