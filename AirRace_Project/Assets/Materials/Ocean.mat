@@ -49,17 +49,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Alpha: 1
-    - Foam_Distance: 0.1
-    - Foam_Strength: 0.72
+    - Alpha: 0.95
+    - Depth: 0.812
+    - DepthGradientStrength: 0.046
+    - Foam_Distance: 5
+    - Foam_Strength: 0.065
     - Foam_Tile: 10.47
     - Normal_Tile: 0.5
     - Normals_Speed: 3
-    - Ripples_Speed: 3
-    - Ripples_Tiling: 0.5
+    - Ripples_Speed: 7
+    - Ripples_Tiling: 0.2
     - Smooth: 0.8
+    - Strength: 0.063
     - WaveSpeed: 10
     m_Colors:
-    - ColorViewDown: {r: 0, g: 0.03529412, b: 0.1254902, a: 0}
-    - ColorViewInclined: {r: 0.07058824, g: 0.20588236, b: 0.45686275, a: 0}
+    - ColorViewDown: {r: 0, g: 0.03529412, b: 0.1254902, a: 1}
+    - ColorViewInclined: {r: 0.07058824, g: 0.20588236, b: 0.45686275, a: 1}
+    - DepthColor: {r: 0.08566215, g: 0.3549468, b: 0.7264151, a: 0.50980395}
   m_BuildTextureStacks: []
