@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ocean
+  m_Shader: {fileID: -6465566751694194690, guid: 698a54cac5919824e8ea7f3a4b3b3cc3, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Foam_Texture:
+        m_Texture: {fileID: 2800000, guid: 5cd250ff0d961fb4b829fb7aa34a6796, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Normals:
+        m_Texture: {fileID: 2800000, guid: aa65d0ac13d7c924eb56fbeaaff04301, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Normals_Ripples:
+        m_Texture: {fileID: 2800000, guid: aa65d0ac13d7c924eb56fbeaaff04301, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_3cdaf0558a65422c984eb4bbb45b2d6c_Texture_1:
+        m_Texture: {fileID: 2800000, guid: aa65d0ac13d7c924eb56fbeaaff04301, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - Alpha: 1
+    - Foam_Distance: 0.1
+    - Foam_Strength: 0.72
+    - Foam_Tile: 10.47
+    - Normal_Tile: 0.5
+    - Normals_Speed: 3
+    - Ripples_Speed: 3
+    - Ripples_Tiling: 0.5
+    - Smooth: 0.8
+    - WaveSpeed: 10
+    m_Colors:
+    - ColorViewDown: {r: 0, g: 0.03529412, b: 0.1254902, a: 0}
+    - ColorViewInclined: {r: 0.07058824, g: 0.20588236, b: 0.45686275, a: 0}
+  m_BuildTextureStacks: []
