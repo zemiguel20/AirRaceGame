@@ -29,30 +29,42 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log(plane.velocity.magnitude);
 
-        //// apply plane turning movement modifiers
-        //if (turning)
-        //{
-        //    Debug.Log("Turning to be defined");
+        RotatePlane();
 
-        //    /*
-        //     * This conversion is for correct the input vector to
-        //     * correctly apply to the corresponding axis.
-        //     * 
-        //     * W/S -> input Y rotate plane on X axis, upwards and downwards
-        //     * A/D -> input X rotate plane on Z axis, turning to the sides
-        //     *
-        //     */
-        //    Vector3 rotation = new Vector3(-inputVector.y, 0, -inputVector.x);
-
-        //    plane.AddRelativeTorque(rotation, ForceMode.Impulse);
-        //}
+        UpdateDrag();
 
         Vector3 thrust = GetThrustVector();
-        plane.AddRelativeForce(thrust, ForceMode.Impulse);
+        Vector3 lift = GetLiftVector();
 
-        Vector3 lift = Physics.gravity * -1 * plane.mass;
+        plane.AddRelativeForce(thrust, ForceMode.Impulse);
         plane.AddForce(lift, ForceMode.Force);
 
+    }
+
+    private void RotatePlane()
+    {
+
+        //TODO - implement rotation calculation
+
+
+        float increment = 0;
+
+        Vector3 rotation = Vector3.zero;
+
+        rotation.z += increment;
+
+        rotation.x += inputVector.y;
+        plane.transform.Rotate(rotation);
+
+
+    }
+
+
+
+
+    private void UpdateDrag()
+    {
+        //TODO - Implement drag update
     }
 
     private Vector3 GetThrustVector()
@@ -70,13 +82,14 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 GetLiftVector()
     {
-        //Not Implemented
-        return Vector3.zero;
+        //TODO - implement calculation of Lift
+        return Physics.gravity * -1 * plane.mass; ;
     }
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        inputVector = context.ReadValue<Vector2>();
+        // Plane axis are inverted, input vector needs to invert too
+        inputVector = context.ReadValue<Vector2>() * -1;
 
         if (inputVector.Equals(Vector2.zero))
             turning = false;
