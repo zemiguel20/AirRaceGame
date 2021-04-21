@@ -6,16 +6,11 @@ public class PlayerController : MonoBehaviour
     public Rigidbody plane;
     public int maxAcceleretion = 30;
 
-    private Vector2 inputVector;
-    private bool turning;
     private float acceleretion;
 
     private void Start()
     {
-        inputVector = Vector2.zero;
-        turning = false;
         acceleretion = 0;
-        plane.drag = 0.5f;
     }
 
     /*
@@ -37,7 +32,7 @@ public class PlayerController : MonoBehaviour
         Vector3 lift = GetLiftVector();
 
         plane.AddRelativeForce(thrust, ForceMode.Impulse);
-        plane.AddForce(lift, ForceMode.Force);
+        plane.AddForce(lift, ForceMode.Acceleration);
 
     }
 
@@ -46,21 +41,7 @@ public class PlayerController : MonoBehaviour
 
         //TODO - implement rotation calculation
 
-
-        float increment = 0;
-
-        Vector3 rotation = Vector3.zero;
-
-        rotation.z += increment;
-
-        rotation.x += inputVector.y;
-        plane.transform.Rotate(rotation);
-
-
     }
-
-
-
 
     private void UpdateDrag()
     {
@@ -69,32 +50,14 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 GetThrustVector()
     {
-        float force = plane.mass * acceleretion;
-
-        Vector3 direction = Vector3.forward;
-
-        // Used to transform Velocity/physicsFrame into Velocity/second
-        float deltatime = Time.fixedDeltaTime;
-
-        return direction * force * deltatime;
+        return Vector3.zero;
 
     }
 
     private Vector3 GetLiftVector()
     {
         //TODO - implement calculation of Lift
-        return Physics.gravity * -1 * plane.mass; ;
-    }
-
-    public void OnMovement(InputAction.CallbackContext context)
-    {
-        // Plane axis are inverted, input vector needs to invert too
-        inputVector = context.ReadValue<Vector2>() * -1;
-
-        if (inputVector.Equals(Vector2.zero))
-            turning = false;
-        else
-            turning = true;
+        return Physics.gravity * -1;
     }
 
     public void OnAccelerate(InputAction.CallbackContext context)
@@ -103,4 +66,5 @@ public class PlayerController : MonoBehaviour
 
         acceleretion = value * maxAcceleretion;
     }
+
 }
