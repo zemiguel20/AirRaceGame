@@ -27,13 +27,20 @@ This Controller will read player input and control the movement of the plane acc
 Using the Input System, a InputAction is created with the input configuration for the Movement
 and Acceleration.
 
+The main movement controlls will consist of an axis for the elevators, axis for rudder and axis for ailerons.
+An axis/button for acceleration too.
+
 ![input_action](./PlayerMovementImages/input_action_movement.png)
 
 Then a PlayerInput component is added to PlayerController and callbacks are binded to both Actions.
 
+(images below are just example)
+
 ![player_input_bind](./PlayerMovementImages/player_controller_input_bind.png)
 
 ![callbacks](./PlayerMovementImages/movement_callbacks.png)
+
+
 
 #### 1.1.2 Physics calculations <a name="PhysicsCalculations"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
@@ -97,11 +104,15 @@ The strength of the lift depends on the velocity and the rotation of the plane.
 Since the Gravity and Drag forces are already applied by the physics engine, the script algorithm does the following tasks:
 
 1. Calculate and apply rotations if input given
-2. Update drag strength based on the rotation transform values
+2. Update drag strength
 3. Calculate Thrust
 4. Calculate Lift
 5. Apply both Thrust and Lift
 
+
+Rotation is faster the more velocity the plane has.
+
+Drag value increases when turning.
 
 [For more details on the calculations...](PhysicsCalculations.md)
 

@@ -6,11 +6,14 @@ public class PlayerController : MonoBehaviour
     public Rigidbody plane;
     public int maxAcceleretion = 30;
 
-    private float acceleretion;
+    private float inputAcceleretion;
+    private float inputAilerons;
+    private float inputRudder;
+    private float inputElevators;
 
     private void Start()
     {
-        acceleretion = 0;
+        inputAcceleretion = 0;
     }
 
     /*
@@ -64,7 +67,22 @@ public class PlayerController : MonoBehaviour
     {
         float value = context.ReadValue<float>();
 
-        acceleretion = value * maxAcceleretion;
+        inputAcceleretion = value * maxAcceleretion;
+    }
+
+    public void OnAileronsMove(InputAction.CallbackContext context)
+    {
+        inputAilerons = context.ReadValue<float>();
+    }
+
+    public void OnRudderMove(InputAction.CallbackContext context)
+    {
+        inputRudder = context.ReadValue<float>();
+    }
+
+    public void OnElevatorsMove(InputAction.CallbackContext context)
+    {
+        inputElevators = context.ReadValue<float>();
     }
 
 }
