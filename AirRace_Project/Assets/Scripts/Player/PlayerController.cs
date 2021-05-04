@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     public Rigidbody plane;
     public int MAX_ACCELERATION;
+    public float rotationSpeed;
 
     private float inputAcceleretion;
     private float inputAilerons;
@@ -37,9 +38,15 @@ public class PlayerController : MonoBehaviour
 
     private void RotatePlane()
     {
+       
+        Vector3 direction = new Vector3(inputElevators, 0, -inputAilerons);
 
-        //TODO - implement rotation calculation
+        float velocityGoal = 70; //the velocity at which rotation speed is max
+        float velocityFactor = Mathf.Lerp(0, 1, plane.velocity.magnitude / velocityGoal);
 
+        Vector3 vec = direction * velocityFactor * rotationSpeed;
+
+        plane.AddRelativeTorque(vec, ForceMode.Acceleration);
     }
 
     private void UpdateDrag()
