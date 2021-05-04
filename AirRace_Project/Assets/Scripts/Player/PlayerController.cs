@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody plane;
-    public int maxAcceleretion = 30;
+    public int MAX_ACCELERATION;
 
     private float inputAcceleretion;
     private float inputAilerons;
@@ -14,15 +14,11 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         inputAcceleretion = 0;
+        inputAilerons = 0;
+        inputRudder = 0;
+        inputElevators = 0;
     }
 
-    /*
-     * PHYSICS SIMULATION IDEA CAME FROM THIS VIDEOS
-     * 
-     * https://youtu.be/p3jDJ9FtTyM
-     * https://youtu.be/Gg0TXNXgz-w
-     * 
-     */
     private void FixedUpdate()
     {
         //Debug.Log(plane.velocity.magnitude);
@@ -34,7 +30,7 @@ public class PlayerController : MonoBehaviour
         Vector3 thrust = GetThrustVector();
         Vector3 lift = GetLiftVector();
 
-        plane.AddRelativeForce(thrust, ForceMode.Impulse);
+        plane.AddRelativeForce(thrust, ForceMode.Acceleration);
         plane.AddForce(lift, ForceMode.Acceleration);
 
     }
@@ -53,8 +49,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 GetThrustVector()
     {
-        return Vector3.zero;
-
+        return Vector3.forward * inputAcceleretion;
     }
 
     private Vector3 GetLiftVector()
@@ -67,7 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         float value = context.ReadValue<float>();
 
-        inputAcceleretion = value * maxAcceleretion;
+        inputAcceleretion = value * MAX_ACCELERATION;
     }
 
     public void OnAileronsMove(InputAction.CallbackContext context)
