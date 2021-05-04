@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plane: {fileID: 0}
-  maxAcceleretion: 30
+  MAX_ACCELERATION: 15
 --- !u!114 &2758923202211319826
 MonoBehaviour:
   m_ObjectHideFlags: 0
