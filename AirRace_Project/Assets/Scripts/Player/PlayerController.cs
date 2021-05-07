@@ -24,8 +24,6 @@ public class PlayerController : MonoBehaviour
 
         RotatePlane();
 
-        UpdateDrag();
-
         Vector3 thrust = GetThrustVector();
         Vector3 lift = GetLiftVector();
 
@@ -36,25 +34,20 @@ public class PlayerController : MonoBehaviour
 
     private void RotatePlane()
     {
-       
+
         Vector3 direction = new Vector3(inputElevators, 0, -inputAilerons);
 
         float velocityGoal = 70; //the velocity at which rotation speed is max
         float velocityFactor = Mathf.Lerp(0, 1, plane.velocity.magnitude / velocityGoal);
 
-        Vector3 vec = direction * velocityFactor * rotationSpeed;
+        Vector3 force = direction * velocityFactor * rotationSpeed;
 
-        plane.AddRelativeTorque(vec, ForceMode.Acceleration);
-    }
-
-    private void UpdateDrag()
-    {
-        //TODO - Implement drag update
+        plane.AddRelativeTorque(force, ForceMode.Acceleration);
     }
 
     private Vector3 GetThrustVector()
     {
-        return Vector3.forward * inputAcceleretion;
+        return Vector3.forward * (inputAcceleretion * MAX_ACCELERATION);
     }
 
     private Vector3 GetLiftVector()
@@ -65,9 +58,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnAccelerate(InputAction.CallbackContext context)
     {
-        float value = context.ReadValue<float>();
-
-        inputAcceleretion = value * MAX_ACCELERATION;
+        inputAcceleretion = context.ReadValue<float>();
     }
 
     public void OnAileronsMove(InputAction.CallbackContext context)
