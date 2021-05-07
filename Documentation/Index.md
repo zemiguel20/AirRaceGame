@@ -81,7 +81,10 @@ For the translation of the plane, we have 4 main forces being applied:
 Thrust as a force applied always in plane's facing forward direction,
 which is the Z axis in **local** space.
 
-The acceleretion is controled by input.
+The acceleretion is controled by input. 
+
+There is a max acceleration value, and the applied force 
+strength is the input strength (0 to 1) multiplied by the max acceleration value.
 
 ##### Drag
 
