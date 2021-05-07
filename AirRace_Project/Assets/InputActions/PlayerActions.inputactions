@@ -22,14 +22,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "RudderMove",
-                    "type": "Value",
-                    "id": "9a492c40-c135-4210-bbeb-66a93664e662",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "ElevatorsMove",
                     "type": "Value",
                     "id": "ff281528-8d27-4a1d-96db-8f01a129c51c",
@@ -168,72 +160,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "AileronsMove",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "fb9704e0-ff5d-4e45-b5de-cf6bf41f6b5c",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RudderMove",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "566c0af2-1b8f-4303-a51c-e16a4611bdea",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "RudderMove",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "6bbcc153-7b72-4cef-bc99-b15a8867a208",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "RudderMove",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "6f47db89-c058-4be3-90d4-41b2f8e5767d",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RudderMove",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "6257a098-e7b8-41f8-9e0f-128d99e4e29c",
-                    "path": "<Gamepad>/leftStick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "RudderMove",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "d66f008b-1ecb-4d48-a02a-d1534dece7d1",
-                    "path": "<Gamepad>/leftStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "RudderMove",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },

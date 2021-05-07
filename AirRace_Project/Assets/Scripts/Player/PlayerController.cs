@@ -9,14 +9,12 @@ public class PlayerController : MonoBehaviour
 
     private float inputAcceleretion;
     private float inputAilerons;
-    private float inputRudder;
     private float inputElevators;
 
     private void Start()
     {
         inputAcceleretion = 0;
         inputAilerons = 0;
-        inputRudder = 0;
         inputElevators = 0;
     }
 
@@ -75,11 +73,6 @@ public class PlayerController : MonoBehaviour
     public void OnAileronsMove(InputAction.CallbackContext context)
     {
         inputAilerons = context.ReadValue<float>();
-    }
-
-    public void OnRudderMove(InputAction.CallbackContext context)
-    {
-        inputRudder = context.ReadValue<float>();
     }
 
     public void OnElevatorsMove(InputAction.CallbackContext context)
