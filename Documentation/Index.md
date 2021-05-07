@@ -7,6 +7,7 @@
     1. [Player Movement](#PlayerMovement)
         1. [Movement Input](#MovementInput)
         2. [Physics Calculations](#PhysicsCalculations)
+        3. [Plane Rotation](#PlaneRotation)
     
 
 ## 1. Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -21,20 +22,31 @@ This will control a plane Rigidbody.
 
 This Controller will read player input and control the movement of the plane accordingly.
 
+Since the Gravity and Drag forces are already applied by the physics engine, the script algorithm does the following tasks:
+
+1. Calculate and apply rotations if input given
+2. Calculate Thrust
+3. Calculate Lift
+4. Apply both Thrust and Lift
+
+There is information below that explain this steps.
+
 #### 1.1.1 Movement Input <a name="MovementInput"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 
 Using the Input System, a InputAction is created with the input configuration for the Movement
 and Acceleration.
 
-The main movement controlls will consist of an axis for the elevators, axis for rudder and axis for ailerons.
-An axis/button for acceleration too.
+The main movement controlls will consist of an axis for the elevators (turning up and down), 
+an axis for ailerons (rotating sides), and an axis/button for acceleration too.
+
+(images below are just example)
 
 ![input_action](./PlayerMovementImages/input_action_movement.png)
 
 Then a PlayerInput component is added to PlayerController and callbacks are binded to both Actions.
 
-(images below are just example)
+
 
 ![player_input_bind](./PlayerMovementImages/player_controller_input_bind.png)
 
@@ -66,10 +78,8 @@ For the translation of the plane, we have 4 main forces being applied:
 
 ##### Thrust
 
-Thrust as an **impulse** force applied always in plane's facing forward direction,
+Thrust as a force applied always in plane's facing forward direction,
 which is the Z axis in **local** space.
-
-The vector is calculated with the Force (mass x acceleretion) times the direction vector.
 
 The acceleretion is controled by input.
 
@@ -81,7 +91,6 @@ This force is built-in the Rigidbody component, we just have to set a strength v
 
 ![drag_value](./PlayerMovementImages/drag_value.png)
 
-The strength depends on the rotation of the plane.
 
 ##### Weigth/Gravity
 
@@ -98,21 +107,38 @@ the opposite direction of gravity.
 The strength of the lift depends on the velocity and the rotation of the plane.
 
 
----
-<a href="#Index" style="font-size:13px">(index)</a>
-
-Since the Gravity and Drag forces are already applied by the physics engine, the script algorithm does the following tasks:
-
-1. Calculate and apply rotations if input given
-2. Update drag strength
-3. Calculate Thrust
-4. Calculate Lift
-5. Apply both Thrust and Lift
+#### 1.1.3 Plane Rotation <a name="PlaneRotation"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 
-Rotation is faster the more velocity the plane has.
+Because the model of the plane is imported, the axis are inverted.
+Looking at a circle representing the rotation around an axis:
 
-Drag value increases when turning.
+![circle](./PlayerMovementImages/circle_angles.png)
 
-[For more details on the calculations...](PhysicsCalculations.md)
+The ailerons input vector needs to be multiplied by -1, but the elevators are meant to be inverted,
+so it stays the same.
+
+The plane is rotated by applying a torque force.
+
+<br>
+
+The direction of the force is given by the following:
+```csharp
+Vector3 direction = new Vector3(inputElevators, 0, -inputAilerons);
+```
+The elevators rotate the plane on the *x* axis and the ailerons rotate on the *z* axis, both axis being local.
+
+<br>
+
+Then we apply strength factors to this vector, resulting in the force to apply. <br>
+```csharp
+Vector3 force = direction * velocityFactor * rotationSpeed;
+```
+The input vectors already have a strength factor, so the direction vector 
+has the input strength factor already.
+
+The velocity of the plane is the second strength factor. Based on a given velocity threshold,
+the factor is current velocity divided by this threshold.
+
+Also, there is a multiplier named rotationSpeed.
 
