@@ -141,13 +141,34 @@ Vector3 force = direction * velocityFactor * rotationSpeed;
 The input vectors already have a strength factor, so the direction vector 
 has the input strength factor already.
 
-The velocity of the plane is the second strength factor. Based on a given velocity threshold,
-the factor is current velocity divided by this threshold.
+The velocity of the plane is the second strength factor. The velocity is divided by a velocity threshold,
+and the result is clamped between 0 and 1.
+This threshold is the velocity at which the rotation speed is max.
 
 Also, there is a multiplier named rotationSpeed.
 
 
 #### 1.1.4 Plane Lift <a name="PlaneLift"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
+The lift strength will be based on 2 factors
 
+- Velocity
+- Z axis angle. 
+
+The formula is 
+```csharp
+Vector3 force = baseForce * velocityFactor * inclinationFactor;
+```
+where *baseForce* is the inverted gravity.
+
+The velocity is divided by a velocity threshold, and the result is clamped between 0 and 1.
+This threshold is the velocity at which the lift strength is max.
+
+The inclination factor is calculated by a formula with this form
+```
+y = 0.0000205761 * (x-180)^2 + 0.333333
+```
+![rotation-lift-graph](./PlayerMovementImages/rotation_lift_graph.png)
+
+where *x* is the angle and the *y* is the factor.
 
