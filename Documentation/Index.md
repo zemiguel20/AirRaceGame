@@ -8,6 +8,7 @@
         1. [Movement Input](#MovementInput)
         2. [Physics Calculations](#PhysicsCalculations)
         3. [Plane Rotation](#PlaneRotation)
+        4. [Plane Lift](#PlaneLift)
     
 
 ## 1. Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -144,4 +145,9 @@ The velocity of the plane is the second strength factor. Based on a given veloci
 the factor is current velocity divided by this threshold.
 
 Also, there is a multiplier named rotationSpeed.
+
+
+#### 1.1.4 Plane Lift <a name="PlaneLift"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+
 

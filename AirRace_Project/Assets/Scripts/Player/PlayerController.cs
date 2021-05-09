@@ -20,8 +20,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Debug.Log(plane.velocity.magnitude);
-
         RotatePlane();
 
         Vector3 thrust = GetThrustVector();
@@ -29,7 +27,6 @@ public class PlayerController : MonoBehaviour
 
         plane.AddRelativeForce(thrust, ForceMode.Acceleration);
         plane.AddForce(lift, ForceMode.Acceleration);
-
     }
 
     private void RotatePlane()
