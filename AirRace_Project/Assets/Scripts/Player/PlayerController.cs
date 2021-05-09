@@ -4,8 +4,18 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody plane;
+
+    [Tooltip("Value for max acceleration. Acceleration is given by Input * MaxAcceleration")]
     public int MAX_ACCELERATION;
-    public float rotationSpeed;
+
+    [Tooltip("Base rotation speed strength")]
+    public float ROTATION_SPEED;
+
+    [Tooltip("Velocity value of the plane at which rotation speed is MAX")]
+    public float ROTATION_SPEED_VELOCITY_THRESHOLD;
+
+    [Tooltip("Value of the velocity of the plane at which the lift is max")]
+    public float LIFT_VELOCITY_THRESHOLD;
 
     private float inputAcceleretion;
     private float inputAilerons;
@@ -21,12 +31,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         RotatePlane();
-
-        Vector3 thrust = GetThrustVector();
-        Vector3 lift = GetLiftVector();
-
-        plane.AddRelativeForce(thrust, ForceMode.Acceleration);
-        plane.AddForce(lift, ForceMode.Acceleration);
+        UpdateThrust();
+        UpdateLift();
     }
 
     private void RotatePlane()
@@ -34,23 +40,45 @@ public class PlayerController : MonoBehaviour
 
         Vector3 direction = new Vector3(inputElevators, 0, -inputAilerons);
 
-        float velocityGoal = 70; //the velocity at which rotation speed is max
-        float velocityFactor = Mathf.Lerp(0, 1, plane.velocity.magnitude / velocityGoal);
+        float velocityFactor = Mathf.Clamp01(plane.velocity.magnitude / ROTATION_SPEED_VELOCITY_THRESHOLD);
 
-        Vector3 force = direction * velocityFactor * rotationSpeed;
+        Vector3 force = direction * velocityFactor * ROTATION_SPEED;
 
         plane.AddRelativeTorque(force, ForceMode.Acceleration);
     }
 
-    private Vector3 GetThrustVector()
+    private void UpdateThrust()
     {
-        return Vector3.forward * (inputAcceleretion * MAX_ACCELERATION);
+        Vector3 force = Vector3.forward * (inputAcceleretion * MAX_ACCELERATION);
+
+        plane.AddRelativeForce(force, ForceMode.Acceleration);
     }
 
-    private Vector3 GetLiftVector()
+    private void UpdateLift()
     {
-        //TODO - implement calculation of Lift
-        return Physics.gravity * -1;
+        Vector3 baseForce = Physics.gravity * -1;
+
+        float velocityFactor = Mathf.Clamp01(plane.velocity.magnitude / LIFT_VELOCITY_THRESHOLD);
+
+        float inclinationFactor = CalculateInclinationFactor();
+
+        Vector3 force = baseForce * velocityFactor * inclinationFactor;
+
+        plane.AddForce(force, ForceMode.Acceleration);
+    }
+
+    private float CalculateInclinationFactor()
+    {
+        bool isRotating = inputAilerons != 0;
+
+        if (isRotating)
+            return 1;
+
+        float angle = plane.transform.localEulerAngles.z;
+        // y = 0.0000205761 * (x-180)^2 + 0.333333
+        float factor = 0.0000205761f * Mathf.Pow(angle - 180, 2) + 0.333333f;
+
+        return factor;
     }
 
     public void OnAccelerate(InputAction.CallbackContext context)
