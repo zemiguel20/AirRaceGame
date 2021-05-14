@@ -9,6 +9,8 @@
         2. [Physics Calculations](#PhysicsCalculations)
         3. [Plane Rotation](#PlaneRotation)
         4. [Plane Lift](#PlaneLift)
+    2. [Plane Colliders](#PlaneColliders)
+2. [Race Path](#RacePath)
     
 
 ## 1. Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -172,3 +174,44 @@ y = 0.0000205761 * (x-180)^2 + 0.333333
 
 where *x* is the angle and the *y* is the factor.
 
+### 1.2 Plane Colliders <a name="PlaneColliders"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+The plane has two colliders:
+
+- Body Collider
+- Wings Collider
+
+![body collider](./PlaneColliderImages/body_collider.png)
+
+![wings collider](./PlaneColliderImages/wings_collider.png)
+
+The BodyCollider has a tag *GoalHitter* which is used in the collision with the Goals.
+
+## 2. Race Path <a name="RacePath"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+A path is a group of goals/checkpoints with an order.
+The player has to pass through the goals in the order they are defined.
+
+
+IDEIAS:::
+
+- Cada scene é um Path/Corrida/Mapa
+- Path lista de Goals
+- PathManager tem uma lista onde os Goals são colocados por ordem
+- UnityEvent do trigger no Goal e ligar callback para o PathManager
+
+### 2.1 Goals <a name="Goals"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+A Goal is composed by a visual and a trigger.
+
+![goal_prefab](./RacePathImages/goal_prefab.png)
+
+The visual is an effect produced by a particle system component.
+
+The trigger CircleCollider is an object composed by a mesh collider with cylinder mesh,
+and the scale changed to be similar to a circle, and a script which defines the action on collision.
+
+(Describe script)
+
+
+### 2.2 Path Manager <a name="PathManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
