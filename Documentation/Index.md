@@ -12,6 +12,7 @@
     2. [Plane Colliders](#PlaneColliders)
 2. [Race](#Race)
     1. [Goals](#Goals)
+    2. [Race Manager](#RaceManager)
     
 
 ## 1. Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -219,4 +220,87 @@ private void OnTriggerEnter(Collider other)
     }
 ```
 
+The RaceManager dependency can be set using
+```csharp
+public void SetRaceManager(RaceManager raceManager)
+    {
+        this.raceManager = raceManager;
+    }
+```
 
+### 2.2 Race Manager <a name="RaceManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+RaceManager is a simple object with a script attached. <br>
+It will track the race from start to finish, managing the goals and tracking the score.
+
+#### 2.2.1 Race Path <a name="RacePath"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+The RaceManager has a ordered list of Goals. This list is made public to the inspector, so the list can be
+edited there.
+
+![goal_list](./RaceImages/race_manager_goal_list.png)
+
+Goals from the scene are dragged in the list and can be ordered in any way.
+
+#### 2.2.2 Race Start <a name="RaceStart"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+To start the race, StartRace method needs to be called by the Game Manager. <br>
+
+This method does some initial setup and starts counting time.
+
+First, it injects the RaceManager itself in each Goal of the list
+```csharp
+foreach (Goal goal in goals)
+{
+    goal.SetRaceManager(this);
+}
+```
+
+Then it resets some variables and sets *raceStarted* flag to true. 
+```csharp
+raceStarted = true;
+goalsPassed = 0;
+timeCounter = 0;
+score = 0;
+```
+This flag enables the *Update* method to
+start counting the time.
+```csharp
+    private void Update()
+    {
+        if (raceStarted)
+        {
+            timeCounter += Time.deltaTime;
+        }
+    }
+```
+
+Then it deactivates all Goal gameobjects *except the first one*.
+```csharp
+for (int i = 1; i < goals.Count; i++)
+{
+    goals[i].gameObject.SetActive(false);
+}
+```
+
+#### 2.2.3 Passing Goals <a name="PassingGoals"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+When a Goal is passed through, it triggers a call to *OnGoalHit* method.
+
+Based on the time taken to reach this Goal, points are calculated and added to score.
+Then, the time counter is reset.
+
+The goal just passed is deactivated using *GameObject.SetActive* method.
+
+Then, if there are still more goals to pass, the next Goal in the list is activated using the same method.
+
+If not, then game is finished, and the Game Manager is notified.
+
+#### 2.2.4 Score <a name="Score"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+When a goal is reached, we calculate the difference between the time taken to reach the goal and the Time Limit.
+For every decisecond less than the Time Limit, a point is gained.
+
+If Time Limit is reached then no points are gained.
+
+Time Limit can be changed in the editor.
