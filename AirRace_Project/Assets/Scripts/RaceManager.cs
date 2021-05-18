@@ -3,23 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Assets.Scripts.GameState;
 
 public class RaceManager : MonoBehaviour
 {
     public List<Goal> goals;
     public float TIME_LIMIT;
 
+    public float timeCounter { get; private set; }
+    public float score { get; private set; }
+
     private bool raceStarted;
     private int goalsPassed;
-    private float timeCounter;
-    private float score;
+    private GameManager gameManager;
+
+    private void Awake()
+    {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
 
     private void Start()
     {
         raceStarted = false;
-
-        //Will be replaced by GameManager
-        StartRace();
     }
 
     private void Update()
@@ -44,9 +49,7 @@ public class RaceManager : MonoBehaviour
         if (goalsPassed >= goals.Count)
         {
             raceStarted = false;
-
-            // Will be replaced with GUI
-            Debug.Log("Finished with: " + score);
+            gameManager.SetState(new EndGameState(gameManager));
         }
         else
         {
@@ -76,7 +79,7 @@ public class RaceManager : MonoBehaviour
             return;
         }
 
-        if(goals.Count <= 0)
+        if (goals.Count <= 0)
         {
             Debug.LogWarning("Cant start a race with no goals!");
             return;
