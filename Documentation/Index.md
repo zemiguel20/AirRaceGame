@@ -304,3 +304,4 @@ For every decisecond less than the Time Limit, a point is gained.
 If Time Limit is reached then no points are gained.
 
 Time Limit can be changed in the editor.
+- [State Pattern](https://refactoring.guru/design-patterns/state)

@@ -85,12 +85,6 @@ public class RaceManager : MonoBehaviour
             return;
         }
 
-
-        foreach (Goal goal in goals)
-        {
-            goal.SetRaceManager(this);
-        }
-
         raceStarted = true;
         goalsPassed = 0;
         timeCounter = 0;
