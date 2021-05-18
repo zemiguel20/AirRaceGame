@@ -3,21 +3,32 @@
 ## Index
 
 
-1. [Player](#Player)
+1. [General Notes](#GeneralNotes)
+   1. [Setting references using methods like GameObject.Find](#SettingReferences) 
+2. [Player](#Player)
     1. [Player Movement](#PlayerMovement)
         1. [Movement Input](#MovementInput)
         2. [Physics Calculations](#PhysicsCalculations)
         3. [Plane Rotation](#PlaneRotation)
         4. [Plane Lift](#PlaneLift)
     2. [Plane Colliders](#PlaneColliders)
-2. [Race](#Race)
+3. [Race](#Race)
     1. [Goals](#Goals)
     2. [Race Manager](#RaceManager)
     
 
-## 1. Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
+## 1. General Notes <a name="GeneralNotes"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-### 1.1 Player Movement Controller <a name="PlayerMovement"></a> <a href="#Index" style="font-size:13px">(index)</a>
+##### Setting references using methods like GameObject.Find <a name="SettingReferences"></a>
+
+As recommended in the [*Awake* documentation](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/MonoBehaviour.Awake.html),
+setting up references between GameObjects using methods such as *Find* should be done in the *Awake* function. <br>
+This is mostly applied when setting a reference to a Manager object.
+
+
+## 2. Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+### 2.1 Player Movement Controller <a name="PlayerMovement"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The player movement is controlled by a PlayerController object with a PlayerController script. 
 This will control a plane Rigidbody.
@@ -36,7 +47,7 @@ Since the Gravity and Drag forces are already applied by the physics engine, the
 
 There is information below that explain this steps.
 
-#### 1.1.1 Movement Input <a name="MovementInput"></a> <a href="#Index" style="font-size:13px">(index)</a>
+#### 2.1.1 Movement Input <a name="MovementInput"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 
 Using the Input System, a InputAction is created with the input configuration for the Movement
@@ -59,7 +70,7 @@ Then a PlayerInput component is added to PlayerController and callbacks are bind
 
 
 
-#### 1.1.2 Physics calculations <a name="PhysicsCalculations"></a> <a href="#Index" style="font-size:13px">(index)</a>
+#### 2.1.2 Physics calculations <a name="PhysicsCalculations"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 First of all, physics calculations are made inside the FixedUpdate function, as recommended 
 in https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Rigidbody.html
@@ -115,7 +126,7 @@ the opposite direction of gravity.
 The strength of the lift depends on the velocity and the rotation of the plane.
 
 
-#### 1.1.3 Plane Rotation <a name="PlaneRotation"></a> <a href="#Index" style="font-size:13px">(index)</a>
+#### 2.1.3 Plane Rotation <a name="PlaneRotation"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 
 Because the model of the plane is imported, the axis are inverted.
@@ -152,7 +163,7 @@ This threshold is the velocity at which the rotation speed is max.
 Also, there is a multiplier named rotationSpeed.
 
 
-#### 1.1.4 Plane Lift <a name="PlaneLift"></a> <a href="#Index" style="font-size:13px">(index)</a>
+#### 2.1.4 Plane Lift <a name="PlaneLift"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The lift strength will be based on 2 factors
 
@@ -176,7 +187,7 @@ y = 0.0000205761 * (x-180)^2 + 0.333333
 
 where *x* is the angle and the *y* is the factor.
 
-### 1.2 Plane Colliders <a name="PlaneColliders"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### 2.2 Plane Colliders <a name="PlaneColliders"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The plane has two colliders:
 
@@ -189,7 +200,7 @@ The plane has two colliders:
 
 The BodyCollider has a tag *GoalHitter* which is used in the collision with the Goals.
 
-## 2. Race <a name="Race"></a> <a href="#Index" style="font-size:13px">(index)</a>
+## 3. Race <a name="Race"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 Each scene is a race/map, which has a path.
 
@@ -204,7 +215,7 @@ for that segment.
 The tracking of the goals passed and the points gained is done by the Race Manager.
 
 
-### 2.1 Goals <a name="Goals"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### 3.1 Goals <a name="Goals"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 ![goal prefab](./RaceImages/goal_prefab.png)
 
@@ -220,20 +231,20 @@ private void OnTriggerEnter(Collider other)
     }
 ```
 
-The RaceManager dependency can be set using
+The RaceManager dependency is set at startup with *Awake*
 ```csharp
-public void SetRaceManager(RaceManager raceManager)
-    {
-        this.raceManager = raceManager;
-    }
+private void Awake()
+{
+    raceManager = GameObject.Find("RaceManager").GetComponent<RaceManager>();
+}
 ```
 
-### 2.2 Race Manager <a name="RaceManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### 3.2 Race Manager <a name="RaceManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 RaceManager is a simple object with a script attached. <br>
 It will track the race from start to finish, managing the goals and tracking the score.
 
-#### 2.2.1 Race Path <a name="RacePath"></a> <a href="#Index" style="font-size:13px">(index)</a>
+#### 3.2.1 Race Path <a name="RacePath"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The RaceManager has a ordered list of Goals. This list is made public to the inspector, so the list can be
 edited there.
@@ -242,7 +253,7 @@ edited there.
 
 Goals from the scene are dragged in the list and can be ordered in any way.
 
-#### 2.2.2 Race Start <a name="RaceStart"></a> <a href="#Index" style="font-size:13px">(index)</a>
+#### 3.2.2 Race Start <a name="RaceStart"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 To start the race, StartRace method needs to be called by the Game Manager. <br>
 
@@ -283,7 +294,7 @@ for (int i = 1; i < goals.Count; i++)
 }
 ```
 
-#### 2.2.3 Passing Goals <a name="PassingGoals"></a> <a href="#Index" style="font-size:13px">(index)</a>
+#### 3.2.3 Passing Goals <a name="PassingGoals"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 When a Goal is passed through, it triggers a call to *OnGoalHit* method.
 
@@ -296,7 +307,7 @@ Then, if there are still more goals to pass, the next Goal in the list is activa
 
 If not, then game is finished, and the Game Manager is notified.
 
-#### 2.2.4 Score <a name="Score"></a> <a href="#Index" style="font-size:13px">(index)</a>
+#### 3.2.4 Score <a name="Score"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 When a goal is reached, we calculate the difference between the time taken to reach the goal and the Time Limit.
 For every decisecond less than the Time Limit, a point is gained.
