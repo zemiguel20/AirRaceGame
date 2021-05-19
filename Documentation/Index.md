@@ -259,15 +259,7 @@ To start the race, StartRace method needs to be called by the Game Manager. <br>
 
 This method does some initial setup and starts counting time.
 
-First, it injects the RaceManager itself in each Goal of the list
-```csharp
-foreach (Goal goal in goals)
-{
-    goal.SetRaceManager(this);
-}
-```
-
-Then it resets some variables and sets *raceStarted* flag to true. 
+First it resets some variables and sets *raceStarted* flag to true. 
 ```csharp
 raceStarted = true;
 goalsPassed = 0;
