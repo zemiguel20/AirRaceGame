@@ -7,26 +7,33 @@ namespace Assets.Scripts.GameState
     {
         private int initialCountdown;
 
-        public InitialCountdownState(GameManager gameManager, int initialCountdown) : base(gameManager)
+        private CountdownTimerUI countdownTimerUI;
+
+        public InitialCountdownState(GameManager gameManager) : base(gameManager)
         {
-            this.initialCountdown = initialCountdown;
+            this.initialCountdown = gameManager.initialCountdown;
+            this.countdownTimerUI = gameManager.countdownTimerUI;
         }
 
         public override IEnumerator Start()
         {
-            //TODO - replace prints with UI
+            countdownTimerUI.gameObject.SetActive(true);
 
-            Debug.Log("Starting in...");
+            countdownTimerUI.SetText("Starting in...");
             yield return new WaitForSeconds(1.5f);
 
             for (int i = initialCountdown; i > 0; i--)
             {
-                Debug.Log(i);
+                countdownTimerUI.SetText(i.ToString());
                 yield return new WaitForSeconds(1);
             }
 
-            Debug.Log("Started");
+            countdownTimerUI.SetText("GO");
             gameManager.SetState(new RaceState(gameManager));
+
+            yield return new WaitForSeconds(1);
+
+            countdownTimerUI.gameObject.SetActive(false);
         }
     }
 }

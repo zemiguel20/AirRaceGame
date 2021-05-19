@@ -10,18 +10,21 @@ public class GameManager : MonoBehaviour
     public Rigidbody player { get; private set; }
     public RaceManager raceManager { get; private set; }
 
-    private State state;
+    public CountdownTimerUI countdownTimerUI { get; private set; }
 
+
+    private State state;
 
     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<Rigidbody>();
         raceManager = GameObject.Find("RaceManager").GetComponent<RaceManager>();
+        countdownTimerUI = GameObject.Find("CountdownTimerUI").GetComponent<CountdownTimerUI>();
     }
 
     private void Start()
     {
-        SetState(new InitialCountdownState(this, initialCountdown));
+        SetState(new InitialCountdownState(this));
     }
 
     public void SetState(State newState)
