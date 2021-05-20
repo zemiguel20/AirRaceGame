@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.GameState;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class GameManager : MonoBehaviour
     public RaceManager raceManager { get; private set; }
 
     public CountdownTimerUI countdownTimerUI { get; private set; }
+    public EndGamePanel endGamePanel { get; private set; }
 
 
     private State state;
@@ -20,6 +22,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Rigidbody>();
         raceManager = GameObject.Find("RaceManager").GetComponent<RaceManager>();
         countdownTimerUI = GameObject.Find("CountdownTimerUI").GetComponent<CountdownTimerUI>();
+        endGamePanel = GameObject.Find("EndGamePanel").GetComponent<EndGamePanel>();
     }
 
     private void Start()
@@ -31,6 +34,12 @@ public class GameManager : MonoBehaviour
     {
         this.state = newState;
         StartCoroutine(this.state.Start());
+    }
+
+
+    public void ExitToMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
 }

@@ -5,21 +5,23 @@ namespace Assets.Scripts.GameState
 {
     public class EndGameState : State
     {
-        private float score;
+        private int score;
         private Rigidbody player;
+        private EndGamePanel endGamePanel;
 
         public EndGameState(GameManager gameManager) : base(gameManager)
         {
             score = gameManager.raceManager.score;
             player = gameManager.player;
+            endGamePanel = gameManager.endGamePanel;
         }
 
         public override IEnumerator Start()
         {
             player.isKinematic = true;
 
-            //TODO - replace with UI
-            Debug.Log("Final Score: " + score);
+            endGamePanel.gameObject.SetActive(true);
+            endGamePanel.SetInfo(score);
 
             yield break;
         }
