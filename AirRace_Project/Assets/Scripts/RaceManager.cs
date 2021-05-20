@@ -11,7 +11,7 @@ public class RaceManager : MonoBehaviour
     public float TIME_LIMIT;
 
     public float timeCounter { get; private set; }
-    public float score { get; private set; }
+    public int score { get; private set; }
 
     private bool raceStarted;
     private int goalsPassed;
@@ -58,15 +58,15 @@ public class RaceManager : MonoBehaviour
         }
     }
 
-    private float CalculatePoints(float playerTime)
+    private int CalculatePoints(float playerTime)
     {
-        float points = 0;
+        float pointsTemp = 0;
 
         if (playerTime < TIME_LIMIT)
-            points = TIME_LIMIT - playerTime;
+            pointsTemp = TIME_LIMIT - playerTime;
 
 
-        points = (float)Math.Round(points, 1) * 10;
+        int points = (int)(Math.Round(pointsTemp, 1) * 10);
 
         return points;
     }
