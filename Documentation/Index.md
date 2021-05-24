@@ -19,6 +19,8 @@
     1. [States](#States)
     2. [Game Manager](#GameManager)
        1. [State class](#StateClass) 
+5. [UI](#UI)
+   1. [UI Prefab](#UIPrefab)
     
 
 ## 1. General Notes <a name="GeneralNotes"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -398,8 +400,8 @@ do matter for that specific state.
 
 Also we return a *IEnumerator* so the actions can be called in a Coroutine.
 
-GameManager class is also added as a protected attribute, since implementation classes most likely will
-need access to it.
+GameManager class is also added as a protected attribute for backreferencing, 
+since implementation classes most likely will need access to it.
 
 ```csharp
 public abstract class State
@@ -454,4 +456,36 @@ public class InitialCountdownState : State
         }
     }
 ```
+
+## 5. UI <a name="UI"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+For developing runtime UI, unity recommends using one of its core packages, *Unity UI*, and so thats the
+one that is used.
+
+Documentation pages talking about the different UI packages:
+- [Creating user interfaces (UI)](https://docs.unity3d.com/2021.1/Documentation/Manual/UIToolkits.html)
+- [Comparison](https://docs.unity3d.com/2021.1/Documentation/Manual/UI-system-compare.html)
+
+Documentation pages for Unity UI:
+- [Unity UI](https://docs.unity3d.com/2021.1/Documentation/Manual/com.unity.ugui.html)
+
+Also, TextMeshPro, a unity standard package, will be used to build certain UI elements on top of UnityUI.
+
+### 5.1 UI Prefab <a name="UIPrefab"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+Every race scene will have a similar core set of game objects, like the Managers. One of the is them UI prefab.
+
+![ui_prefab](./UIImages/ui_prefab.png)
+
+The base UI element is the [*Canvas*](https://docs.unity3d.com/2021.1/Documentation/Manual/UICanvas.html).
+It offers a space where more UI elements can be added as childs of the Canvas, creating a more complex UI object,
+and also defines how the object itself will be rendered.
+
+We can have multiple Canvas objects, each with different UI elements, and displayed in a different form, but
+the elements of our game will be displayed in *screen overlay mode*, so only *one* canvas will be used.
+
+As child elements of this Canvas, we have the *CountdownTimerUI*, *EndGamePanel* and the *HUD*.
+
+Also, we have the default created EventSystem object, which manages the input events for the UI, using the Unity's
+Input System UI Input Module.
 
