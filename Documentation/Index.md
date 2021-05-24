@@ -15,6 +15,10 @@
 3. [Race](#Race)
     1. [Goals](#Goals)
     2. [Race Manager](#RaceManager)
+4. [Game State/Flow](#GameState)
+    1. [States](#States)
+    2. [Game Manager](#GameManager)
+       1. [State class](#StateClass) 
     
 
 ## 1. General Notes <a name="GeneralNotes"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -22,8 +26,7 @@
 ##### Setting references using methods like GameObject.Find <a name="SettingReferences"></a>
 
 As recommended in the [*Awake* documentation](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/MonoBehaviour.Awake.html),
-setting up references between GameObjects using methods such as *Find* should be done in the *Awake* function. <br>
-This is mostly applied when setting a reference to a Manager object.
+setting up references between GameObjects using methods such as *Find* should be done in the *Awake* function.
 
 
 ## 2. Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -307,4 +310,148 @@ For every decisecond less than the Time Limit, a point is gained.
 If Time Limit is reached then no points are gained.
 
 Time Limit can be changed in the editor.
-- [State Pattern](https://refactoring.guru/design-patterns/state)
+
+
+## 4. Game State/Flow <a name="GameState"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+To coordinate the flow of the events of the game, Manager objects are used. <br>
+Managers are organized in a hierarchy, and the Root normally is the Game Manager.
+
+### 4.1 States <a name="States"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+Each state describes a different phase of the game, where the behaviour of the game changes and
+the actions that can be done may change as well.
+
+The state/phase flow of the game is represented in the following image.
+
+![states](./GameStateImages/state_diagram.png)
+
+The game starts on the *Countdown* phase, where only a countdown happens to let the player prepare.
+
+Then it transitions to the Race phase, where the player can move around the map and the time and score
+start counting.
+
+Then when the player finishes the race, it transitions to the End Game phase, where a panel with the
+results appear.
+
+### 4.2 Game Manager <a name="GameManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+The Game Manager is a GameObject with a GameManager script component attached.
+
+It acts as a state machine, and follows the [State Pattern](https://refactoring.guru/design-patterns/state). <br>
+The implementation follows [this video](https://youtu.be/G1bd75R10m4) as example, and it uses
+[Coroutines](https://docs.unity3d.com/2021.1/Documentation/Manual/Coroutines.html)
+
+The *State* type is an Interface which defines a set of actions that can be done in a State. Then each
+class implementation of State defines the behaviour of each action in its own way.
+
+The GameManager class has State attribute which represents the *current* state
+```csharp
+private State state;
+```
+and a method for changing the current state.
+```csharp
+public void SetState(State newState)
+    {
+        this.state = newState;
+        StartCoroutine(this.state.Start());
+    }
+```
+This method sets the current state to the given state, and *starts a Coroutine*, calling the *Start action*
+of the state.
+
+Also, it has methods to be called from outside, for example, when an event occurs that calls an action:
+```csharp
+public void PauseGame()
+    {
+        state.Pause();
+    }
+```
+
+The GameManager has as attributes other objects and variables, which States and other Managers can get,
+so Managers in a way act as a *"source of truth"*.
+
+#### 4.2.2 State class <a name="StateClass"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+
+
+Since in C# we have inheritance, we will use an abstract class to represent the State interface, which
+will have a default empty implementation for each action (no behaviour, does nothing when action called).
+
+```csharp
+public abstract class State
+    {
+        ...
+
+        public virtual IEnumerator Start()
+        {
+            yield break;
+        }
+        
+        ...
+
+    }
+```
+
+This allows to keep implementation classes more clean, by just overriding behaviour of the actions that
+do matter for that specific state.
+
+Also we return a *IEnumerator* so the actions can be called in a Coroutine.
+
+GameManager class is also added as a protected attribute, since implementation classes most likely will
+need access to it.
+
+```csharp
+public abstract class State
+    {
+        protected GameManager gameManager;
+
+        public State(GameManager gameManager)
+        {
+            this.gameManager = gameManager;
+        }
+        ...
+    }
+```
+
+An example implementation of a State can be the *InitialCountdownState*
+
+```csharp
+public class InitialCountdownState : State
+    {
+        private int initialCountdown;
+
+        private CountdownTimerUI countdownTimerUI;
+        
+        //Gets info needed from GameManager
+        public InitialCountdownState(GameManager gameManager) : base(gameManager)
+        {
+            this.initialCountdown = gameManager.initialCountdown;
+            this.countdownTimerUI = gameManager.countdownTimerUI;
+        }
+
+        //Overrides Start action, which uses Coroutines
+        // to call Wait methods to simulate a countdown timer
+        public override IEnumerator Start()
+        {
+            countdownTimerUI.gameObject.SetActive(true);
+
+            countdownTimerUI.SetText("Starting in...");
+            yield return new WaitForSeconds(1.5f);
+
+            for (int i = initialCountdown; i > 0; i--)
+            {
+                countdownTimerUI.SetText(i.ToString());
+                yield return new WaitForSeconds(1);
+            }
+
+            countdownTimerUI.SetText("GO");
+            gameManager.SetState(new RaceState(gameManager));
+
+            yield return new WaitForSeconds(1);
+
+            countdownTimerUI.gameObject.SetActive(false);
+        }
+    }
+```
+
