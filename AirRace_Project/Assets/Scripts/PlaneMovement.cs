@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlaneMovement : MonoBehaviour
 {
-    public Rigidbody plane;
+    private Rigidbody plane;
 
     [Tooltip("Value for max acceleration. Acceleration is given by Input * MaxAcceleration")]
     public int MAX_ACCELERATION;
@@ -20,6 +20,11 @@ public class PlayerController : MonoBehaviour
     private float inputAcceleretion;
     private float inputAilerons;
     private float inputElevators;
+
+    private void Awake()
+    {
+        this.plane = GetComponent<Rigidbody>();
+    }
 
     private void Start()
     {

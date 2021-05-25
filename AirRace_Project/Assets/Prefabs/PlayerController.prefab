@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2233268970484365842}
-  - component: {fileID: 4432674542889973563}
   - component: {fileID: 2758923202211319826}
   m_Layer: 0
   m_Name: PlayerController
@@ -32,23 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4432674542889973563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3961549997960764852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd48cc9a674eb94ba2763a0dd7080cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plane: {fileID: 0}
-  MAX_ACCELERATION: 80
-  ROTATION_SPEED: 5
-  ROTATION_SPEED_VELOCITY_THRESHOLD: 70
-  LIFT_VELOCITY_THRESHOLD: 25
 --- !u!114 &2758923202211319826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,7 +58,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4432674542889973563}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnAccelerate
         m_Mode: 0
@@ -92,7 +74,7 @@ MonoBehaviour:
     m_ActionName: PlayerControls/Accelerate[/Keyboard/upArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4432674542889973563}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnAileronsMove
         m_Mode: 0
@@ -108,7 +90,7 @@ MonoBehaviour:
     m_ActionName: PlayerControls/AileronsMove[/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4432674542889973563}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnRudderMove
         m_Mode: 0
@@ -124,7 +106,7 @@ MonoBehaviour:
     m_ActionName: PlayerControls/RudderMove[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4432674542889973563}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: OnElevatorsMove
         m_Mode: 0
