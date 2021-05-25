@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("Player").GetComponent<Rigidbody>();
-        raceManager = GameObject.Find("RaceManager").GetComponent<RaceManager>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
+        raceManager = GetComponent<RaceManager>();
         countdownTimerUI = GameObject.Find("CountdownTimerUI").GetComponent<CountdownTimerUI>();
         endGamePanel = GameObject.Find("EndGamePanel").GetComponent<EndGamePanel>();
     }

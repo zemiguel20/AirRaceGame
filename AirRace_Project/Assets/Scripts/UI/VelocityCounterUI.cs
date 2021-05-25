@@ -8,7 +8,7 @@ public class VelocityCounterUI : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("Player").GetComponent<Rigidbody>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
         label = GetComponent<TextMeshProUGUI>();
     }
 

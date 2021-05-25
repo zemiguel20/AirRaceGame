@@ -10,7 +10,7 @@ public class ScoreCounterUI : MonoBehaviour
     private void Awake()
     {
         label = GetComponent<TextMeshProUGUI>();
-        raceManager = GameObject.Find("RaceManager").GetComponent<RaceManager>();
+        raceManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<RaceManager>();
     }
 
     // Update is called once per frame

@@ -19,7 +19,7 @@ public class RaceManager : MonoBehaviour
 
     private void Awake()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GetComponent<GameManager>();
     }
 
     private void Start()

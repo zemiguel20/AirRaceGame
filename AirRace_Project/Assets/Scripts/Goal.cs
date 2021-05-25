@@ -7,7 +7,7 @@ public class Goal : MonoBehaviour
 
     private void Awake()
     {
-        raceManager = GameObject.Find("RaceManager").GetComponent<RaceManager>();
+        raceManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<RaceManager>();
     }
 
     private void OnTriggerEnter(Collider other)
