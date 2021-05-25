@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 438370625}
   m_Layer: 0
   m_Name: Terrain
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -512,53 +512,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0997237e11df48545b61264a68ffeee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &563370325
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 563370326}
-  - component: {fileID: 563370327}
-  m_Layer: 0
-  m_Name: RaceManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &563370326
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563370325}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1717542972}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &563370327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563370325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c283a177d33f6549bd9ea967c8b2398, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  goals:
-  - {fileID: 513042183}
-  - {fileID: 572387456}
-  TIME_LIMIT: 10
 --- !u!114 &572387456 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2154179362514981246, guid: 2e6cee1f8bafa60479d0eddc0f2a55a8, type: 3}
@@ -687,7 +640,7 @@ GameObject:
   - component: {fileID: 987910548}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -783,7 +736,7 @@ GameObject:
   - component: {fileID: 1349008147}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -875,9 +828,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1613596348}
   - component: {fileID: 1613596349}
+  - component: {fileID: 1613596350}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -893,8 +847,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1717542972}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1613596349
 MonoBehaviour:
@@ -909,38 +863,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialCountdown: 3
---- !u!1 &1717542971
-GameObject:
+--- !u!114 &1613596350
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1717542972}
-  m_Layer: 0
-  m_Name: Managers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1717542972
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717542971}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1613596348}
-  - {fileID: 563370326}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1613596347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c283a177d33f6549bd9ea967c8b2398, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goals:
+  - {fileID: 513042183}
+  - {fileID: 572387456}
+  TIME_LIMIT: 10
 --- !u!1001 &1866618502
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1071,6 +1009,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 344641148134560950, guid: 5d2fc930a507e974c929f923470ffa82, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 1588124319083936538, guid: 5d2fc930a507e974c929f923470ffa82, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1252,22 +1194,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerController
       objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: vel
-      value: 700
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: plane
-      value: 
-      objectReference: {fileID: 5411032201390260342}
-    - target: {fileID: 0}
-      propertyPath: speed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: turningSpeed
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
 --- !u!1001 &5411032201390260341
@@ -1335,11 +1261,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52a164781a7949e46998aa5cdfd22216, type: 3}
---- !u!54 &5411032201390260342 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 3180747890983856302, guid: 52a164781a7949e46998aa5cdfd22216, type: 3}
-  m_PrefabInstance: {fileID: 5411032201390260341}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5411032201390260343 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4721815071968554249, guid: 52a164781a7949e46998aa5cdfd22216, type: 3}

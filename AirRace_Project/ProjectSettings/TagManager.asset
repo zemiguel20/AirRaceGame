@@ -7,8 +7,6 @@ TagManager:
   - GoalHitter
   - Goal
   - Terrain
-  - RaceManager
-  - GameManager
   layers:
   - Default
   - TransparentFX
