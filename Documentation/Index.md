@@ -11,7 +11,8 @@
         2. [Physics Calculations](#PhysicsCalculations)
         3. [Plane Rotation](#PlaneRotation)
         4. [Plane Lift](#PlaneLift)
-    2. [Plane Colliders](#PlaneColliders)
+    2. [Input](#Input)
+    3. [Plane Colliders](#PlaneColliders)
 3. [Race](#Race)
     1. [Goals](#Goals)
     2. [Race Manager](#RaceManager)
@@ -33,15 +34,15 @@ setting up references between GameObjects using methods such as *Find* should be
 
 ## 2. Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-### 2.1 Player Movement Controller <a name="PlayerMovement"></a> <a href="#Index" style="font-size:13px">(index)</a>
+The player is represented by a Plane prefab which has components for Physics like Ridigbody and Colliders, scripts, etc.
 
-The player movement is controlled by a PlayerController object with a PlayerController script. 
-This will control a plane Rigidbody.
+### 2.1 Plane Movement <a name="PlayerMovement"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-![player](./PlayerMovementImages/player_prefab_tree.png)
+The player movement is controlled by a PlaneMovement script, which will control the Rigidbody component.
 
+![player](./PlayerMovementImages/player_prefab.png)
 
-This Controller will read player input and control the movement of the plane accordingly.
+This script has methods to be used on input events, which will influence the movement.
 
 Since the Gravity and Drag forces are already applied by the physics engine, the script algorithm does the following tasks:
 
@@ -54,22 +55,11 @@ There is information below that explain this steps.
 
 #### 2.1.1 Movement Input <a name="MovementInput"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
+Since we use Unity's InputSystem, the callback functions on input events receive a InputAction Context.
 
-Using the Input System, a InputAction is created with the input configuration for the Movement
-and Acceleration.
+From these contexts we retreive the input values, which alter the properties of the plane.
 
-The main movement controlls will consist of an axis for the elevators (turning up and down), 
-an axis for ailerons (rotating sides), and an axis/button for acceleration too.
-
-(images below are just example)
-
-![input_action](./PlayerMovementImages/input_action_movement.png)
-
-Then a PlayerInput component is added to PlayerController and callbacks are binded to both Actions.
-
-
-
-![player_input_bind](./PlayerMovementImages/player_controller_input_bind.png)
+(example image)
 
 ![callbacks](./PlayerMovementImages/movement_callbacks.png)
 
@@ -192,7 +182,29 @@ y = 0.0000205761 * (x-180)^2 + 0.333333
 
 where *x* is the angle and the *y* is the factor.
 
-### 2.2 Plane Colliders <a name="PlaneColliders"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### 2.2 Input <a name="Input"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+For processing input, Unity's InputSystem is used.
+
+We have a PlayerController object with a Input System component.
+
+![input system component](./PlayerInputImages/inputsystem_component.png)
+
+This component as a Input Actions asset attached.
+
+![input actions](./PlayerInputImages/input_action_movement.png)
+
+A Input Actions asset has Maps of Actions. So we have a set of actions, and for each action on that Action Map we can
+create mappings for keybinds. We can also have different schemes, for example, one for keyboard and another for gamepad,
+and map keybinds specific to a scheme.
+
+Then we must also bind Callback functions to each Action, as seen in the image below.
+
+![callbacks binding](./PlayerInputImages/player_controller_input_bind.png)
+
+
+
+### 2.3 Plane Colliders <a name="PlaneColliders"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The plane has two colliders:
 
