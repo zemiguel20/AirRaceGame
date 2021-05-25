@@ -501,3 +501,5 @@ As child elements of this Canvas, we have the *CountdownTimerUI*, *EndGamePanel*
 Also, we have the default created EventSystem object, which manages the input events for the UI, using the Unity's
 Input System UI Input Module.
 
+For the Scaling of the Canvas, we put the option *UI Scale Mode* in *Scale With Screen Size*, for simple scaling across
+multiple resolutions.
