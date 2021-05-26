@@ -21,6 +21,7 @@
        2. [Race Start](#RaceStart)
        3. [Passing Goals](#PassingGoals)
        4. [Score](#Score)
+    3. [Hit terrain and respawn](#Respawn) 
 4. [Game State/Flow](#GameState)
     1. [States](#States)
     2. [Game Manager](#GameManager)
@@ -350,6 +351,52 @@ For every decisecond less than the Time Limit, a point is gained.
 If Time Limit is reached then no points are gained.
 
 Time Limit can be changed in the editor.
+
+
+### 3.3 Hit terrain and respawn <a name="Respawn"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+A script *PlaneRespawner* is added as a component to the Plane. When a collision happens, it triggers the player *Respawn*
+as a coroutine.
+
+```csharp
+private void OnCollisionEnter(Collision collision)
+    {
+        StartCoroutine(Respawn());
+    }
+
+private IEnumerator Respawn()
+    {
+        plane.isKinematic = true;
+
+        yield return new WaitForSeconds(0.3f);
+
+        plane.transform.position = respawnPosition;
+        plane.transform.rotation = respawnRotation;
+
+        yield return new WaitForSeconds(0.3f);
+
+        plane.isKinematic = false;
+    }
+```
+First, forces on the plane are disabled.
+Then it stops for a small time for the player to recognize it collided and his going to respawn.
+Then the player position and rotation are set to the ones saved as variables and stops for a small time again for the
+player to prepare. Finally enables forces on the plane again.
+
+The saved respawn position and rotation start off as the starting point of the race.
+When a Goal is passed through, they are updated to the Goals transform.
+
+```csharp
+private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Goal"))
+        {
+            respawnPosition = other.transform.position;
+            respawnRotation = other.transform.rotation;
+        }
+    }
+```
+
 
 
 ## 4. Game State/Flow <a name="GameState"></a> <a href="#Index" style="font-size:13px">(index)</a>
