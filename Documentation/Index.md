@@ -13,6 +13,7 @@
         4. [Plane Lift](#PlaneLift)
     2. [Input](#Input)
     3. [Plane Colliders](#PlaneColliders)
+    4. [Player Camera](#PlayerCamera)
 3. [Race](#Race)
     1. [Goals](#Goals)
     2. [Race Manager](#RaceManager)
@@ -216,6 +217,27 @@ The plane has two colliders:
 ![wings collider](./PlaneColliderImages/wings_collider.png)
 
 The BodyCollider has a tag *GoalHitter* which is used in the collision with the Goals.
+
+### 2.4 Player Camera <a name="PlayerCamera"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+To create a follow camera, Unity recommends using the 
+[SmoothDamp function](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Vector3.SmoothDamp.html).
+
+The target position is the player position with an offset *in local space*.
+```csharp
+Vector3 target = player.position + player.up * offsety + player.forward * offsetz;
+```
+
+Then we set the camera position using SmoothDamp
+```scharp
+this.transform.position = Vector3.SmoothDamp(this.transform.position, target, ref velocity, smoothTime);
+```
+
+
+Then we use *LookAt* function to rotate the camera to look at the player.
+```scharp
+this.transform.LookAt(player);
+```
 
 ## 3. Race <a name="Race"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
