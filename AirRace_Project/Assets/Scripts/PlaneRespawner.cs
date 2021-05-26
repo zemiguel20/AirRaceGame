@@ -22,10 +22,7 @@ public class PlaneRespawner : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Terrain"))
-        {
-            StartCoroutine(Respawn());
-        }
+        StartCoroutine(Respawn());
     }
 
     private void OnTriggerEnter(Collider other)
