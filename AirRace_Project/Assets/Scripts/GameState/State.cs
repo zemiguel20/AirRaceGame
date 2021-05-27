@@ -17,5 +17,16 @@ namespace Assets.Scripts.GameState
         {
             yield break;
         }
+
+        public virtual IEnumerator Pause()
+        {
+            yield break;
+        }
+
+        public virtual IEnumerator Resume()
+        {
+            yield break;
+        }
+
     }
 }
