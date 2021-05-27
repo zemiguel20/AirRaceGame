@@ -26,6 +26,9 @@
     1. [States](#States)
     2. [Game Manager](#GameManager)
        1. [State class](#StateClass) 
+    3. [Countdown](#CountdownState)
+    4. [Race](#RaceState)
+    5. [End Game](#EndGameState)
 5. [UI](#UI)
    1. [UI Prefab](#UIPrefab)
     
@@ -341,7 +344,7 @@ The goal just passed is deactivated using *GameObject.SetActive* method.
 
 Then, if there are still more goals to pass, the next Goal in the list is activated using the same method.
 
-If not, then game is finished, and the Game Manager is notified.
+If not, then game is finished, and the Game Manager [state is changed to End Game](#EndGameState).
 
 #### 3.2.4 Score <a name="Score"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
@@ -540,6 +543,74 @@ public class InitialCountdownState : State
             countdownTimerUI.gameObject.SetActive(false);
         }
     }
+```
+
+### 4.3 Countdown <a name="CountdownState"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+This state overrides the *Start* action and uses the *initialCountdown* and *UI* from GameManager.
+
+```csharp
+public override IEnumerator Start()
+        {
+            UI.SetCountdownTimerActive(true);
+
+            UI.SetCountdownTimerText("Starting in...");
+            yield return new WaitForSeconds(1.5f);
+
+            for (int i = initialCountdown; i > 0; i--)
+            {
+                UI.SetCountdownTimerText(i.ToString());
+                yield return new WaitForSeconds(1);
+            }
+
+            UI.SetCountdownTimerText("GO");
+            gameManager.SetState(new RaceState(gameManager));
+
+            yield return new WaitForSeconds(1);
+
+            UI.SetCountdownTimerActive(false);
+        }
+```
+
+In the Start coroutine, the UI part of the countdown timer is set active, and by using WaitForSeconds and updating the
+text that the UI displays, we show a countdown timer.
+
+When the countdown timer ends, a "Go" message is displayed and the state changes to Race.
+
+Then it waits a bit before disabling the display of the countdown and terminating the coroutine.
+
+### 4.4 Race <a name="RaceState"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+This state overrides the *Start*, *Pause* and *Resume* actions and uses the *RaceManager*, *Player* and *UI* from GameManager.
+The Pause and Resume will be covered in the [Pausing section](#Pausing)
+
+On Start, it basically sets the Player to Non Kinematic, allowing the plane to move, and tells RaceManager to 
+[start the race](#RaceStart).
+
+```csharp
+public override IEnumerator Start()
+        {
+            player.isKinematic = false;
+            raceManager.StartRace();
+            yield break;
+        }
+```
+
+### 4.5 End Game <a name="EndGameState"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+In this state, the Player is set to Kinematic so it stops the movement, the EndGame Panel in the UI is activated and 
+gives the UI the info to be displayed on the end game panel.
+
+```csharp
+public override IEnumerator Start()
+        {
+            player.isKinematic = true;
+
+            UI.SetEndGamePanelActive(true);
+            UI.SetEndGamePanelInfo(score);
+
+            yield break;
+        }
 ```
 
 ## 5. UI <a name="UI"></a> <a href="#Index" style="font-size:13px">(index)</a>
