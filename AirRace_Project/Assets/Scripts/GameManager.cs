@@ -11,8 +11,7 @@ public class GameManager : MonoBehaviour
     public Rigidbody player { get; private set; }
     public RaceManager raceManager { get; private set; }
 
-    public CountdownTimerUI countdownTimerUI { get; private set; }
-    public EndGamePanel endGamePanel { get; private set; }
+    public UI UI { get; private set; }
 
 
     private State state;
@@ -21,8 +20,7 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
         raceManager = GetComponent<RaceManager>();
-        countdownTimerUI = GameObject.Find("CountdownTimerUI").GetComponent<CountdownTimerUI>();
-        endGamePanel = GameObject.Find("EndGamePanel").GetComponent<EndGamePanel>();
+        UI = GameObject.Find("UI").GetComponent<UI>();
     }
 
     private void Start()
