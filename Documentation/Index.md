@@ -29,6 +29,7 @@
     3. [Countdown](#CountdownState)
     4. [Race](#RaceState)
     5. [End Game](#EndGameState)
+    6. [Pausing the game](#Pausing)
 5. [UI](#UI)
    1. [UI Prefab](#UIPrefab)
     
@@ -612,6 +613,66 @@ public override IEnumerator Start()
             yield break;
         }
 ```
+
+### 4.6 Pausing the game <a name="Pausing"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+The [player Input action map](#Input) has a keybind for pausing and unpausing the game.
+
+We bind to the callback in GameManager *OnPauseGame*.
+```csharp
+ public void OnPauseGame(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (isPaused)
+                ResumeGame();
+            else
+                PauseGame();
+        }
+
+    }
+```
+Due to how the InputSystem works, we check state of the input action in the context, as we only want to do something
+the moment the button is pressed.
+
+Then we do Resume or Pause depending on the value of the flag. Both call the State's Pause or Resume actions.
+```csharp
+ public void PauseGame()
+    {
+        StartCoroutine(state.Pause());
+    }
+
+ public void ResumeGame()
+    {
+        StartCoroutine(state.Resume());
+    }
+```
+
+Currently, these actions are only implemented by the Race state.
+```csharp
+public override IEnumerator Pause()
+        {
+            Time.timeScale = 0;
+            GameManager.isPaused = true;
+            UI.SetPauseMenuActive(true);
+            yield break;
+        }
+
+public override IEnumerator Resume()
+        {
+            Time.timeScale = 1;
+            GameManager.isPaused = false;
+            UI.SetPauseMenuActive(false);
+            yield break;
+        }
+```
+Depending on if its Pause or Resume, the Pause Menu is displayed or not and the time scale and paused flag are set accordingly.
+
+As said in the [documentation](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Time-timeScale.html),
+the time scale *"is the scale at which time passes"*. 
+
+*"When timeScale is 1.0, time passes as fast as real time." ... 
+"When timeScale is set to zero your application acts as if paused if all your functions are frame rate independent."*. 
 
 ## 5. UI <a name="UI"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
