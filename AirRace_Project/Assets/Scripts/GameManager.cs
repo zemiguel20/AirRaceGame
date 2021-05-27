@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.GameState;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class GameManager : MonoBehaviour
 
 
     private State state;
+
+    public static bool isPaused = false;
 
     private void Awake()
     {
@@ -40,4 +43,31 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void RestartGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void PauseGame()
+    {
+        StartCoroutine(state.Pause());
+    }
+
+    public void ResumeGame()
+    {
+        StartCoroutine(state.Resume());
+    }
+
+    public void OnPauseGame(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (isPaused)
+                ResumeGame();
+            else
+                PauseGame();
+        }
+
+    }
 }
