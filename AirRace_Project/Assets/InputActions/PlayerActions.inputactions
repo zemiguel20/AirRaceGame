@@ -28,6 +28,14 @@
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Pause/Unpause",
+                    "type": "Button",
+                    "id": "5ce094c3-5e7f-4dbe-a57a-5a3a462eea3a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -228,6 +236,17 @@
                     "action": "ElevatorsMove",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "cbaf68a7-a743-4c5a-9a1a-7f661ee2ebfc",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Pause/Unpause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
