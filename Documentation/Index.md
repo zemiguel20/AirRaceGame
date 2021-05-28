@@ -35,7 +35,7 @@
 6. [Main Menu](#MainMenu)
     
 
-## 1. General Notes <a name="GeneralNotes"></a> <a href="#Index" style="font-size:13px">(index)</a>
+## General Notes <a name="GeneralNotes"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 ##### Setting references using methods like GameObject.Find <a name="SettingReferences"></a>
 
@@ -43,11 +43,11 @@ As recommended in the [*Awake* documentation](https://docs.unity3d.com/2021.1/Do
 setting up references between GameObjects using methods such as *Find* should be done in the *Awake* function.
 
 
-## 2. Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
+## Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The player is represented by a Plane prefab which has components for Physics like Ridigbody and Colliders, scripts, etc.
 
-### 2.1 Plane Movement <a name="PlayerMovement"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Plane Movement <a name="PlayerMovement"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The player movement is controlled by a PlaneMovement script, which will control the Rigidbody component.
 
@@ -64,7 +64,7 @@ Since the Gravity and Drag forces are already applied by the physics engine, the
 
 There is information below that explain this steps.
 
-#### 2.1.1 Movement Input <a name="MovementInput"></a> <a href="#Index" style="font-size:13px">(index)</a>
+##### Movement Input <a name="MovementInput"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 Since we use Unity's InputSystem, the callback functions on input events receive a InputAction Context.
 
@@ -76,7 +76,7 @@ From these contexts we retreive the input values, which alter the properties of 
 
 
 
-#### 2.1.2 Physics calculations <a name="PhysicsCalculations"></a> <a href="#Index" style="font-size:13px">(index)</a>
+##### Physics calculations <a name="PhysicsCalculations"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 First of all, physics calculations are made inside the FixedUpdate function, as recommended 
 in https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Rigidbody.html
@@ -98,7 +98,7 @@ For the translation of the plane, we have 4 main forces being applied:
 
 ![plane_forces](./PlayerMovementImages/plane_forces.png)
 
-##### Thrust
+###### Thrust
 
 Thrust as a force applied always in plane's facing forward direction,
 which is the Z axis in **local** space.
@@ -108,7 +108,7 @@ The acceleretion is controled by input.
 There is a max acceleration value, and the applied force 
 strength is the input strength (0 to 1) multiplied by the max acceleration value.
 
-##### Drag
+###### Drag
 
 In order for our plane to have a terminal velocity, we need a Drag force.
 
@@ -117,14 +117,14 @@ This force is built-in the Rigidbody component, we just have to set a strength v
 ![drag_value](./PlayerMovementImages/drag_value.png)
 
 
-##### Weigth/Gravity
+###### Weigth/Gravity
 
 This force can be applied automatically by the physics engine by activating one property of the 
 Rigidbody component:
 
 ![use_gravity](./PlayerMovementImages/use_gravity.png)
 
-##### Lift
+###### Lift
 
 This force is an outcome of the aerodynamics of the plane, and its always in 
 the opposite direction of gravity.
@@ -132,7 +132,7 @@ the opposite direction of gravity.
 The strength of the lift depends on the velocity and the rotation of the plane.
 
 
-#### 2.1.3 Plane Rotation <a name="PlaneRotation"></a> <a href="#Index" style="font-size:13px">(index)</a>
+##### Plane Rotation <a name="PlaneRotation"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 
 Because the model of the plane is imported, the axis are inverted.
@@ -169,7 +169,7 @@ This threshold is the velocity at which the rotation speed is max.
 Also, there is a multiplier named rotationSpeed.
 
 
-#### 2.1.4 Plane Lift <a name="PlaneLift"></a> <a href="#Index" style="font-size:13px">(index)</a>
+##### Plane Lift <a name="PlaneLift"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The lift strength will be based on 2 factors
 
@@ -193,7 +193,7 @@ y = 0.0000205761 * (x-180)^2 + 0.333333
 
 where *x* is the angle and the *y* is the factor.
 
-### 2.2 Input <a name="Input"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Input <a name="Input"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 For processing input, Unity's InputSystem is used.
 
@@ -215,7 +215,7 @@ Then we must also bind Callback functions to each Action, as seen in the image b
 
 
 
-### 2.3 Plane Colliders <a name="PlaneColliders"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Plane Colliders <a name="PlaneColliders"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The plane has two colliders:
 
@@ -228,7 +228,7 @@ The plane has two colliders:
 
 The BodyCollider has a tag *GoalHitter* which is used in the collision with the Goals.
 
-### 2.4 Player Camera <a name="PlayerCamera"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Player Camera <a name="PlayerCamera"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 To create a follow camera, Unity recommends using the 
 [SmoothDamp function](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Vector3.SmoothDamp.html).
@@ -249,7 +249,7 @@ Then we use *LookAt* function to rotate the camera to look at the player.
 this.transform.LookAt(player);
 ```
 
-## 3. Race <a name="Race"></a> <a href="#Index" style="font-size:13px">(index)</a>
+## Race <a name="Race"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 Each scene is a race/map, which has a path.
 
@@ -264,7 +264,7 @@ for that segment.
 The tracking of the goals passed and the points gained is done by the Race Manager.
 
 
-### 3.1 Goals <a name="Goals"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Goals <a name="Goals"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 ![goal prefab](./RaceImages/goal_prefab.png)
 
@@ -288,12 +288,12 @@ private void Awake()
 }
 ```
 
-### 3.2 Race Manager <a name="RaceManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Race Manager <a name="RaceManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 RaceManager is a simple object with a script attached. <br>
 It will track the race from start to finish, managing the goals and tracking the score.
 
-#### 3.2.1 Race Path <a name="RacePath"></a> <a href="#Index" style="font-size:13px">(index)</a>
+##### Race Path <a name="RacePath"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The RaceManager has a ordered list of Goals. This list is made public to the inspector, so the list can be
 edited there.
@@ -302,7 +302,7 @@ edited there.
 
 Goals from the scene are dragged in the list and can be ordered in any way.
 
-#### 3.2.2 Race Start <a name="RaceStart"></a> <a href="#Index" style="font-size:13px">(index)</a>
+##### Race Start <a name="RaceStart"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 To start the race, StartRace method needs to be called by the Game Manager. <br>
 
@@ -335,7 +335,7 @@ for (int i = 1; i < goals.Count; i++)
 }
 ```
 
-#### 3.2.3 Passing Goals <a name="PassingGoals"></a> <a href="#Index" style="font-size:13px">(index)</a>
+##### Passing Goals <a name="PassingGoals"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 When a Goal is passed through, it triggers a call to *OnGoalHit* method.
 
@@ -348,7 +348,7 @@ Then, if there are still more goals to pass, the next Goal in the list is activa
 
 If not, then game is finished, and the Game Manager [state is changed to End Game](#EndGameState).
 
-#### 3.2.4 Score <a name="Score"></a> <a href="#Index" style="font-size:13px">(index)</a>
+##### Score <a name="Score"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 When a goal is reached, we calculate the difference between the time taken to reach the goal and the Time Limit.
 For every decisecond less than the Time Limit, a point is gained.
@@ -358,7 +358,7 @@ If Time Limit is reached then no points are gained.
 Time Limit can be changed in the editor.
 
 
-### 3.3 Hit terrain and respawn <a name="Respawn"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Hit terrain and respawn <a name="Respawn"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 A script *PlaneRespawner* is added as a component to the Plane. When a collision happens, it triggers the player *Respawn*
 as a coroutine.
@@ -404,12 +404,12 @@ private void OnTriggerEnter(Collider other)
 
 
 
-## 4. Game State/Flow <a name="GameState"></a> <a href="#Index" style="font-size:13px">(index)</a>
+## Game State/Flow <a name="GameState"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 To coordinate the flow of the events of the game, Manager objects are used. <br>
 Managers are organized in a hierarchy, and the Root normally is the Game Manager.
 
-### 4.1 States <a name="States"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### States <a name="States"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 Each state describes a different phase of the game, where the behaviour of the game changes and
 the actions that can be done may change as well.
@@ -426,7 +426,7 @@ start counting.
 Then when the player finishes the race, it transitions to the End Game phase, where a panel with the
 results appear.
 
-### 4.2 Game Manager <a name="GameManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Game Manager <a name="GameManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The Game Manager is a GameObject with a GameManager script component attached.
 
@@ -463,7 +463,7 @@ public void PauseGame()
 The GameManager has as attributes other objects and variables, which States and other Managers can get,
 so Managers in a way act as a *"source of truth"*.
 
-#### 4.2.2 State class <a name="StateClass"></a> <a href="#Index" style="font-size:13px">(index)</a>
+##### State class <a name="StateClass"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 
 
@@ -547,7 +547,7 @@ public class InitialCountdownState : State
     }
 ```
 
-### 4.3 Countdown <a name="CountdownState"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Countdown <a name="CountdownState"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 This state overrides the *Start* action and uses the *initialCountdown* and *UI* from GameManager.
 
@@ -581,7 +581,7 @@ When the countdown timer ends, a "Go" message is displayed and the state changes
 
 Then it waits a bit before disabling the display of the countdown and terminating the coroutine.
 
-### 4.4 Race <a name="RaceState"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Race <a name="RaceState"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 This state overrides the *Start*, *Pause* and *Resume* actions and uses the *RaceManager*, *Player* and *UI* from GameManager.
 The Pause and Resume will be covered in the [Pausing section](#Pausing)
@@ -598,7 +598,7 @@ public override IEnumerator Start()
         }
 ```
 
-### 4.5 End Game <a name="EndGameState"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### End Game <a name="EndGameState"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 In this state, the Player is set to Kinematic so it stops the movement, the EndGame Panel in the UI is activated and 
 gives the UI the info to be displayed on the end game panel.
@@ -615,7 +615,7 @@ public override IEnumerator Start()
         }
 ```
 
-### 4.6 Pausing the game <a name="Pausing"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Pausing the game <a name="Pausing"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The [player Input action map](#Input) has a keybind for pausing and unpausing the game.
 
@@ -675,7 +675,7 @@ the time scale *"is the scale at which time passes"*.
 *"When timeScale is 1.0, time passes as fast as real time." ... 
 "When timeScale is set to zero your application acts as if paused if all your functions are frame rate independent."*. 
 
-## 5. UI <a name="UI"></a> <a href="#Index" style="font-size:13px">(index)</a>
+## UI <a name="UI"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 For developing runtime UI, unity recommends using one of its core packages, *Unity UI*, and so thats the
 one that is used.
@@ -689,7 +689,7 @@ Documentation pages for Unity UI:
 
 Also, TextMeshPro, a unity standard package, will be used to build certain UI elements on top of UnityUI.
 
-### 5.1 UI Prefab <a name="UIPrefab"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### UI Prefab <a name="UIPrefab"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 Every race scene will have a similar core set of game objects, like the Managers. One of the is them UI prefab.
 
@@ -714,7 +714,7 @@ There is also a UI script component attached to the root object, which other obj
 to manage the UI elements.
 
 
-## 6. Main Menu <a name="MainMenu"></a> <a href="#Index" style="font-size:13px">(index)</a>
+## Main Menu <a name="MainMenu"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The Main Menu scene is the first scene that opens when the game is launched.
 
