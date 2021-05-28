@@ -32,6 +32,7 @@
     6. [Pausing the game](#Pausing)
 5. [UI](#UI)
    1. [UI Prefab](#UIPrefab)
+6. [Main Menu](#MainMenu)
     
 
 ## 1. General Notes <a name="GeneralNotes"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -708,3 +709,15 @@ Input System UI Input Module.
 
 For the Scaling of the Canvas, we put the option *UI Scale Mode* in *Scale With Screen Size*, for simple scaling across
 multiple resolutions.
+
+There is also a UI script component attached to the root object, which other objects like GameManager can use was an interface
+to manage the UI elements.
+
+
+## 6. Main Menu <a name="MainMenu"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+The Main Menu scene is the first scene that opens when the game is launched.
+
+It has a canvas with a background color and a menu.
+
+This menu is has 2 button elements with text. One is *Play* and the oher one *Quit*.
