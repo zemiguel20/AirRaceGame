@@ -369,7 +369,6 @@ private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("GoalHitter"))
         {
-            GameLogger.Debug(this.name + " raised GoalHit");
             GoalHit.Invoke();
         }
     }
