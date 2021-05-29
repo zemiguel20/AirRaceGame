@@ -5,7 +5,9 @@
 
 1. [General Notes](#GeneralNotes)
    1. [Setting references using methods like GameObject.Find](#SettingReferences) 
-2. [Player](#Player)
+2. [Architecture with Scriptable Objects](#ScriptableObjects)
+   1. [Events](#GameEvents) 
+3. [Player](#Player)
     1. [Player Movement](#PlayerMovement)
         1. [Movement Input](#MovementInput)
         2. [Physics Calculations](#PhysicsCalculations)
@@ -14,7 +16,7 @@
     2. [Input](#Input)
     3. [Plane Colliders](#PlaneColliders)
     4. [Player Camera](#PlayerCamera)
-3. [Race](#Race)
+4. [Race](#Race)
     1. [Goals](#Goals)
     2. [Race Manager](#RaceManager)
        1. [Race Path](#RacePath)
@@ -22,7 +24,7 @@
        3. [Passing Goals](#PassingGoals)
        4. [Score](#Score)
     3. [Hit terrain and respawn](#Respawn) 
-4. [Game State/Flow](#GameState)
+5. [Game State/Flow](#GameState)
     1. [States](#States)
     2. [Game Manager](#GameManager)
        1. [State class](#StateClass) 
@@ -30,9 +32,9 @@
     4. [Race](#RaceState)
     5. [End Game](#EndGameState)
     6. [Pausing the game](#Pausing)
-5. [UI](#UI)
+6. [UI](#UI)
    1. [UI Prefab](#UIPrefab)
-6. [Main Menu](#MainMenu)
+7. [Main Menu](#MainMenu)
     
 
 ## General Notes <a name="GeneralNotes"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -42,6 +44,96 @@
 As recommended in the [*Awake* documentation](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/MonoBehaviour.Awake.html),
 setting up references between GameObjects using methods such as *Find* should be done in the *Awake* function.
 
+## Architecture with Scriptable Objects <a name="ScriptableObjects"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+As said in the [unity docs](https://docs.unity3d.com/2021.1/Documentation/Manual/class-ScriptableObject.html),
+"a ScriptableObject is a data container that you can use to save large amounts of data, independent of class instances."
+
+The "instances" of ScriptableObjects live as assets on your project, which are globally accessible and scene-independent.
+
+In addition to saving data, SOs can store functionality, so they can act as layers to expose and reuse common functionality.
+
+Architecture of games can be built around using scriptable objects, which can increase modularity and allow for easier iteration,
+both for programmers and game designers. On this topic, there is a [small video made by Unity](https://youtu.be/WLDgtRNK2VE)
+and [presentation by Ryan Hipple](https://youtu.be/raQ3iHhE_Kk) at Unite Austin 2017.
+
+### Game Events <a name="GameEvents"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+[UnityEvents](https://docs.unity3d.com/2021.1/Documentation/Manual/UnityEvents.html)
+are more like serialized function calls, since you predefine the callbacks directly in the inspector by
+specifying the object or component that will respond and the method to be called, which makes this type of events rigid.
+
+To create more flexibility, we can create a ScriptableObject for an Event *GameEvent*
+
+```csharp
+[CreateAssetMenu]
+public class GameEvent : ScriptableObject
+{
+    private List<GameEventListener> listeners = new List<GameEventListener>();
+
+    public void Raise()
+    {
+        foreach (GameEventListener listener in listeners)
+        {
+            listener.OnEventRaised();
+        }
+    }
+
+    public void Subscribe(GameEventListener listener)
+    {
+        this.listeners.Add(listener);
+    }
+
+    public void Unsubscribe(GameEventListener listener)
+    {
+        this.listeners.Remove(listener);
+    }
+}
+```
+
+and a EventListener component to attach to the GameObjects that would respond to a GameEvent when raised.
+In this EventLister we would specify how to respond by adding callbacks using a UnityEvent.
+
+```csharp
+public class GameEventListener : MonoBehaviour
+{
+    [SerializeField] private GameEvent Event;
+    [SerializeField] private UnityEvent Response;
+
+    private void OnEnable()
+    {
+        Event.Subscribe(this);
+    }
+
+    private void OnDisable()
+    {
+        Event.Unsubscribe(this);
+    }
+
+    public void OnEventRaised()
+    {
+        Response.Invoke();
+    }
+}
+```
+
+This gives the flexibility that we want with Events: The object that emits the event doesnt know who will respond and how
+they will respond; The listeners can subscribe/unsubscribe to this event at runtime and the reponse differs from object to object.
+
+
+We can use GameEvents to create event-based communication between Prefabs, and then use UnityEvents to hook-up different
+parts *inside* the Prefab.
+
+Example:
+
+Event asset created <br>
+![soevent](./SOImages/soevent.png)
+
+Inside the Goal Prefab, a UnityEvent raises the OnHitGoal GameEvent <br>
+![goalevent](./SOImages/emitter.png)
+
+RaceManager has EventListener with responses <br>
+![listener](./SOImages/listener.png)
 
 ## Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
