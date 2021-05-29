@@ -1,16 +1,15 @@
+using Assets.Scripts.GameLogger;
+using Assets.Scripts.GameState;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using Assets.Scripts.GameState;
 
 public class RaceManager : MonoBehaviour
 {
     public List<Goal> goals;
     public float TIME_LIMIT;
 
-    public float timeCounter { get; private set; }
+    public float chronometerTimeValue { get; private set; }
     public int score { get; private set; }
 
     private bool raceStarted;
@@ -31,17 +30,16 @@ public class RaceManager : MonoBehaviour
     {
         if (raceStarted)
         {
-            timeCounter += Time.deltaTime;
+            chronometerTimeValue += Time.deltaTime;
         }
     }
 
     public void OnGoalHit()
     {
-        // Will be replaced with GUI
-        Debug.Log("Time: " + timeCounter);
+        GameLogger.Debug("Time: " + chronometerTimeValue);
 
-        score += CalculatePoints(timeCounter);
-        timeCounter = 0;
+        score += CalculatePoints(chronometerTimeValue);
+        chronometerTimeValue = 0;
         goalsPassed++;
         Goal passedGoal = goals[goalsPassed - 1];
         passedGoal.gameObject.SetActive(false);
@@ -87,7 +85,7 @@ public class RaceManager : MonoBehaviour
 
         raceStarted = true;
         goalsPassed = 0;
-        timeCounter = 0;
+        chronometerTimeValue = 0;
         score = 0;
 
         //Turns off goals except the first one
