@@ -363,21 +363,16 @@ The tracking of the goals passed and the points gained is done by the Race Manag
 A goal is composed by a particle system which gives the ring visual, and a trigger collider with circle shape.
 
 Also it has a script which implements the response to the trigger. If the object thats colliding with the trigger
-has the tag *GoalHitter* then it calls the callback function of the associated RaceManager.
+has the tag *GoalHitter* then it calls the UnityEvent *GoalHit*, which raises the GameEvent *OnGoalHit*
 ```csharp
 private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "GoalHitter")
-            raceManager?.OnGoalHit();
+        if (other.CompareTag("GoalHitter"))
+        {
+            GameLogger.Debug(this.name + " raised GoalHit");
+            GoalHit.Invoke();
+        }
     }
-```
-
-The RaceManager dependency is set at startup with *Awake*
-```csharp
-private void Awake()
-{
-    raceManager = GameObject.Find("RaceManager").GetComponent<RaceManager>();
-}
 ```
 
 ### Race Manager <a name="RaceManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
