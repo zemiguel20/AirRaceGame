@@ -1,18 +1,17 @@
+using Assets.Scripts.GameLogger;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Goal : MonoBehaviour
 {
-
-    private RaceManager raceManager;
-
-    private void Awake()
-    {
-        raceManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<RaceManager>();
-    }
+    [SerializeField] private UnityEvent GoalHit;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "GoalHitter")
-            raceManager?.OnGoalHit();
+        if (other.CompareTag("GoalHitter"))
+        {
+            GameLogger.Debug(this.name + " raised GoalHit");
+            GoalHit.Invoke();
+        }
     }
 }
