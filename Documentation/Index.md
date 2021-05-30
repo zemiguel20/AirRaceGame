@@ -20,7 +20,9 @@
 4. [Race](#Race)
     1. [Goals](#Goals)
     2. [Path Manager](#PathManager)
-    3. [Hit terrain and respawn](#Respawn) 
+    3. [Chronometer](#Chronometer)
+    4. [Score Manager](#ScoreManager)
+    4. [Hit terrain and respawn](#Respawn) 
 5. [Game State/Flow](#GameState)
     1. [States](#States)
     2. [Game Manager](#GameManager)
@@ -481,7 +483,41 @@ If not, then game is finished, and *OnRaceFinished* GameEvent is raised.
 
 ![path finished](./RaceImages/pathfinished.png)
 
-##### Score <a name="Score"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Chronometer <a name="Chronometer"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+Chronometer is a Prefab with a simple object with scripts.
+
+It manages a FloatVariable *ChronometerTimeValue*, updating it overtime.
+
+![chronometer time value](./RaceImages/chronometertimevalue.png)
+
+```csharp
+// Update is called once per frame
+    void Update()
+    {
+        if (active)
+        {
+            timeVariable.value += Time.deltaTime;
+        }
+    }
+```
+
+###### Race start
+
+Chronometer has a EventListener for the GameEvent *OnRaceStart*, which calls *ResetTime* to reset time to 0, and *StartChrono*
+to set *active* flag to *true*.
+
+###### Goal Passed
+
+Chronometer has a EventListener for the GameEvent *OnScoreChanged*, which calls *ResetTime* to reset time to 0.
+
+The logic is reset the chronometer when a Goal is passed, but since the Score depends on *ChronometerTimeValue*, then we 
+only reset after score is changed to make sure score value is safely calculated.
+
+###### Race Finished
+
+Chronometer has a EventListener for the GameEvent *OnRaceFinished*, which calls *StopChrono* to set *active* flag to *false*.
+
 
 When a goal is reached, we calculate the difference between the time taken to reach the goal and the Time Limit.
 For every decisecond less than the Time Limit, a point is gained.
