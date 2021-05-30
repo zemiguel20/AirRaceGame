@@ -18,11 +18,7 @@
     4. [Player Camera](#PlayerCamera)
 4. [Race](#Race)
     1. [Goals](#Goals)
-    2. [Race Manager](#RaceManager)
-       1. [Race Path](#RacePath)
-       2. [Race Start](#RaceStart)
-       3. [Passing Goals](#PassingGoals)
-       4. [Score](#Score)
+    2. [Path Manager](#PathManager)
     3. [Hit terrain and respawn](#Respawn) 
 5. [Game State/Flow](#GameState)
     1. [States](#States)
@@ -349,11 +345,9 @@ A path is a group of goals/checkpoints with an order.
 The player has to pass through the goals in the order they are defined.
 
 The way the points are tracked is by the time the player takes to reach from 
-one goal to another. Each segment has a limit duration. A timer tracks the time passed until the next
+one goal to another. Each segment has a limit duration. A chronometer tracks the time passed until the next
 goal is reached. The less the time taken the more points. If limit duration is reached, no points are gained
 for that segment.
-
-The tracking of the goals passed and the points gained is done by the Race Manager.
 
 
 ### Goals <a name="Goals"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -374,65 +368,97 @@ private void OnTriggerEnter(Collider other)
     }
 ```
 
-### Race Manager <a name="RaceManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Path Manager <a name="PathManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-RaceManager is a simple object with a script attached. <br>
-It will track the race from start to finish, managing the goals and tracking the score.
+PathManager is a prefab with a simple object with scripts attached. <br>
 
-##### Race Path <a name="RacePath"></a> <a href="#Index" style="font-size:13px">(index)</a>
+It manages a list of Goals during the race.
 
-The RaceManager has a ordered list of Goals. This list is made public to the inspector, so the list can be
+###### Race Path
+
+The PathManager has a ordered list of Goals. This list is made public to the inspector, so the list can be
 edited there.
 
 ![goal_list](./RaceImages/race_manager_goal_list.png)
 
 Goals from the scene are dragged in the list and can be ordered in any way.
 
-##### Race Start <a name="RaceStart"></a> <a href="#Index" style="font-size:13px">(index)</a>
+###### Race Start
 
-To start the race, StartRace method needs to be called by the Game Manager. <br>
+PathManager has a EventListener for the GameEvent *OnRaceStart*, which calls the method *StartPath*.
 
-This method does some initial setup and starts counting time.
+![event listener](./RaceImages/pathmanager_start.png)
 
-First it resets some variables and sets *raceStarted* flag to true. 
 ```csharp
-raceStarted = true;
-goalsPassed = 0;
-timeCounter = 0;
-score = 0;
-```
-This flag enables the *Update* method to
-start counting the time.
-```csharp
-    private void Update()
+public void StartPath()
     {
-        if (raceStarted)
+        if (goals.Count == 0)
         {
-            timeCounter += Time.deltaTime;
+            EndPath();
+            return;
+        }
+        else
+        {
+            //Turns off goals
+            foreach (Goal goal in goals)
+            {
+                goal.gameObject.SetActive(false);
+            }
+            // Activates first goal
+            ActivateNextGoal();
         }
     }
 ```
 
-Then it deactivates all Goal gameobjects *except the first one*.
+Starts by deactivating all Goals in the list, and then Activates the first one.
+
+If there are no Goals tho, it jumps straight to EndPath.
+
+###### Passing Goals
+
+PathManager has a EventListener for the GameEvent *OnGoalHit*, which calls the method *ChangeActiveGoal*.
+
+![event listener](./RaceImages/pathmanager_goalhit.png)
+
 ```csharp
-for (int i = 1; i < goals.Count; i++)
-{
-    goals[i].gameObject.SetActive(false);
-}
+    public void ChangeActiveGoal()
+    {
+        if (goals.Count > 0)        
+            RemoveCurrentGoal();
+        
+        if (goals.Count == 0)
+            EndPath();
+        else
+            ActivateNextGoal();
+    }
+
+    private void ActivateNextGoal()
+    {
+        goals[0].gameObject.SetActive(true);
+    }
+
+    private void RemoveCurrentGoal()
+    {
+        Goal goal = goals[0];
+        goal.gameObject.SetActive(false);
+        goals.Remove(goal);
+    }
 ```
 
-##### Passing Goals <a name="PassingGoals"></a> <a href="#Index" style="font-size:13px">(index)</a>
+The goal just passed is deactivated and removed from the list.
 
-When a Goal is passed through, it triggers a call to *OnGoalHit* method.
+Then, if there are still more goals to pass, the next Goal in the list is activated.
 
-Based on the time taken to reach this Goal, points are calculated and added to score.
-Then, the time counter is reset.
+If not, then game is finished, and *OnRaceFinished* GameEvent is raised.
 
-The goal just passed is deactivated using *GameObject.SetActive* method.
+```csharp
+    private void EndPath()
+    {
+        PathFinished.Invoke();
+    }
+```
 
-Then, if there are still more goals to pass, the next Goal in the list is activated using the same method.
-
-If not, then game is finished, and the Game Manager [state is changed to End Game](#EndGameState).
+![path finished](./RaceImages/pathfinished.png)
 
 ##### Score <a name="Score"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
