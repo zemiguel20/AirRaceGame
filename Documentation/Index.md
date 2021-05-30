@@ -7,6 +7,7 @@
    1. [Setting references using methods like GameObject.Find](#SettingReferences) 
 2. [Architecture with Scriptable Objects](#ScriptableObjects)
    1. [Events](#GameEvents) 
+   2. [ScriptableObject Variables](#SOVariables)
 3. [Player](#Player)
     1. [Player Movement](#PlayerMovement)
         1. [Movement Input](#MovementInput)
@@ -128,8 +129,28 @@ Event asset created <br>
 Inside the Goal Prefab, a UnityEvent raises the OnHitGoal GameEvent <br>
 ![goalevent](./SOImages/emitter.png)
 
-RaceManager has EventListener with responses <br>
+Manager has EventListener with responses <br>
 ![listener](./SOImages/listener.png)
+
+### ScriptableObject Variables <a name="SOVariables"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+We can use a ScriptableObject to create data containers with a variable of a certain type, for example, FloatVariable.
+
+This container can be easily shared between objects, reducing the amount of direct referencing between objects, low coupling.
+
+```csharp
+[CreateAssetMenu(menuName = "ScriptableObjects/Variables/FloatVariable")]
+public class FloatVariable : ScriptableObject
+{
+    public string description;
+    public float value;
+}
+```
+
+We also have a description that can be set and seen in the inspector for clarity in what this variable will be use for.
+
+Examples: <br>
+![sovariable](./SOImages/sovariable.png)
 
 ## Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
