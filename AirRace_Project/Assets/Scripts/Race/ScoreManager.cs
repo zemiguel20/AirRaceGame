@@ -18,13 +18,13 @@ public class ScoreManager : MonoBehaviour
 
     private int CalculatePoints(float playerTime)
     {
-        float pointsTemp = 0;
+        float difference = 0;
 
         if (playerTime < TIME_LIMIT.value)
-            pointsTemp = TIME_LIMIT.value - playerTime;
+            difference = TIME_LIMIT.value - playerTime;
 
 
-        int points = Mathf.RoundToInt(pointsTemp * 10);
+        int points = Mathf.RoundToInt(difference * 10);
 
         return points;
     }
