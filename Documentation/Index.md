@@ -518,13 +518,32 @@ only reset after score is changed to make sure score value is safely calculated.
 
 Chronometer has a EventListener for the GameEvent *OnRaceFinished*, which calls *StopChrono* to set *active* flag to *false*.
 
+### Score Manager <a name="ScoreManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-When a goal is reached, we calculate the difference between the time taken to reach the goal and the Time Limit.
+ScoreManager is a Prefab with a simple object with scripts.
+
+It manages 3 FloatVariables, which are *PlayerScore*, *ChronometerTimeValue* and the constant *TimeLimit*.
+
+![score manager](./RaceImages/scoremanager.png)
+
+###### Race Start
+
+ScoreManager has a EventListener for the GameEvent *OnRaceStart* which calls *ResetScore* that sets the score value to 0.
+
+###### Goal Passed
+
+ScoreManager has a EventListener for the GameEvent *OnGoalHit* which calls *UpdateScore* that calculates the points gained
+and sums to the score value. <br>
+We calculate the difference between the time taken to reach the goal (ChronometerTimeValue) and the Time Limit.
 For every decisecond less than the Time Limit, a point is gained.
 
-If Time Limit is reached then no points are gained.
+```csharp
+int points = Mathf.RoundToInt(difference * 10);
+```
+If Time Limit is reached then *difference* is 0 and no points are gained.
 
-Time Limit can be changed in the editor.
+After addings in the points, *OnScoreChanged* GameEvent is raised. <br>
+![score changed](./RaceImages/scorechanged.png)
 
 
 ### Hit terrain and respawn <a name="Respawn"></a> <a href="#Index" style="font-size:13px">(index)</a>
