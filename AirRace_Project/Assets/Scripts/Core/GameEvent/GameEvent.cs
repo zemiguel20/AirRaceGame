@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [CreateAssetMenu(menuName = "ScriptableObjects/GameEvent")]
 public class GameEvent : ScriptableObject
 {
@@ -16,11 +17,11 @@ public class GameEvent : ScriptableObject
 
     public void Subscribe(GameEventListener listener)
     {
-        this.listeners.Add(listener);
+        listeners.Add(listener);
     }
 
     public void Unsubscribe(GameEventListener listener)
     {
-        this.listeners.Remove(listener);
+        listeners.Remove(listener);
     }
 }
