@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.GameState
+namespace AirRace.GameManager.States
 {
     public class InitialCountdownState : State
     {
@@ -11,8 +11,8 @@ namespace Assets.Scripts.GameState
 
         public InitialCountdownState(GameManager gameManager) : base(gameManager)
         {
-            this.initialCountdown = gameManager.initialCountdown;
-            this.UI = gameManager.UI;
+            initialCountdown = gameManager.initialCountdown;
+            UI = gameManager.UI;
         }
 
         public override IEnumerator Start()

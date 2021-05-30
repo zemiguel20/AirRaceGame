@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.GameState
+namespace AirRace.GameManager.States
 {
     public class RaceState : State
     {
@@ -11,15 +11,15 @@ namespace Assets.Scripts.GameState
 
         public RaceState(GameManager gameManager) : base(gameManager)
         {
-           // this.raceManager = gameManager.raceManager;
-            this.player = gameManager.player;
-            this.UI = gameManager.UI;
+            // this.raceManager = gameManager.raceManager;
+            player = gameManager.player;
+            UI = gameManager.UI;
         }
 
         public override IEnumerator Start()
         {
             player.isKinematic = false;
-           // raceManager.StartRace();
+            // raceManager.StartRace();
             yield break;
         }
 

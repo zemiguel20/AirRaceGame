@@ -1,52 +1,55 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlaneRespawner : MonoBehaviour
+namespace AirRace.Player
 {
-
-    private Vector3 respawnPosition;
-    private Quaternion respawnRotation;
-
-    private Rigidbody plane;
-
-    private void Awake()
+    public class PlaneRespawner : MonoBehaviour
     {
-        plane = GetComponent<Rigidbody>();
-    }
 
-    private void Start()
-    {
-        respawnPosition = plane.transform.position;
-        respawnRotation = plane.transform.rotation;
-    }
+        private Vector3 respawnPosition;
+        private Quaternion respawnRotation;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        StartCoroutine(Respawn());
-    }
+        private Rigidbody plane;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Goal"))
+        private void Awake()
         {
-            respawnPosition = other.transform.position;
-            respawnRotation = other.transform.rotation;
+            plane = GetComponent<Rigidbody>();
         }
+
+        private void Start()
+        {
+            respawnPosition = plane.transform.position;
+            respawnRotation = plane.transform.rotation;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            StartCoroutine(Respawn());
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Goal"))
+            {
+                respawnPosition = other.transform.position;
+                respawnRotation = other.transform.rotation;
+            }
+        }
+
+
+        private IEnumerator Respawn()
+        {
+            plane.isKinematic = true;
+
+            yield return new WaitForSeconds(0.3f);
+
+            plane.transform.position = respawnPosition;
+            plane.transform.rotation = respawnRotation;
+
+            yield return new WaitForSeconds(0.3f);
+
+            plane.isKinematic = false;
+        }
+
     }
-
-
-    private IEnumerator Respawn()
-    {
-        plane.isKinematic = true;
-
-        yield return new WaitForSeconds(0.3f);
-
-        plane.transform.position = respawnPosition;
-        plane.transform.rotation = respawnRotation;
-
-        yield return new WaitForSeconds(0.3f);
-
-        plane.isKinematic = false;
-    }
-
 }

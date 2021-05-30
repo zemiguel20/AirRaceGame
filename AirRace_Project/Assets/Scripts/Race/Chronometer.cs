@@ -1,38 +1,42 @@
-﻿using Assets.Scripts.GameLogger;
+﻿using AirRace.Core;
+using AirRace.Core.SOVariables;
 using UnityEngine;
 
-public class Chronometer : MonoBehaviour
+namespace AirRace.Race
 {
-    [SerializeField] private FloatVariable timeVariable;
-
-    private bool active = false;
-
-
-    // Update is called once per frame
-    void Update()
+    public class Chronometer : MonoBehaviour
     {
-        if (active)
+        [SerializeField] private FloatVariable timeVariable;
+
+        private bool active = false;
+
+
+        // Update is called once per frame
+        void Update()
         {
-            timeVariable.value += Time.deltaTime;
+            if (active)
+            {
+                timeVariable.value += Time.deltaTime;
+            }
         }
-    }
 
-    public void ResetTime()
-    {
-        GameLogger.Debug("Chronometer Reset");
-        timeVariable.value = 0;
-    }
+        public void ResetTime()
+        {
+            GameLogger.Debug("Chronometer Reset");
+            timeVariable.value = 0;
+        }
 
-    public void StartChrono()
-    {
-        GameLogger.Debug("Chronometer started");
-        active = true;
-    }
+        public void StartChrono()
+        {
+            GameLogger.Debug("Chronometer started");
+            active = true;
+        }
 
-    public void StopChrono()
-    {
-        GameLogger.Debug("Chronometer stopped");
-        active = false;
-    }
+        public void StopChrono()
+        {
+            GameLogger.Debug("Chronometer stopped");
+            active = false;
+        }
 
+    }
 }

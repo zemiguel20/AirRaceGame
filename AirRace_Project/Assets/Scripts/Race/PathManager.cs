@@ -1,73 +1,76 @@
-using Assets.Scripts.GameLogger;
+using AirRace.Core;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PathManager : MonoBehaviour
+namespace AirRace.Race
 {
-    [SerializeField] private List<Goal> goals;
-    [SerializeField] private UnityEvent PathFinished;
-
-    private List<Goal> goalsPassed = new List<Goal>();
-
-    public void StartPath()
+    public class PathManager : MonoBehaviour
     {
-        GameLogger.Debug("Path Started");
+        [SerializeField] private List<Goal> goals;
+        [SerializeField] private UnityEvent PathFinished;
 
-        if (goals.Count == 0)
+        private List<Goal> goalsPassed = new List<Goal>();
+
+        public void StartPath()
         {
-            EndPath();
-            return;
-        }
-        else
-        {
-            //Turns off goals
-            foreach (Goal goal in goals)
+            GameLogger.Debug("Path Started");
+
+            if (goals.Count == 0)
             {
-                goal.gameObject.SetActive(false);
+                EndPath();
+                return;
+            }
+            else
+            {
+                //Turns off goals
+                foreach (Goal goal in goals)
+                {
+                    goal.gameObject.SetActive(false);
+                }
+
+                ActivateNextGoal();
+            }
+        }
+
+        public void ChangeActiveGoal()
+        {
+
+
+            if (goals.Count > 0)
+            {
+                RemoveCurrentGoal();
+                GameLogger.Debug("Goal passed! Num of goals passed: " + goalsPassed.Count);
             }
 
-            ActivateNextGoal();
+            if (goals.Count == 0)
+            {
+                EndPath();
+            }
+            else
+            {
+                ActivateNextGoal();
+            }
         }
-    }
 
-    public void ChangeActiveGoal()
-    {
-
-
-        if (goals.Count > 0)
+        private void ActivateNextGoal()
         {
-            RemoveCurrentGoal();
-            GameLogger.Debug("Goal passed! Num of goals passed: " + goalsPassed.Count);
+            goals[0].gameObject.SetActive(true);
         }
 
-        if (goals.Count == 0)
+        private void RemoveCurrentGoal()
         {
-            EndPath();
+            Goal goal = goals[0];
+            goal.gameObject.SetActive(false);
+            goals.Remove(goal);
+            goalsPassed.Add(goal);
         }
-        else
+
+        private void EndPath()
         {
-            ActivateNextGoal();
+            GameLogger.Debug("Path Finished");
+            PathFinished.Invoke();
         }
-    }
 
-    private void ActivateNextGoal()
-    {
-        goals[0].gameObject.SetActive(true);
     }
-
-    private void RemoveCurrentGoal()
-    {
-        Goal goal = goals[0];
-        goal.gameObject.SetActive(false);
-        goals.Remove(goal);
-        goalsPassed.Add(goal);
-    }
-
-    private void EndPath()
-    {
-        GameLogger.Debug("Path Finished");
-        PathFinished.Invoke();
-    }
-
 }

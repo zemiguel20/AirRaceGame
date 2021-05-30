@@ -5,7 +5,7 @@
 
 using System.Diagnostics;
 
-namespace Assets.Scripts.GameLogger
+namespace AirRace.Core
 {
     public static class GameLogger
     {

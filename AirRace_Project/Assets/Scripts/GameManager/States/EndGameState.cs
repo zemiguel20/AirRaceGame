@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.GameState
+namespace AirRace.GameManager.States
 {
     public class EndGameState : State
     {
@@ -11,7 +11,7 @@ namespace Assets.Scripts.GameState
 
         public EndGameState(GameManager gameManager) : base(gameManager)
         {
-           // score = gameManager.raceManager.score;
+            // score = gameManager.raceManager.score;
             player = gameManager.player;
             UI = gameManager.UI;
         }

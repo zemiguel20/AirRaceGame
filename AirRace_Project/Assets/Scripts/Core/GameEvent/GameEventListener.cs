@@ -1,24 +1,26 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-
-public class GameEventListener : MonoBehaviour
+namespace AirRace.Core.GameEvent
 {
-    [SerializeField] private GameEvent Event;
-    [SerializeField] private UnityEvent Response;
-
-    private void OnEnable()
+    public class GameEventListener : MonoBehaviour
     {
-        Event.Subscribe(this);
-    }
+        [SerializeField] private GameEvent Event;
+        [SerializeField] private UnityEvent Response;
 
-    private void OnDisable()
-    {
-        Event.Unsubscribe(this);
-    }
+        private void OnEnable()
+        {
+            Event.Subscribe(this);
+        }
 
-    public void OnEventRaised()
-    {
-        Response.Invoke();
+        private void OnDisable()
+        {
+            Event.Unsubscribe(this);
+        }
+
+        public void OnEventRaised()
+        {
+            Response.Invoke();
+        }
     }
 }

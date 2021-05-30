@@ -1,17 +1,20 @@
-using Assets.Scripts.GameLogger;
+using AirRace.Core;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Goal : MonoBehaviour
+namespace AirRace.Race
 {
-    [SerializeField] private UnityEvent GoalHit;
-
-    private void OnTriggerEnter(Collider other)
+    public class Goal : MonoBehaviour
     {
-        if (other.CompareTag("GoalHitter"))
+        [SerializeField] private UnityEvent GoalHit;
+
+        private void OnTriggerEnter(Collider other)
         {
-            GameLogger.Debug(this.name + " raised GoalHit");
-            GoalHit.Invoke();
+            if (other.CompareTag("GoalHitter"))
+            {
+                GameLogger.Debug(name + " raised GoalHit");
+                GoalHit.Invoke();
+            }
         }
     }
 }

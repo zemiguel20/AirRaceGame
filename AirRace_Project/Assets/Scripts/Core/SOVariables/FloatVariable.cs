@@ -1,10 +1,13 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObjects/Variables/FloatVariable")]
-public class FloatVariable : ScriptableObject
+namespace AirRace.Core.SOVariables
 {
+    [CreateAssetMenu(menuName = "ScriptableObjects/Variables/FloatVariable")]
+    public class FloatVariable : ScriptableObject
+    {
 #if UNITY_EDITOR
-    [TextArea] public string description;
+        [TextArea] public string description;
 #endif
-    public float value;
+        public float value;
+    }
 }
