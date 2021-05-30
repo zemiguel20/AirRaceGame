@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public int initialCountdown;
 
     public Rigidbody player { get; private set; }
-    public RaceManager raceManager { get; private set; }
+    //public RaceManager raceManager { get; private set; }
 
     public UI UI { get; private set; }
 
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
-        raceManager = GetComponent<RaceManager>();
+        //raceManager = GetComponent<RaceManager>();
         UI = GameObject.Find("UI").GetComponent<UI>();
     }
 

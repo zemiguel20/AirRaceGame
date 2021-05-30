@@ -11,7 +11,7 @@ namespace Assets.Scripts.GameState
 
         public EndGameState(GameManager gameManager) : base(gameManager)
         {
-            score = gameManager.raceManager.score;
+           // score = gameManager.raceManager.score;
             player = gameManager.player;
             UI = gameManager.UI;
         }

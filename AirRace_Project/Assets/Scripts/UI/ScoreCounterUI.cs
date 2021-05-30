@@ -5,17 +5,17 @@ using TMPro;
 public class ScoreCounterUI : MonoBehaviour
 {
     private TextMeshProUGUI label;
-    private RaceManager raceManager;
+    //private RaceManager raceManager;
 
     private void Awake()
     {
         label = GetComponent<TextMeshProUGUI>();
-        raceManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<RaceManager>();
+        //raceManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<RaceManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        label.text = raceManager.score.ToString();
+        //label.text = raceManager.score.ToString();
     }
 }

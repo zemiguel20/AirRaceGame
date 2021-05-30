@@ -5,13 +5,13 @@ namespace Assets.Scripts.GameState
 {
     public class RaceState : State
     {
-        private RaceManager raceManager;
+        //private RaceManager raceManager;
         private Rigidbody player;
         private UI UI;
 
         public RaceState(GameManager gameManager) : base(gameManager)
         {
-            this.raceManager = gameManager.raceManager;
+           // this.raceManager = gameManager.raceManager;
             this.player = gameManager.player;
             this.UI = gameManager.UI;
         }
@@ -19,7 +19,7 @@ namespace Assets.Scripts.GameState
         public override IEnumerator Start()
         {
             player.isKinematic = false;
-            raceManager.StartRace();
+           // raceManager.StartRace();
             yield break;
         }
 
