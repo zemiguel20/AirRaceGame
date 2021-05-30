@@ -1,6 +1,5 @@
 using AirRace.GameManager.States;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 namespace AirRace.GameManager
@@ -12,7 +11,7 @@ namespace AirRace.GameManager
         public Rigidbody player { get; private set; }
         //public RaceManager raceManager { get; private set; }
 
-        public UI UI { get; private set; }
+        //public UI UI { get; private set; }
 
 
         private State state;
@@ -23,7 +22,7 @@ namespace AirRace.GameManager
         {
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
             //raceManager = GetComponent<RaceManager>();
-            UI = GameObject.Find("UI").GetComponent<UI>();
+            //UI = GameObject.Find("UI").GetComponent<UI>();
         }
 
         private void Start()
@@ -59,16 +58,16 @@ namespace AirRace.GameManager
             StartCoroutine(state.Resume());
         }
 
-        public void OnPauseGame(InputAction.CallbackContext context)
-        {
-            if (context.started)
-            {
-                if (isPaused)
-                    ResumeGame();
-                else
-                    PauseGame();
-            }
+        /* public void OnPauseGame(InputAction.CallbackContext context)
+         {
+             if (context.started)
+             {
+                 if (isPaused)
+                     ResumeGame();
+                 else
+                     PauseGame();
+             }
 
-        }
+         }*/
     }
 }

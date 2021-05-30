@@ -7,13 +7,13 @@ namespace AirRace.GameManager.States
     {
         //private RaceManager raceManager;
         private Rigidbody player;
-        private UI UI;
+       // private UI UI;
 
         public RaceState(GameManager gameManager) : base(gameManager)
         {
             // this.raceManager = gameManager.raceManager;
             player = gameManager.player;
-            UI = gameManager.UI;
+          //  UI = gameManager.UI;
         }
 
         public override IEnumerator Start()
@@ -27,7 +27,7 @@ namespace AirRace.GameManager.States
         {
             Time.timeScale = 0;
             GameManager.isPaused = true;
-            UI.SetPauseMenuActive(true);
+            //UI.SetPauseMenuActive(true);
             yield break;
         }
 
@@ -35,7 +35,7 @@ namespace AirRace.GameManager.States
         {
             Time.timeScale = 1;
             GameManager.isPaused = false;
-            UI.SetPauseMenuActive(false);
+           // UI.SetPauseMenuActive(false);
             yield break;
         }
     }

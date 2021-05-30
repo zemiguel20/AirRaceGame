@@ -7,21 +7,21 @@ namespace AirRace.GameManager.States
     {
         private int score;
         private Rigidbody player;
-        private UI UI;
+        //private UI UI;
 
         public EndGameState(GameManager gameManager) : base(gameManager)
         {
             // score = gameManager.raceManager.score;
             player = gameManager.player;
-            UI = gameManager.UI;
+            //UI = gameManager.UI;
         }
 
         public override IEnumerator Start()
         {
             player.isKinematic = true;
 
-            UI.SetEndGamePanelActive(true);
-            UI.SetEndGamePanelInfo(score);
+           // UI.SetEndGamePanelActive(true);
+           // UI.SetEndGamePanelInfo(score);
 
             yield break;
         }

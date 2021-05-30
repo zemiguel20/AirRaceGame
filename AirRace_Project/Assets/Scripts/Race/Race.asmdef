@@ -1,0 +1,16 @@
+{
+    "name": "Race",
+    "rootNamespace": "Race",
+    "references": [
+        "GUID:7ff318a4589694a45926949058573717"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
