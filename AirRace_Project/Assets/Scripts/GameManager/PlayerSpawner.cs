@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-namespace AirRace.Player
+namespace AirRace.GameManager
 {
-    public class PlaneRespawner : MonoBehaviour
+    public class PlayerSpawner : MonoBehaviour
     {
 
         private Vector3 respawnPosition;
