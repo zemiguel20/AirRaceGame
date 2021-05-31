@@ -42,27 +42,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3911219198998573485}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b02357e21557aaf4094719d14eca2600, type: 3}
+  m_Script: {fileID: 11500000, guid: df684a3ff7c7b4c40af9862a10c8b9a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   score: {fileID: 11400000, guid: dc845e6bb4e252a409c123094f061baf, type: 2}
   chronometerTime: {fileID: 11400000, guid: 2ccdfd1baad63a9469bad36900b1ca7e, type: 2}
   TIME_LIMIT: {fileID: 11400000, guid: 706653f45e52be843946d06e61093406, type: 2}
-  ScoreChanged:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11400000, guid: 0d04f0171aa5a33418fa587f3211b788, type: 2}
-        m_TargetAssemblyTypeName: GameEvent, Assembly-CSharp
-        m_MethodName: Raise
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  ScoreChanged: {fileID: 11400000, guid: 0d04f0171aa5a33418fa587f3211b788, type: 2}
 --- !u!114 &3911219198998573486
 MonoBehaviour:
   m_ObjectHideFlags: 0

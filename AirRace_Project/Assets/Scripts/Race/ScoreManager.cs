@@ -1,7 +1,7 @@
 using AirRace.Core;
+using AirRace.Core.GameEvent;
 using AirRace.Core.SOVariables;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace AirRace.Player
 {
@@ -10,13 +10,13 @@ namespace AirRace.Player
         [SerializeField] private FloatVariable score;
         [SerializeField] private FloatVariable chronometerTime;
         [SerializeField] private FloatVariable TIME_LIMIT;
-        [SerializeField] private UnityEvent ScoreChanged;
+        [SerializeField] private GameEvent ScoreChanged;
 
         public void UpdateScore()
         {
             score.value += CalculatePoints(chronometerTime.value);
             GameLogger.Debug("Score update: " + score.value);
-            ScoreChanged.Invoke();
+            ScoreChanged.Raise();
         }
 
         private int CalculatePoints(float playerTime)

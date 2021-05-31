@@ -1,14 +1,14 @@
 using AirRace.Core;
+using AirRace.Core.GameEvent;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace AirRace.Race
 {
     public class PathManager : MonoBehaviour
     {
         [SerializeField] private List<Goal> goals;
-        [SerializeField] private UnityEvent PathFinished;
+        [SerializeField] private GameEvent PathFinished;
 
         private List<Goal> goalsPassed = new List<Goal>();
 
@@ -69,7 +69,7 @@ namespace AirRace.Race
         private void EndPath()
         {
             GameLogger.Debug("Path Finished");
-            PathFinished.Invoke();
+            PathFinished.Raise();
         }
 
     }

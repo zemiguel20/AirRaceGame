@@ -1,19 +1,19 @@
 using AirRace.Core;
+using AirRace.Core.GameEvent;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace AirRace.Race
 {
     public class Goal : MonoBehaviour
     {
-        [SerializeField] private UnityEvent GoalHit;
+        [SerializeField] private GameEvent GoalHit;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("GoalHitter"))
             {
                 GameLogger.Debug(name + " raised GoalHit");
-                GoalHit.Invoke();
+                GoalHit.Raise();
             }
         }
     }
