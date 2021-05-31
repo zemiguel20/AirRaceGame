@@ -10,7 +10,7 @@ namespace AirRace.Race
         [SerializeField] private List<Goal> goals;
         [SerializeField] private GameEvent PathFinished;
 
-        private List<Goal> goalsPassed = new List<Goal>();
+        private int currentGoalIndex;
 
         public void StartPath()
         {
@@ -28,42 +28,33 @@ namespace AirRace.Race
                 {
                     goal.gameObject.SetActive(false);
                 }
-
-                ActivateNextGoal();
+                currentGoalIndex = 0;
+                SetGoalStatus(currentGoalIndex, true);
             }
         }
 
         public void ChangeActiveGoal()
         {
-
-
-            if (goals.Count > 0)
+            if (currentGoalIndex < goals.Count)
             {
-                RemoveCurrentGoal();
-                GameLogger.Debug("Goal passed! Num of goals passed: " + goalsPassed.Count);
+                SetGoalStatus(currentGoalIndex, false);
+                currentGoalIndex++;
+                GameLogger.Debug("Goal passed! Num of goals passed: " + currentGoalIndex);
             }
 
-            if (goals.Count == 0)
+            if (currentGoalIndex == goals.Count)
             {
                 EndPath();
             }
             else
             {
-                ActivateNextGoal();
+                SetGoalStatus(currentGoalIndex, true);
             }
         }
 
-        private void ActivateNextGoal()
+        private void SetGoalStatus(int index, bool status)
         {
-            goals[0].gameObject.SetActive(true);
-        }
-
-        private void RemoveCurrentGoal()
-        {
-            Goal goal = goals[0];
-            goal.gameObject.SetActive(false);
-            goals.Remove(goal);
-            goalsPassed.Add(goal);
+            goals[index].gameObject.SetActive(status);
         }
 
         private void EndPath()
