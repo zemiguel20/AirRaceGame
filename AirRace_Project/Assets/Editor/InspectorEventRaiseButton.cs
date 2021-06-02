@@ -1,4 +1,4 @@
-using AirRace.Core.GameEvent;
+using AirRace.Core.SOs.Proto.GameEvent;
 using UnityEditor;
 using UnityEngine;
 

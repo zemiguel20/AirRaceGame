@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AirRace.Core.SOVariables
+namespace AirRace.Core.SOs.Proto.SOVariables
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/Variables/FloatVariable")]
     public class FloatVariable : ScriptableObject

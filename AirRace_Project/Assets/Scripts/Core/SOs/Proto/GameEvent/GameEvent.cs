@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AirRace.Core.GameEvent
+namespace AirRace.Core.SOs.Proto.GameEvent
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/GameEvent")]
     public class GameEvent : ScriptableObject

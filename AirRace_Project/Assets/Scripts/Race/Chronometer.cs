@@ -1,5 +1,5 @@
 ﻿using AirRace.Core;
-using AirRace.Core.SOVariables;
+using AirRace.Core.SOs.Proto.SOVariables;
 using UnityEngine;
 
 namespace AirRace.Race

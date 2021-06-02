@@ -1,6 +1,6 @@
 using AirRace.Core;
-using AirRace.Core.GameEvent;
-using AirRace.Core.SOVariables;
+using AirRace.Core.SOs.Proto.GameEvent;
+using AirRace.Core.SOs.Proto.SOVariables;
 using UnityEngine;
 
 namespace AirRace.Player

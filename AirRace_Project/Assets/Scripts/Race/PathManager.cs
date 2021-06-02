@@ -1,5 +1,5 @@
 using AirRace.Core;
-using AirRace.Core.GameEvent;
+using AirRace.Core.SOs.Proto.GameEvent;
 using System.Collections.Generic;
 using UnityEngine;
 

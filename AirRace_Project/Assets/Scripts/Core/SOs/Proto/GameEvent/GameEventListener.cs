@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace AirRace.Core.GameEvent
+namespace AirRace.Core.SOs.Proto.GameEvent
 {
     public class GameEventListener : MonoBehaviour
     {
