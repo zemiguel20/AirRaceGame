@@ -59,6 +59,22 @@ We can use C# events and delegates, explained in the [documentation](https://doc
 We use a EventManager which holds the events of the game, and can be accessed by all objects so everyone
 can easily subscribe and unsubscribe from events.
 
+```csharp
+public class EventManager
+    {
+
+        public delegate void RaceStartHandler();
+        public static event RaceStartHandler RaceStarted;
+
+        public delegate void RaceEndHandler(int time);
+        public static event RaceEndHandler RaceEnded;
+
+        public delegate void GoalPassedHandler(GameObject goal);
+        public static event GoalPassedHandler GoalPassed;
+
+    }
+```
+
 
 ### Scriptable Objects <a name="ScriptableObjects"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
