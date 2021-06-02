@@ -1,29 +1,25 @@
 ﻿using AirRace.Core;
-using AirRace.Core.SOs.Proto.SOVariables;
 using UnityEngine;
 
 namespace AirRace.Race
 {
     public class Chronometer : MonoBehaviour
     {
-        [SerializeField] private FloatVariable timeVariable;
+        public float time { get; private set; }
 
         private bool active = false;
 
+        private void Start()
+        {
+            time = 0;
+        }
 
-        // Update is called once per frame
         void Update()
         {
             if (active)
             {
-                timeVariable.value += Time.deltaTime;
+                time += Time.deltaTime;
             }
-        }
-
-        public void ResetTime()
-        {
-            GameLogger.Debug("Chronometer Reset");
-            timeVariable.value = 0;
         }
 
         public void StartChrono()

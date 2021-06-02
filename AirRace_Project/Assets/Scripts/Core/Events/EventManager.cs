@@ -2,17 +2,31 @@
 
 namespace AirRace.Core.Events
 {
-    public class EventManager
+    public class EventManager : MonoBehaviour
     {
-
         public delegate void RaceStartHandler();
-        public static event RaceStartHandler RaceStarted;
+        public event RaceStartHandler RaceStarted;
 
-        public delegate void RaceEndHandler(int time);
-        public static event RaceEndHandler RaceEnded;
+        public delegate void RaceEndHandler(float time);
+        public event RaceEndHandler RaceEnded;
 
         public delegate void GoalPassedHandler(GameObject goal);
-        public static event GoalPassedHandler GoalPassed;
+        public event GoalPassedHandler GoalPassed;
 
+
+        public void RaiseRaceStartedEvent()
+        {
+            RaceStarted?.Invoke();
+        }
+
+        public void RaiseRaceEndedEvent(float finalTime)
+        {
+            RaceEnded?.Invoke(finalTime);
+        }
+
+        public void RaiseGoalPassedEvent(GameObject goalPassed)
+        {
+            GoalPassed?.Invoke(goalPassed);
+        }
     }
 }

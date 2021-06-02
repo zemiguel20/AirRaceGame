@@ -1,5 +1,4 @@
 using AirRace.Core;
-using AirRace.Core.SOs.Proto.GameEvent;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,6 @@ namespace AirRace.Race
     public class PathManager : MonoBehaviour
     {
         [SerializeField] private List<Goal> goals;
-        [SerializeField] private GameEvent PathFinished;
 
         private int currentGoalIndex;
 
@@ -16,21 +14,14 @@ namespace AirRace.Race
         {
             GameLogger.Debug("Path Started");
 
-            if (goals.Count == 0)
+            //Turns off goals
+            foreach (Goal goal in goals)
             {
-                EndPath();
-                return;
+                goal.gameObject.SetActive(false);
             }
-            else
-            {
-                //Turns off goals
-                foreach (Goal goal in goals)
-                {
-                    goal.gameObject.SetActive(false);
-                }
-                currentGoalIndex = 0;
-                SetGoalStatus(currentGoalIndex, true);
-            }
+
+            currentGoalIndex = 0;
+            SetGoalStatus(currentGoalIndex, true);
         }
 
         public void ChangeActiveGoal()
@@ -42,11 +33,7 @@ namespace AirRace.Race
                 GameLogger.Debug("Goal passed! Num of goals passed: " + currentGoalIndex);
             }
 
-            if (currentGoalIndex == goals.Count)
-            {
-                EndPath();
-            }
-            else
+            if (currentGoalIndex < goals.Count)
             {
                 SetGoalStatus(currentGoalIndex, true);
             }
@@ -57,11 +44,9 @@ namespace AirRace.Race
             goals[index].gameObject.SetActive(status);
         }
 
-        private void EndPath()
+        public bool IsFinished()
         {
-            GameLogger.Debug("Path Finished");
-            PathFinished.Raise();
+            return currentGoalIndex >= goals.Count;
         }
-
     }
 }
