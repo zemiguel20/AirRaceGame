@@ -6,16 +6,8 @@ namespace AirRace.Race
     public class RaceController : MonoBehaviour
     {
         [SerializeField] private EventManager _eventManager;
-
-        private Chronometer _chronometer;
-        private PathManager _pathManager;
-
-        private void Awake()
-        {
-            //Setup References
-            this._chronometer = GetComponent<Chronometer>();
-            this._pathManager = GetComponent<PathManager>();
-        }
+        [SerializeField] private Chronometer _chronometer;
+        [SerializeField] private PathManager _pathManager;
 
         private void Start()
         {

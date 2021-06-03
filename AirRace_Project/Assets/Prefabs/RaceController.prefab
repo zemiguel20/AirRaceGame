@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _eventManager: {fileID: 0}
+  _chronometer: {fileID: 6704570366342051749}
+  _pathManager: {fileID: 6704570366342051750}
 --- !u!114 &6704570366342051750
 MonoBehaviour:
   m_ObjectHideFlags: 0
