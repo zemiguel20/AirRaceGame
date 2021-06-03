@@ -7,9 +7,9 @@ namespace AirRace.UI.Race
     {
         [SerializeField] private TextMeshProUGUI scoreText;
 
-        public void SetInfo(int score)
+        public void SetInfo(float playerTime)
         {
-            scoreText.text = score.ToString();
+            scoreText.text = playerTime.ToString("F2");
         }
     }
 }

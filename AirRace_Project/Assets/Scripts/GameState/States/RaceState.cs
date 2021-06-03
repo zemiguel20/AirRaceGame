@@ -1,5 +1,6 @@
 ﻿using AirRace.Core;
 using AirRace.Core.Events;
+using AirRace.UI.Race;
 using System.Collections;
 using UnityEngine;
 
@@ -8,12 +9,12 @@ namespace AirRace.GameState.States
     public class RaceState : State
     {
         private EventManager _eventManager;
-        // private UI UI;
+        private UIManager _UI;
 
         public RaceState(GameManager gameManager) : base(gameManager)
         {
             _eventManager = gameManager.GetEventManager();
-            //  UI = gameManager.UI;
+            _UI = gameManager.GetUIManager();
         }
 
         public override IEnumerator Start()
@@ -28,7 +29,7 @@ namespace AirRace.GameState.States
         {
             Time.timeScale = 0;
             GameManager.isPaused = true;
-            //UI.SetPauseMenuActive(true);
+            _UI.SetPauseMenuActive(true);
             yield break;
         }
 
@@ -36,7 +37,7 @@ namespace AirRace.GameState.States
         {
             Time.timeScale = 1;
             GameManager.isPaused = false;
-            // UI.SetPauseMenuActive(false);
+            _UI.SetPauseMenuActive(false);
             yield break;
         }
     }

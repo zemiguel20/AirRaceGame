@@ -1,4 +1,5 @@
 ﻿using AirRace.Core;
+using AirRace.UI.Race;
 using System.Collections;
 
 namespace AirRace.GameState.States
@@ -6,20 +7,20 @@ namespace AirRace.GameState.States
     public class EndGameState : State
     {
         private float playerTime;
-        //private UI UI;
+        private UIManager _UI;
 
         public EndGameState(GameManager gameManager, float time) : base(gameManager)
         {
             playerTime = time;
-            //UI = gameManager.UI;
+            _UI = gameManager.GetUIManager();
         }
 
         public override IEnumerator Start()
         {
             GameLogger.Debug("Race Finished: " + playerTime);
 
-            // UI.SetEndGamePanelActive(true);
-            // UI.SetEndGamePanelInfo(score);
+            _UI.SetEndGamePanelActive(true);
+            _UI.SetEndGamePanelInfo(playerTime);
 
             yield break;
         }

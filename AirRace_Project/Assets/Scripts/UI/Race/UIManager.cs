@@ -13,9 +13,9 @@ namespace AirRace.UI.Race
             EndGamePanel.gameObject.SetActive(value);
         }
 
-        public void SetEndGamePanelInfo(int score)
+        public void SetEndGamePanelInfo(float playerTime)
         {
-            EndGamePanel.SetInfo(score);
+            EndGamePanel.SetInfo(playerTime);
         }
 
         public void SetCountdownTimerActive(bool value)

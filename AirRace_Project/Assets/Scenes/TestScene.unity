@@ -251,6 +251,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &277220456 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1844280555971927409, guid: 5d2fc930a507e974c929f923470ffa82, type: 3}
+  m_PrefabInstance: {fileID: 958959166125529269}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad940d096cda50741ae14c9a82499e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &343877334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1220,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4070240514383966982, guid: 9e17da4586447e4479ea106398012a3c, type: 3}
+      propertyPath: _UIManager
+      value: 
+      objectReference: {fileID: 277220456}
     - target: {fileID: 4070240514383966982, guid: 9e17da4586447e4479ea106398012a3c, type: 3}
       propertyPath: _eventManager
       value: 

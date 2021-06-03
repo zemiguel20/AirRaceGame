@@ -1,5 +1,6 @@
 using AirRace.Core.Events;
 using AirRace.GameState.States;
+using AirRace.UI.Race;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,8 +9,7 @@ namespace AirRace.GameState
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private EventManager _eventManager;
-
-        //public UI UI { get; private set; }
+        [SerializeField] private UIManager _UIManager;
 
         public static bool isPaused = false;
 
@@ -18,6 +18,11 @@ namespace AirRace.GameState
         public EventManager GetEventManager()
         {
             return _eventManager;
+        }
+
+        public UIManager GetUIManager()
+        {
+            return _UIManager;
         }
 
         private void Start()
