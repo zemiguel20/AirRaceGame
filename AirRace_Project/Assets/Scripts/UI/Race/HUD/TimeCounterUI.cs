@@ -1,24 +1,24 @@
 using UnityEngine;
 using TMPro;
+using AirRace.Race;
 
-public class TimeCounterUI : MonoBehaviour
+namespace AirRace.UI.Race.HUD
 {
-    [SerializeField] private Gradient colorGradient;
-
-    private TextMeshProUGUI label;
-    //private RaceManager raceManager;
-
-    private void Awake()
+    public class TimeCounterUI : MonoBehaviour
     {
-        label = GetComponent<TextMeshProUGUI>();
-        //raceManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<RaceManager>();
-    }
+        [SerializeField] private Gradient _colorGradient;
+        [SerializeField] private Chronometer _chronometer;
+        [SerializeField] private TextMeshProUGUI _label;
 
-    // Update is called once per frame
-    void Update()
-    {
-       // label.text = raceManager.chronometerTimeValue.ToString("F1");
-        //float value = Mathf.Clamp01(raceManager.chronometerTimeValue / raceManager.TIME_LIMIT);
-        //label.color = colorGradient.Evaluate(value);
+        // Update is called once per frame
+        void Update()
+        {
+            _label.text = _chronometer.time.ToString("F2");
+
+            //TODO - set color and image depending on Leaderboard
+
+            //float value = Mathf.Clamp01(raceManager.chronometerTimeValue / raceManager.TIME_LIMIT);
+            //label.color = colorGradient.Evaluate(value);
+        }
     }
 }

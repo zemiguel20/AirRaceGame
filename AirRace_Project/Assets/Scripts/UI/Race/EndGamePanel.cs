@@ -1,12 +1,15 @@
 using TMPro;
 using UnityEngine;
 
-public class EndGamePanel : MonoBehaviour
+namespace AirRace.UI.Race
 {
-    [SerializeField] private TextMeshProUGUI scoreText;
-
-    public void SetInfo(int score)
+    public class EndGamePanel : MonoBehaviour
     {
-        scoreText.text = score.ToString();
+        [SerializeField] private TextMeshProUGUI scoreText;
+
+        public void SetInfo(int score)
+        {
+            scoreText.text = score.ToString();
+        }
     }
 }

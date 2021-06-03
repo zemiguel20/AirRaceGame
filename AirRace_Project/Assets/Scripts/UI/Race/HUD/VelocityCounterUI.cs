@@ -1,22 +1,19 @@
 using UnityEngine;
 using TMPro;
 
-public class VelocityCounterUI : MonoBehaviour
+namespace AirRace.UI.Race.HUD
 {
-    private Rigidbody player;
-    private TextMeshProUGUI label;
-
-    private void Awake()
+    public class VelocityCounterUI : MonoBehaviour
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
-        label = GetComponent<TextMeshProUGUI>();
-    }
+        [SerializeField] private Rigidbody _player;
+        [SerializeField] private TextMeshProUGUI _label;
 
-    // Update is called once per frame
-    void Update()
-    {
-        float kmPerH = (player.velocity.magnitude * 3600) / 1000;
+        // Update is called once per frame
+        void Update()
+        {
+            float kmPerH = _player.velocity.magnitude * 3600 / 1000;
 
-        label.text = Mathf.RoundToInt(kmPerH).ToString() + " km/h";
+            _label.text = Mathf.RoundToInt(kmPerH).ToString() + " km/h";
+        }
     }
 }

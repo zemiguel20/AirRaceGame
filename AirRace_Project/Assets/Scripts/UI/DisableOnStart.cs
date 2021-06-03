@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DisableOnStart : MonoBehaviour
+namespace AirRace.UI
 {
-    // Start is called before the first frame update
-    void Start()
+    public class DisableOnStart : MonoBehaviour
     {
-        gameObject.SetActive(false);
+        // Start is called before the first frame update
+        void Start()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

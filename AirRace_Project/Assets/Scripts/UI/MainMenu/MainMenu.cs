@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviour
+namespace AirRace.UI.MainMenu
 {
-    public void Play()
+    public class MainMenu : MonoBehaviour
     {
-        SceneManager.LoadScene(1);
-    }
+        public void Play()
+        {
+            SceneManager.LoadScene(1);
+        }
 
-    public void Quit()
-    {
-        Debug.Log("Quit");
-        Application.Quit();
+        public void Quit()
+        {
+            Debug.Log("Quit");
+            Application.Quit();
+        }
     }
 }

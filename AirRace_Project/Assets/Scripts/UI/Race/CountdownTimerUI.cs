@@ -1,12 +1,15 @@
 using TMPro;
 using UnityEngine;
 
-public class CountdownTimerUI : MonoBehaviour
+namespace AirRace.UI.Race
 {
-    [SerializeField] private TextMeshProUGUI tmpText;
-
-    public void SetText(string newText)
+    public class CountdownTimerUI : MonoBehaviour
     {
-        tmpText.text = newText;
+        [SerializeField] private TextMeshProUGUI tmpText;
+
+        public void SetText(string newText)
+        {
+            tmpText.text = newText;
+        }
     }
 }
