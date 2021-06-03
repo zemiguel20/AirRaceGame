@@ -1,27 +1,25 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using AirRace.Core;
+using System.Collections;
 
-namespace AirRace.GameManager.States
+namespace AirRace.GameState.States
 {
     public class EndGameState : State
     {
-        private int score;
-        private Rigidbody player;
+        private float playerTime;
         //private UI UI;
 
-        public EndGameState(GameManager gameManager) : base(gameManager)
+        public EndGameState(GameManager gameManager, float time) : base(gameManager)
         {
-            // score = gameManager.raceManager.score;
-            player = gameManager.player;
+            playerTime = time;
             //UI = gameManager.UI;
         }
 
         public override IEnumerator Start()
         {
-            player.isKinematic = true;
+            GameLogger.Debug("Race Finished: " + playerTime);
 
-           // UI.SetEndGamePanelActive(true);
-           // UI.SetEndGamePanelInfo(score);
+            // UI.SetEndGamePanelActive(true);
+            // UI.SetEndGamePanelInfo(score);
 
             yield break;
         }

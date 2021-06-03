@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace AirRace.GameManager.States
+namespace AirRace.GameState.States
 {
     public abstract class State
     {

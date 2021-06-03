@@ -1,18 +1,17 @@
-﻿using System.Collections;
+﻿using AirRace.Core;
+using System.Collections;
 using UnityEngine;
 
-namespace AirRace.GameManager.States
+namespace AirRace.GameState.States
 {
     public class InitialCountdownState : State
     {
-        private int initialCountdown;
+        private int initialCountdown = 3;
 
-        //private UI UI;
+        // UI ui;
 
         public InitialCountdownState(GameManager gameManager) : base(gameManager)
         {
-            initialCountdown = gameManager.initialCountdown;
-            //UI = gameManager.UI;
         }
 
         public override IEnumerator Start()
@@ -24,9 +23,13 @@ namespace AirRace.GameManager.States
 
             for (int i = initialCountdown; i > 0; i--)
             {
+                GameLogger.Debug(i.ToString());
+
                 //UI.SetCountdownTimerText(i.ToString());
                 yield return new WaitForSeconds(1);
             }
+
+            GameLogger.Debug("GO");
 
             //UI.SetCountdownTimerText("GO");
             gameManager.SetState(new RaceState(gameManager));

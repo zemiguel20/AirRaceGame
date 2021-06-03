@@ -1,25 +1,26 @@
-﻿using System.Collections;
+﻿using AirRace.Core;
+using AirRace.Core.Events;
+using System.Collections;
 using UnityEngine;
 
-namespace AirRace.GameManager.States
+namespace AirRace.GameState.States
 {
     public class RaceState : State
     {
-        //private RaceManager raceManager;
-        private Rigidbody player;
-       // private UI UI;
+        private EventManager _eventManager;
+        // private UI UI;
 
         public RaceState(GameManager gameManager) : base(gameManager)
         {
-            // this.raceManager = gameManager.raceManager;
-            player = gameManager.player;
-          //  UI = gameManager.UI;
+            _eventManager = gameManager.GetEventManager();
+            //  UI = gameManager.UI;
         }
 
         public override IEnumerator Start()
         {
-            player.isKinematic = false;
-            // raceManager.StartRace();
+            GameLogger.Debug("Race Started");
+
+            _eventManager.RaiseRaceStartedEvent();
             yield break;
         }
 
@@ -35,7 +36,7 @@ namespace AirRace.GameManager.States
         {
             Time.timeScale = 1;
             GameManager.isPaused = false;
-           // UI.SetPauseMenuActive(false);
+            // UI.SetPauseMenuActive(false);
             yield break;
         }
     }

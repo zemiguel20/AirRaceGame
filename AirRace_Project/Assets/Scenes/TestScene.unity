@@ -738,7 +738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1613596348
 Transform:
   m_ObjectHideFlags: 0
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f78dc7e443754464997338ed97675bf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialCountdown: 3
+  _eventManager: {fileID: 1086948480}
 --- !u!1001 &1866618502
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1135,6 +1135,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1681466764414533927, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
+      propertyPath: _gameManager
+      value: 
+      objectReference: {fileID: 1613596349}
+    - target: {fileID: 1681466764414533927, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
       propertyPath: _planeMovement
       value: 
       objectReference: {fileID: 5411032201390260344}
@@ -1218,6 +1222,18 @@ PrefabInstance:
     - target: {fileID: 698489335182588861, guid: 52a164781a7949e46998aa5cdfd22216, type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760943830956541724, guid: 52a164781a7949e46998aa5cdfd22216, type: 3}
+      propertyPath: _plane
+      value: 
+      objectReference: {fileID: 1550564541}
+    - target: {fileID: 2760943830956541724, guid: 52a164781a7949e46998aa5cdfd22216, type: 3}
+      propertyPath: _eventManager
+      value: 
+      objectReference: {fileID: 1086948480}
+    - target: {fileID: 3180747890983856302, guid: 52a164781a7949e46998aa5cdfd22216, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3221787876548081877, guid: 52a164781a7949e46998aa5cdfd22216, type: 3}
       propertyPath: m_RootOrder

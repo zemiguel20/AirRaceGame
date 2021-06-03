@@ -1,10 +1,8 @@
 {
-    "name": "GameManager",
-    "rootNamespace": "GameManager",
+    "name": "GameState",
+    "rootNamespace": "GameState",
     "references": [
-        "GUID:7ff318a4589694a45926949058573717",
-        "GUID:aaa79f00c09754e448248b9c7c72c0e0",
-        "GUID:aaccf970c80f5944db79c6564115ac76"
+        "GUID:7ff318a4589694a45926949058573717"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

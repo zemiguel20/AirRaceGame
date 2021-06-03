@@ -3,7 +3,8 @@
     "rootNamespace": "Input",
     "references": [
         "GUID:aaa79f00c09754e448248b9c7c72c0e0",
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:e3a98f48dcd03bd42bf227440e173f29"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

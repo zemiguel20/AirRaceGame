@@ -1,33 +1,35 @@
-using AirRace.GameManager.States;
+using AirRace.Core.Events;
+using AirRace.GameState.States;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace AirRace.GameManager
+namespace AirRace.GameState
 {
     public class GameManager : MonoBehaviour
     {
-        public int initialCountdown;
-
-        public Rigidbody player { get; private set; }
-        //public RaceManager raceManager { get; private set; }
+        [SerializeField] private EventManager _eventManager;
 
         //public UI UI { get; private set; }
 
+        public static bool isPaused = false;
 
         private State state;
 
-        public static bool isPaused = false;
-
-        private void Awake()
+        public EventManager GetEventManager()
         {
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
-            //raceManager = GetComponent<RaceManager>();
-            //UI = GameObject.Find("UI").GetComponent<UI>();
+            return _eventManager;
         }
 
         private void Start()
         {
+            _eventManager.RaceEnded += OnRaceEnd;
+
             SetState(new InitialCountdownState(this));
+        }
+
+        private void OnDisable()
+        {
+            _eventManager.RaceEnded -= OnRaceEnd;
         }
 
         public void SetState(State newState)
@@ -36,9 +38,15 @@ namespace AirRace.GameManager
             StartCoroutine(state.Start());
         }
 
+        public void OnRaceEnd(float time)
+        {
+            SetState(new EndGameState(this, time));
+        }
+
 
         public void ExitToMenu()
         {
+            Time.timeScale = 1;
             SceneManager.LoadScene(0);
         }
 
@@ -58,16 +66,5 @@ namespace AirRace.GameManager
             StartCoroutine(state.Resume());
         }
 
-        /* public void OnPauseGame(InputAction.CallbackContext context)
-         {
-             if (context.started)
-             {
-                 if (isPaused)
-                     ResumeGame();
-                 else
-                     PauseGame();
-             }
-
-         }*/
     }
 }
