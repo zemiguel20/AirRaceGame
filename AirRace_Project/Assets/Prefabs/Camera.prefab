@@ -132,4 +132,4 @@ MonoBehaviour:
   player: {fileID: 0}
   offsety: 2
   offsetz: -15
-  smoothTime: 0.5
+  smoothTime: 0.1
