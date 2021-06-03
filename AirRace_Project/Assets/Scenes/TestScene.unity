@@ -893,6 +893,10 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 657571403260698532, guid: 5d2fc930a507e974c929f923470ffa82, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1112175410356124503, guid: 5d2fc930a507e974c929f923470ffa82, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1021,6 +1025,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7960810439150065620, guid: 5d2fc930a507e974c929f923470ffa82, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8926387985674970044, guid: 5d2fc930a507e974c929f923470ffa82, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1063,6 +1071,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8926387985674970044, guid: 5d2fc930a507e974c929f923470ffa82, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8933566882714769593, guid: 5d2fc930a507e974c929f923470ffa82, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
