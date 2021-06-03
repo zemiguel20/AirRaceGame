@@ -181,7 +181,6 @@ GameObject:
   - component: {fileID: 5894205956930836070}
   - component: {fileID: 3180747890983856302}
   - component: {fileID: 2760943830956541724}
-  - component: {fileID: 6908148382161162567}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Player
@@ -283,25 +282,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5389842725379323827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd48cc9a674eb94ba2763a0dd7080cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 118daca286326784ab18fe9c1de698a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MAX_ACCELERATION: 80
   ROTATION_SPEED: 5
   ROTATION_SPEED_VELOCITY_THRESHOLD: 70
   LIFT_VELOCITY_THRESHOLD: 25
---- !u!114 &6908148382161162567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5389842725379323827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79bec417f4f5db44a92a3b9a58c65ee3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5775782606227349088
 GameObject:
   m_ObjectHideFlags: 0

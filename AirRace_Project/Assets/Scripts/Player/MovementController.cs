@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace AirRace.Player
 {
-    public class PlaneMovement : MonoBehaviour
+    public class MovementController : MonoBehaviour
     {
         private Rigidbody plane;
 
@@ -88,19 +87,19 @@ namespace AirRace.Player
             return factor;
         }
 
-        public void OnAccelerate(InputAction.CallbackContext context)
+        public void OnAccelerate(float value)
         {
-            inputAcceleretion = context.ReadValue<float>();
+            inputAcceleretion = value;
         }
 
-        public void OnAileronsMove(InputAction.CallbackContext context)
+        public void OnAileronsMove(float value)
         {
-            inputAilerons = context.ReadValue<float>();
+            inputAilerons = value;
         }
 
-        public void OnElevatorsMove(InputAction.CallbackContext context)
+        public void OnElevatorsMove(float value)
         {
-            inputElevators = context.ReadValue<float>();
+            inputElevators = value;
         }
 
     }

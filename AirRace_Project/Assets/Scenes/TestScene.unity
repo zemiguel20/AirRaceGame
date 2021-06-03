@@ -1262,6 +1262,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1681466764414533927, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
+      propertyPath: _planeMovement
+      value: 
+      objectReference: {fileID: 5411032201390260344}
     - target: {fileID: 2233268970484365842, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1325,70 +1329,6 @@ PrefabInstance:
     - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_ActionName
       value: PlayerControls/Pause/Unpause[/Keyboard/escape]
-      objectReference: {fileID: 0}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5411032201390260344}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5411032201390260344}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5411032201390260344}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1613596349}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnAccelerate
-      objectReference: {fileID: 0}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnAileronsMove
-      objectReference: {fileID: 0}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnElevatorsMove
-      objectReference: {fileID: 0}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnPauseGame
-      objectReference: {fileID: 0}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlaneMovement, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlaneMovement, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlaneMovement, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2758923202211319826, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3961549997960764852, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
       propertyPath: m_Name

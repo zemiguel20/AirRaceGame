@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2233268970484365842}
   - component: {fileID: 2758923202211319826}
+  - component: {fileID: 1681466764414533927}
   m_Layer: 0
   m_Name: PlayerController
   m_TagString: Untagged
@@ -58,8 +59,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 1681466764414533927}
+        m_TargetAssemblyTypeName: InputController, Input
         m_MethodName: OnAccelerate
         m_Mode: 0
         m_Arguments:
@@ -74,8 +75,8 @@ MonoBehaviour:
     m_ActionName: PlayerControls/Accelerate[/Keyboard/upArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 1681466764414533927}
+        m_TargetAssemblyTypeName: InputController, Input
         m_MethodName: OnAileronsMove
         m_Mode: 0
         m_Arguments:
@@ -90,24 +91,8 @@ MonoBehaviour:
     m_ActionName: PlayerControls/AileronsMove[/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: OnRudderMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 9a492c40-c135-4210-bbeb-66a93664e662
-    m_ActionName: PlayerControls/RudderMove[/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 1681466764414533927}
+        m_TargetAssemblyTypeName: InputController, Input
         m_MethodName: OnElevatorsMove
         m_Mode: 0
         m_Arguments:
@@ -120,8 +105,37 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ff281528-8d27-4a1d-96db-8f01a129c51c
     m_ActionName: PlayerControls/ElevatorsMove[/Keyboard/s,/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5ce094c3-5e7f-4dbe-a57a-5a3a462eea3a
+    m_ActionName: PlayerControls/Pause/Unpause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: PlayerControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1681466764414533927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3961549997960764852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a434c7ead4266fc43a96783e691241b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _planeMovement: {fileID: 0}
