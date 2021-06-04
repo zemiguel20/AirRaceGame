@@ -48,5 +48,18 @@ namespace AirRace.Race
         {
             return currentGoalIndex >= goals.Count;
         }
+
+        public Goal GetCurrentGoal()
+        {
+            if (currentGoalIndex < goals.Count)
+            {
+                return goals[currentGoalIndex];
+            }
+            else
+            {
+                // If race finished just return last one
+                return goals[goals.Count - 1];
+            }
+        }
     }
 }
