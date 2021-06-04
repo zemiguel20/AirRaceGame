@@ -7,6 +7,7 @@
    1. [Events](#Events) 
    2. [ScriptableObjects](#ScriptableObjects)
    3. [Prototyping using ScriptableObjects](#Prototyping)
+   4. [Assemblies](#Assemblies)
 2. [Player](#Player)
     1. [Player Movement](#PlayerMovement)
         1. [Movement Input](#MovementInput)
@@ -99,6 +100,20 @@ We also have a description that can be set and seen in the inspector for clarity
 Architecture of games can be built around using scriptable objects, which can increase modularity and allow for easier iteration,
 both for programmers and game designers. On this topic, there is a [small video made by Unity](https://youtu.be/WLDgtRNK2VE)
 and [presentation by Ryan Hipple](https://youtu.be/raQ3iHhE_Kk) at Unite Austin 2017.
+
+
+### Assemblies <a name="Assemblies"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+To increase project organization, modularity, reusability and compilation times when scripts are changed, we can group C# files
+into assemblies.
+
+In Unity, we can create Assembly Definition assets to define this assemblies.
+
+Detailed explanation in the [documentation page](https://docs.unity3d.com/2021.1/Documentation/Manual/ScriptCompilationAssemblyDefinitionFiles.html).
+
+This projects assembly organization is represented in the next diagram.
+
+![assemblies](./ArchitectureImages/assemblies.png)
 
 
 ## Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
