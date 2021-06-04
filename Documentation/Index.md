@@ -20,10 +20,9 @@
 3. [Race](#Race)
     1. [Goals](#Goals)
     2. [Race Controller](#RaceController)
-    2. [Path Manager](#PathManager)
-    3. [Chronometer](#Chronometer)
-    4. [Score Manager](#ScoreManager)
-    4. [Hit terrain and respawn](#Respawn) 
+    3. [Path Manager](#PathManager)
+    4. [Chronometer](#Chronometer)
+    5. [Hit terrain and respawn](#Respawn) 
 4. [Game State/Flow](#GameState)
     1. [States](#States)
     2. [Game Manager](#GameManager)
@@ -464,7 +463,6 @@ public void ChangeActiveGoal()
         currentGoalIndex++;
         GameLogger.Debug("Goal passed! Num of goals passed: " + currentGoalIndex);
     }
-```
 
     if (currentGoalIndex < goals.Count)
     {
@@ -504,7 +502,7 @@ public void StopChrono()
 
 ### Hit terrain and respawn <a name="Respawn"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-A script *PlaneRespawner* is added as a component to the Plane. When a collision happens, it triggers the player *Respawn*
+A script *PlayerRespawner* is added as a component to the Plane. When a collision happens, it triggers the player *Respawn*
 as a coroutine.
 
 ```csharp
@@ -533,17 +531,16 @@ Then the player position and rotation are set to the ones saved as variables and
 player to prepare. Finally enables forces on the plane again.
 
 The saved respawn position and rotation start off as the starting point of the race.
-When a Goal is passed through, they are updated to the Goals transform.
+
+This component listens for the *GoalPassed* event, and when raised, the respawn transform is updated
+to the passed Goal transform.
 
 ```csharp
-private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Goal"))
+public void UpdateRespawn(GameObject goal)
         {
-            respawnPosition = other.transform.position;
-            respawnRotation = other.transform.rotation;
+            respawnPoint = goal.transform.position;
+            respawnRotation = goal.transform.rotation;
         }
-    }
 ```
 
 
