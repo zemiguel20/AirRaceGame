@@ -23,7 +23,8 @@
     3. [Path Manager](#PathManager)
     4. [Chronometer](#Chronometer)
     5. [Hit terrain and respawn](#Respawn) 
-4. [Game State/Flow](#GameState)
+4. [Leaderboard](#Leaderboard)
+5. [Game State/Flow](#GameState)
     1. [States](#States)
     2. [Game Manager](#GameManager)
        1. [State class](#StateClass) 
@@ -31,9 +32,9 @@
     4. [Race](#RaceState)
     5. [End Game](#EndGameState)
     6. [Pausing the game](#Pausing)
-5. [UI](#UI)
+6. [UI](#UI)
    1. [UI Prefab](#UIPrefab)
-6. [Main Menu](#MainMenu)
+7. [Main Menu](#MainMenu)
 
 
 ## Architecture <a name="Architecture"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -544,6 +545,42 @@ public void UpdateRespawn(GameObject goal)
 ```
 
 
+## Leaderboard <a name="Leaderboard"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+Each race map has a Leaderboard of the best times.
+
+This will be a data container that should be accessable both in the Main Menu scene and the Race scene itself,
+so it will be a ScriptableObject.
+
+```csharp
+ [CreateAssetMenu(menuName = "ScriptableObjects/Leaderboard")]
+    public class LeaderboardSO : ScriptableObject
+    {
+        [SerializeField]
+        private int LEADERBOARD_SIZE = 10;
+
+        [SerializeField]
+        private List<float> _leaderboard = new List<float>();
+
+        public void AddEntry(float time)
+        {
+            _leaderboard.Add(time);
+
+            _leaderboard.Sort(); //default is ascending order
+
+            // Trims to SIZE
+            if (_leaderboard.Count > LEADERBOARD_SIZE)
+            {
+                _leaderboard = _leaderboard.GetRange(0, LEADERBOARD_SIZE);
+            }
+        }
+
+    (....)
+    }
+````
+
+Also we have the *LeaderboardSerializable*, a class marked as *Serializable*, which represents the
+Leaderboard in a form that can be *persisted in a binary file* by the *SaveManager*.
 
 ## Game State/Flow <a name="GameState"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
