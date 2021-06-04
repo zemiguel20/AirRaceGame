@@ -122,7 +122,7 @@ The player is represented by a Plane prefab which has components for Physics lik
 
 ### Plane Movement <a name="PlayerMovement"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-The player movement is controlled by a PlaneMovement script, which will control the Rigidbody component.
+The player movement is controlled by a *MovementController* script, which will control the Rigidbody component.
 
 ![player](./PlayerMovementImages/player_prefab.png)
 
@@ -139,13 +139,35 @@ There is information below that explain this steps.
 
 ##### Movement Input <a name="MovementInput"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-Since we use Unity's InputSystem, the callback functions on input events receive a InputAction Context.
+Parts of the movement calculatins rely on *input factors*.
 
-From these contexts we retreive the input values, which alter the properties of the plane.
+To set this factors, *MovementController* exposes callback methods to be used by Input components.
 
-(example image)
+```csharp
+public class MovementController : MonoBehaviour
+    {
+        private float inputAcceleretion;
+        private float inputAilerons;
+        private float inputElevators;
 
-![callbacks](./PlayerMovementImages/movement_callbacks.png)
+    (.....)
+
+        public void OnAccelerate(float value)
+        {
+            inputAcceleretion = value;
+        }
+
+        public void OnAileronsMove(float value)
+        {
+            inputAilerons = value;
+        }
+
+        public void OnElevatorsMove(float value)
+        {
+            inputElevators = value;
+        }
+    }
+```
 
 
 
@@ -286,6 +308,28 @@ Then we must also bind Callback functions to each Action, as seen in the image b
 
 ![callbacks binding](./PlayerInputImages/player_controller_input_bind.png)
 
+In our case, it will bind to the *InputController* component, which has *input processing functions*.
+
+
+Since we use Unity's InputSystem, the callback functions on input events receive a InputAction Context. <br>
+From these contexts we retreive the input values, and then call the *callback functions* in the *target objects*. <br>
+We resolve the dependecies(target objects) in the inspector since we use *SerializeField*.
+
+```csharp
+public class InputController : MonoBehaviour
+{
+
+    [SerializeField] private MovementController _planeMovement;
+    [SerializeField] private GameManager _gameManager;
+
+    public void OnAccelerate(InputAction.CallbackContext context)
+    {
+        _planeMovement.OnAccelerate(context.ReadValue<float>());
+    }
+
+    (.....)
+}
+```
 
 
 ### Plane Colliders <a name="PlaneColliders"></a> <a href="#Index" style="font-size:13px">(index)</a>
