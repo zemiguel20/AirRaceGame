@@ -1,4 +1,5 @@
 using AirRace.Core.Events;
+using AirRace.Core.SOs;
 using AirRace.GameState.States;
 using AirRace.UI.Race;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace AirRace.GameState
     {
         [SerializeField] private EventManager _eventManager;
         [SerializeField] private UIManager _UIManager;
+        [SerializeField] private LeaderboardSO _leaderboard;
 
         public static bool isPaused = false;
 
@@ -23,6 +25,11 @@ namespace AirRace.GameState
         public UIManager GetUIManager()
         {
             return _UIManager;
+        }
+
+        public LeaderboardSO GetLeaderboard()
+        {
+            return _leaderboard;
         }
 
         private void Start()
