@@ -19,6 +19,7 @@
     4. [Player Camera](#PlayerCamera)
 3. [Race](#Race)
     1. [Goals](#Goals)
+    2. [Race Controller](#RaceController)
     2. [Path Manager](#PathManager)
     3. [Chronometer](#Chronometer)
     4. [Score Manager](#ScoreManager)
@@ -373,11 +374,9 @@ Each scene is a race/map, which has a path.
 A path is a group of goals/checkpoints with an order.
 The player has to pass through the goals in the order they are defined.
 
-The way the points are tracked is by the time the player takes to reach from 
-one goal to another. Each segment has a limit duration. A chronometer tracks the time passed until the next
-goal is reached. The less the time taken the more points. If limit duration is reached, no points are gained
-for that segment.
+A chronometer tracks the time passed from start of the race until the last goal is reached.
 
+The path and chronometer management is done by *RaceController*.
 
 ### Goals <a name="Goals"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
@@ -386,22 +385,34 @@ for that segment.
 A goal is composed by a particle system which gives the ring visual, and a trigger collider with circle shape.
 
 Also it has a script which implements the response to the trigger. If the object thats colliding with the trigger
-has the tag *GoalHitter* then it calls the UnityEvent *GoalHit*, which raises the GameEvent *OnGoalHit*
+has the tag *GoalHitter* then it raises a *GoalPassed* event.
 ```csharp
 private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("GoalHitter"))
         {
-            GoalHit.Invoke();
+            _eventManager.RaiseGoalPassedEvent(this.gameObject);
         }
     }
 ```
 
+### Race Controller <a name="RaceController"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+A Prefab which manages the Race path and chronometer. It has a *PathManager* component and a *Chronometer* component.
+
+###### Race Start
+
+RaceController listens for the *RaceStarted* event. When raised, it initializes the path and starts the chronometer.
+
+###### Passing Goals
+
+RaceController listens for the *GoalPassed* event. When raised, it changes the active goal to the next.
+
+If the last goal was passed and there is no next goal on the path, then *RaceEnded* event is raised.
+
 ### Path Manager <a name="PathManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-PathManager is a prefab with a simple object with scripts attached. <br>
-
-It manages a list of Goals during the race.
+Component that manages a list of Goals during the race.
 
 ###### Race Path
 
@@ -412,90 +423,59 @@ edited there.
 
 Goals from the scene are dragged in the list and can be ordered in any way.
 
-###### Race Start
+###### Initialize Path
 
-PathManager has a EventListener for the GameEvent *OnRaceStart*, which calls the method *StartPath*.
-
-![event listener](./RaceImages/pathmanager_start.png)
+Starts by deactivating all Goals in the list, and then Activates the first one.
 
 ```csharp
 public void StartPath()
-    {
-        if (goals.Count == 0)
-        {
-            EndPath();
-            return;
-        }
-        else
         {
             //Turns off goals
             foreach (Goal goal in goals)
             {
                 goal.gameObject.SetActive(false);
             }
-            // Activates first goal
-            ActivateNextGoal();
+
+            currentGoalIndex = 0;
+            SetGoalStatus(currentGoalIndex, true);
         }
-    }
+
+(...)
+
+private void SetGoalStatus(int index, bool status)
+        {
+            goals[index].gameObject.SetActive(status);
+        }
 ```
 
-Starts by deactivating all Goals in the list, and then Activates the first one.
 
-If there are no Goals tho, it jumps straight to EndPath.
+###### Change active goal
 
-###### Passing Goals
+When called, if the path isnt yet finished, the current goal is deactivated and current index is incremented.
 
-PathManager has a EventListener for the GameEvent *OnGoalHit*, which calls the method *ChangeActiveGoal*.
-
-![event listener](./RaceImages/pathmanager_goalhit.png)
+For the new current index, if the path isnt yet finished it activates the goal on the current index.
 
 ```csharp
-    public void ChangeActiveGoal()
+public void ChangeActiveGoal()
+{
+    if (currentGoalIndex < goals.Count)
     {
-        if (goals.Count > 0)        
-            RemoveCurrentGoal();
-        
-        if (goals.Count == 0)
-            EndPath();
-        else
-            ActivateNextGoal();
-    }
-
-    private void ActivateNextGoal()
-    {
-        goals[0].gameObject.SetActive(true);
-    }
-
-    private void RemoveCurrentGoal()
-    {
-        Goal goal = goals[0];
-        goal.gameObject.SetActive(false);
-        goals.Remove(goal);
+        SetGoalStatus(currentGoalIndex, false);
+        currentGoalIndex++;
+        GameLogger.Debug("Goal passed! Num of goals passed: " + currentGoalIndex);
     }
 ```
 
-The goal just passed is deactivated and removed from the list.
-
-Then, if there are still more goals to pass, the next Goal in the list is activated.
-
-If not, then game is finished, and *OnRaceFinished* GameEvent is raised.
-
-```csharp
-    private void EndPath()
+    if (currentGoalIndex < goals.Count)
     {
-        PathFinished.Invoke();
+        SetGoalStatus(currentGoalIndex, true);
     }
+}
 ```
-
-![path finished](./RaceImages/pathfinished.png)
 
 ### Chronometer <a name="Chronometer"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-Chronometer is a Prefab with a simple object with scripts.
-
-It manages a FloatVariable *ChronometerTimeValue*, updating it overtime.
-
-![chronometer time value](./RaceImages/chronometertimevalue.png)
+Chronometer is a component that counts time passed by incrementing a variable, if active.
 
 ```csharp
 // Update is called once per frame
@@ -503,53 +483,23 @@ It manages a FloatVariable *ChronometerTimeValue*, updating it overtime.
     {
         if (active)
         {
-            timeVariable.value += Time.deltaTime;
+            time += Time.deltaTime;
         }
     }
 ```
-
-###### Race start
-
-Chronometer has a EventListener for the GameEvent *OnRaceStart*, which calls *ResetTime* to reset time to 0, and *StartChrono*
-to set *active* flag to *true*.
-
-###### Goal Passed
-
-Chronometer has a EventListener for the GameEvent *OnScoreChanged*, which calls *ResetTime* to reset time to 0.
-
-The logic is reset the chronometer when a Goal is passed, but since the Score depends on *ChronometerTimeValue*, then we 
-only reset after score is changed to make sure score value is safely calculated.
-
-###### Race Finished
-
-Chronometer has a EventListener for the GameEvent *OnRaceFinished*, which calls *StopChrono* to set *active* flag to *false*.
-
-### Score Manager <a name="ScoreManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-ScoreManager is a Prefab with a simple object with scripts.
-
-It manages 3 FloatVariables, which are *PlayerScore*, *ChronometerTimeValue* and the constant *TimeLimit*.
-
-![score manager](./RaceImages/scoremanager.png)
-
-###### Race Start
-
-ScoreManager has a EventListener for the GameEvent *OnRaceStart* which calls *ResetScore* that sets the score value to 0.
-
-###### Goal Passed
-
-ScoreManager has a EventListener for the GameEvent *OnGoalHit* which calls *UpdateScore* that calculates the points gained
-and sums to the score value. <br>
-We calculate the difference between the time taken to reach the goal (ChronometerTimeValue) and the Time Limit.
-For every decisecond less than the Time Limit, a point is gained.
+It has 2 methods, to Start and Stop the chronometer.
 
 ```csharp
-int points = Mathf.RoundToInt(difference * 10);
-```
-If Time Limit is reached then *difference* is 0 and no points are gained.
+public void StartChrono()
+        {
+            active = true;
+        }
 
-After addings in the points, *OnScoreChanged* GameEvent is raised. <br>
-![score changed](./RaceImages/scorechanged.png)
+public void StopChrono()
+        {
+            active = false;
+        }
+```
 
 
 ### Hit terrain and respawn <a name="Respawn"></a> <a href="#Index" style="font-size:13px">(index)</a>
