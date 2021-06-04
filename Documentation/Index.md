@@ -606,7 +606,9 @@ results appear.
 
 ### Game Manager <a name="GameManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-The Game Manager is a GameObject with a GameManager script component attached.
+- Review
+
+The Game Manager is a Prefab with a GameManager script component.
 
 It acts as a state machine, and follows the [State Pattern](https://refactoring.guru/design-patterns/state). <br>
 The implementation follows [this video](https://youtu.be/G1bd75R10m4) as example, and it uses
@@ -638,8 +640,7 @@ public void PauseGame()
     }
 ```
 
-The GameManager has as attributes other objects and variables, which States and other Managers can get,
-so Managers in a way act as a *"source of truth"*.
+The GameManager has as attributes other objects and variables, which States can get.
 
 ##### State class <a name="StateClass"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
@@ -689,38 +690,34 @@ An example implementation of a State can be the *InitialCountdownState*
 ```csharp
 public class InitialCountdownState : State
     {
-        private int initialCountdown;
+        private int initialCountdown = 3;
 
-        private CountdownTimerUI countdownTimerUI;
-        
-        //Gets info needed from GameManager
+        private UIManager _UI;
+
         public InitialCountdownState(GameManager gameManager) : base(gameManager)
         {
-            this.initialCountdown = gameManager.initialCountdown;
-            this.countdownTimerUI = gameManager.countdownTimerUI;
+            _UI = gameManager.GetUIManager();
         }
 
-        //Overrides Start action, which uses Coroutines
-        // to call Wait methods to simulate a countdown timer
         public override IEnumerator Start()
         {
-            countdownTimerUI.gameObject.SetActive(true);
+            _UI.SetCountdownTimerActive(true);
 
-            countdownTimerUI.SetText("Starting in...");
+            _UI.SetCountdownTimerText("Starting in...");
             yield return new WaitForSeconds(1.5f);
 
             for (int i = initialCountdown; i > 0; i--)
             {
-                countdownTimerUI.SetText(i.ToString());
+                _UI.SetCountdownTimerText(i.ToString());
                 yield return new WaitForSeconds(1);
             }
 
-            countdownTimerUI.SetText("GO");
+            _UI.SetCountdownTimerText("GO");
             gameManager.SetState(new RaceState(gameManager));
 
             yield return new WaitForSeconds(1);
 
-            countdownTimerUI.gameObject.SetActive(false);
+            _UI.SetCountdownTimerActive(false);
         }
     }
 ```
@@ -764,57 +761,59 @@ Then it waits a bit before disabling the display of the countdown and terminatin
 This state overrides the *Start*, *Pause* and *Resume* actions and uses the *RaceManager*, *Player* and *UI* from GameManager.
 The Pause and Resume will be covered in the [Pausing section](#Pausing)
 
-On Start, it basically sets the Player to Non Kinematic, allowing the plane to move, and tells RaceManager to 
-[start the race](#RaceStart).
+On Start, it basically raises the *RaceStarted* event.
 
 ```csharp
 public override IEnumerator Start()
         {
-            player.isKinematic = false;
-            raceManager.StartRace();
+            _eventManager.RaiseRaceStartedEvent();
             yield break;
         }
 ```
 
 ### End Game <a name="EndGameState"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-In this state, the Player is set to Kinematic so it stops the movement, the EndGame Panel in the UI is activated and 
-gives the UI the info to be displayed on the end game panel.
+The GameManager listens to the *RaceEnded* event, which when raise sets the State to EndGameState.
+
+In this state, the leaderboard is updated with the player time and saved using the SaveManager,  
+and the EndGame Panel in the UI is activated.
 
 ```csharp
 public override IEnumerator Start()
-        {
-            player.isKinematic = true;
+{
+    //Save leaderboard
+    _leaderboard.AddEntry(playerTime);
+    SaveManager.SaveLeaderboard(_leaderboard.ToSerializable(), _leaderboard.name);
 
-            UI.SetEndGamePanelActive(true);
-            UI.SetEndGamePanelInfo(score);
+    _UI.SetEndGamePanelActive(true);
+    _UI.SetEndGamePanelInfo(playerTime);
 
-            yield break;
-        }
+    yield break;
+}
 ```
 
 ### Pausing the game <a name="Pausing"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The [player Input action map](#Input) has a keybind for pausing and unpausing the game.
 
-We bind to the callback in GameManager *OnPauseGame*.
-```csharp
- public void OnPauseGame(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-            if (isPaused)
-                ResumeGame();
-            else
-                PauseGame();
-        }
+We bind to the callback in InputManager's *OnPauseGame*.
 
-    }
-```
+The InputManager checks the GameManager if the game is paused or not, and calls the GameManager call back acordingly.
+
 Due to how the InputSystem works, we check state of the input action in the context, as we only want to do something
 the moment the button is pressed.
 
-Then we do Resume or Pause depending on the value of the flag. Both call the State's Pause or Resume actions.
+```csharp
+ public void OnPauseGame(InputAction.CallbackContext context)
+    {
+         if (GameManager.isPaused)
+                _gameManager.ResumeGame();
+         else
+                _gameManager.PauseGame();
+
+    }
+```
+
 ```csharp
  public void PauseGame()
     {
