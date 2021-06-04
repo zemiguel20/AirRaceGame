@@ -34,6 +34,7 @@
     6. [Pausing the game](#Pausing)
 6. [UI](#UI)
    1. [UI Prefab](#UIPrefab)
+   2. [Waypoint](#Waypoint)
 7. [Main Menu](#MainMenu)
 
 
@@ -890,6 +891,14 @@ multiple resolutions.
 There is also a UI script component attached to the root object, which other objects like GameManager can use was an interface
 to manage the UI elements.
 
+### Waypoint <a name="Waypoint"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+Waypoint is an arrow with its own camera. This camera renders its image to an asset of type *Render Texture*. A Waypoint layer is used so that
+only the waypoint is rendered by this camera.
+
+Then a component in the HUD is added which displays this Render Texture.
+
+The waypoint points the location of the current Goal relative to the Player Camera's local transform. 
 
 ## Main Menu <a name="MainMenu"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
