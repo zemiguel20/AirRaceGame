@@ -32,7 +32,8 @@ namespace AirRace.UI.MainMenu
         {
             foreach (var leaderboard in _leaderboards)
             {
-                SaveManager.LoadLeaderboard(leaderboard.name);
+                LeaderboardSerializable serializable = SaveManager.LoadLeaderboard(leaderboard.name);
+                leaderboard.SetFromSerializable(serializable);
             }
         }
     }

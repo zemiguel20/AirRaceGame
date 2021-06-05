@@ -39,5 +39,11 @@ namespace AirRace.Core.SOs
         {
             return new LeaderboardSerializable(LEADERBOARD_SIZE, _leaderboard);
         }
+
+        public void SetFromSerializable(LeaderboardSerializable serializable)
+        {
+            this._leaderboard = new List<float>(serializable.times);
+            this.LEADERBOARD_SIZE = serializable.size;
+        }
     }
 }
