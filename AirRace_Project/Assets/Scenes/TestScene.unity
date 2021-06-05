@@ -1065,6 +1065,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6779204764829637493, guid: 5d2fc930a507e974c929f923470ffa82, type: 3}
+      propertyPath: _leaderboard
+      value: 
+      objectReference: {fileID: 11400000, guid: 416cca4d04744d144a6c9ea5c17ea30c, type: 2}
     - target: {fileID: 7328258520338400919, guid: 5d2fc930a507e974c929f923470ffa82, type: 3}
       propertyPath: m_Name
       value: UI
