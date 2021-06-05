@@ -904,6 +904,11 @@ The waypoint points the location of the current Goal relative to the Player Came
 
 The Main Menu scene is the first scene that opens when the game is launched.
 
-It has a canvas with a background color and a menu.
+It has a canvas with a background color and the various panels.
 
 This menu is has 2 button elements with text. One is *Play* and the oher one *Quit*.
+
+Play opens a Map selector, with box buttons for each map.
+
+When a map is selected, the panel for that map is shown, which shows a preview photo of the map and the leaderboard for that map.
+If the Play button on this panel is clicked, the Scene of the map is loaded.
