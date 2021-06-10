@@ -1430,6 +1430,10 @@ PrefabInstance:
       propertyPath: _eventManager
       value: 
       objectReference: {fileID: 1086948480}
+    - target: {fileID: 2760943830956541724, guid: 52a164781a7949e46998aa5cdfd22216, type: 3}
+      propertyPath: MAX_ACCELERATION
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3180747890983856302, guid: 52a164781a7949e46998aa5cdfd22216, type: 3}
       propertyPath: m_IsKinematic
       value: 1
