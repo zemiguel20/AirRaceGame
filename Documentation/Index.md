@@ -881,11 +881,12 @@ There are different propulsion systems. Our plane uses a propeller propulsion sy
 Calculation of the thrust involves mass flow rate [[13]]. Since we have no air on our game, thrust will be simplified
 to Force = mass * acceleration, which is applied directly on the plane´s forward direction on the *local* Z axis.
 
-The mass of the plane is a constant, but the acceleration is defined by a constant * inputValue.
-
+The acceleration of the plane is given by parameter, and the force is calculated with the weight of the plane.
 
 
 ### Plane Rotation <a name="PlaneRotation"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+![plane rotations](./PhysicsImages/plane_rotation.png)
 
 Plane rotation is produced by the aerodynamic forces that are applied at the center of pressure of control surfaces. [[15]]
 

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class InputController : MonoBehaviour
 {
 
-    [SerializeField] private MovementController _planeMovement;
+    [SerializeField] private AirplaneController _planeMovement;
     [SerializeField] private GameManager _gameManager;
 
     public void OnAccelerate(InputAction.CallbackContext context)
