@@ -11,7 +11,7 @@ namespace AirRace.UI.Race.HUD
         // Update is called once per frame
         void Update()
         {
-            float kmPerH = _player.velocity.magnitude * 3600 / 1000;
+            float kmPerH = _player.velocity.magnitude * 3.6f;
 
             _label.text = Mathf.RoundToInt(kmPerH).ToString() + " km/h";
         }
