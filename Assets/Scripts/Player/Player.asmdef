@@ -1,6 +1,6 @@
 {
     "name": "Player",
-    "rootNamespace": "Player",
+    "rootNamespace": "AirRace.Player",
     "references": [
         "GUID:7ff318a4589694a45926949058573717"
     ],

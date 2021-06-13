@@ -1,6 +1,6 @@
 {
     "name": "UI",
-    "rootNamespace": "UI",
+    "rootNamespace": "AirRace.UI",
     "references": [
         "GUID:7ff318a4589694a45926949058573717",
         "GUID:aaccf970c80f5944db79c6564115ac76",

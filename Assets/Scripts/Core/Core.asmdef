@@ -1,6 +1,6 @@
 {
     "name": "Core",
-    "rootNamespace": "Core",
+    "rootNamespace": "AirRace.Core",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
