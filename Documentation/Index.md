@@ -9,8 +9,7 @@
    3. [Prototyping using ScriptableObjects](#Prototyping)
    4. [Assemblies](#Assemblies)
 2. [Player](#Player)
-    1. [Player Movement](#PlayerMovement)
-        1. [Movement Input](#MovementInput)
+    1. [Airplane Controller](#AirplaneController)
     2. [Input](#Input)
     3. [Plane Colliders](#PlaneColliders)
     4. [Player Camera](#PlayerCamera)
@@ -56,9 +55,6 @@ To increase modularity and decoupling between separate systems, entities, etc., 
 for communication instead of direct calls.
 
 We can use C# events and delegates, explained in the [documentation](https://docs.microsoft.com/en-us/dotnet/standard/events/).
-
-We use a EventManager which holds the events of the game, and can be accessed by all objects so everyone
-can easily subscribe and unsubscribe from events.
 
 
 ### Scriptable Objects <a name="ScriptableObjects"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -120,52 +116,18 @@ This projects assembly organization is represented in the next diagram.
 
 The player is represented by a Plane prefab which has components for Physics like Ridigbody and Colliders, scripts, etc.
 
-### Plane Movement <a name="PlayerMovement"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Airplane Controller <a name="AirplaneController"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-The player movement is controlled by a *MovementController* script, which will control the Rigidbody component.
+This is the controller of the Airplane. Other objects can use this controller to interact with the Airplane.
 
-![player](./PlayerMovementImages/player_prefab.png)
+It can be used to set the input multiplier values of the component AirplanePhysics, which is responsible for the movement of the airplane.
 
-This script has methods to be used on input events, which will influence the movement.
+In AirplanePhysics, movement is calculated every physics step, in *FixedUpdate* calls, as explained in the [documentation](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Rigidbody.html).
 
-Movement is calculated every physics step, in *FixedUpdate* calls, as explained in the [documentation](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Rigidbody.html).
-
-Physics of the plane movement explained in the [Physics](#Physics) section below.
-
-##### Movement Input <a name="MovementInput"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-Parts of the movement calculations rely on *input factors*.
-
-To set this factors, *MovementController* exposes callback methods to be used by Input components.
-
-```csharp
-public class MovementController : MonoBehaviour
-    {
-        private float inputAcceleretion;
-        private float inputAilerons;
-        private float inputElevators;
-
-    (.....)
-
-        public void OnAccelerate(float value)
-        {
-            inputAcceleretion = value;
-        }
-
-        public void OnAileronsMove(float value)
-        {
-            inputAilerons = value;
-        }
-
-        public void OnElevatorsMove(float value)
-        {
-            inputElevators = value;
-        }
-    }
-```
-
+Physics calculations take into account multiple parameters, which can be tweaked through the inspector. Physics of the plane movement explained in the [Physics](#Physics) section.
 
 ### Input <a name="Input"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
 
 For processing input, Unity's InputSystem is used.
 
@@ -211,16 +173,13 @@ public class InputController : MonoBehaviour
 
 ### Plane Colliders <a name="PlaneColliders"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
-The plane has two colliders:
+For the physics engine, a objects shape is represented by its colliders.
 
-- Body Collider
-- Wings Collider
+Each plane as a group of colliders for each part.
 
-![body collider](./PlaneColliderImages/body_collider.png)
+![colliders](./PlaneColliderImages/colliders.png)
 
-![wings collider](./PlaneColliderImages/wings_collider.png)
-
-The BodyCollider has a tag *GoalHitter* which is used in the collision with the Goals.
+Colliders can be tagged with a tag *GoalHitter*. Goals only react with colliders with this tag.
 
 ### Player Camera <a name="PlayerCamera"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
