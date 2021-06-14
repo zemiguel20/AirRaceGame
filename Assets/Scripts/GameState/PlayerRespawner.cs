@@ -1,29 +1,29 @@
 ﻿using AirRace.Core;
-using AirRace.Core.Events;
+using AirRace.Player;
 using System.Collections;
 using UnityEngine;
 
-namespace Player.Assets.Scripts.Player
+namespace AirRace.GameState
 {
     public class PlayerRespawner : MonoBehaviour
     {
-        [SerializeField] private EventManager _eventManager;
-        [SerializeField] private Rigidbody _player;
+        [SerializeField] private AirplaneController _airplaneController;
 
         private Vector3 respawnPoint;
         private Quaternion respawnRotation;
 
         void Start()
         {
-            respawnPoint = _player.position;
-            respawnRotation = _player.rotation;
+            PositionRotationTuple tuple = _airplaneController.PlanePositionAndRotation();
+            respawnPoint = tuple.Position;
+            respawnRotation = tuple.Rotation;
 
-            _eventManager.GoalPassed += UpdateRespawn;
+            _airplaneController.TerrainHit += OnTerrainHit;
         }
 
         private void OnDisable()
         {
-            _eventManager.GoalPassed -= UpdateRespawn;
+            _airplaneController.TerrainHit -= OnTerrainHit;
         }
 
         public void UpdateRespawn(GameObject goal)
@@ -34,23 +34,22 @@ namespace Player.Assets.Scripts.Player
             GameLogger.Debug("Respawn updated.");
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTerrainHit()
         {
             StartCoroutine(Respawn());
         }
 
         private IEnumerator Respawn()
         {
-            _player.isKinematic = true;
+            _airplaneController.EnablePhysics(false);
 
             yield return new WaitForSeconds(0.3f);
 
-            _player.position = respawnPoint;
-            _player.rotation = respawnRotation;
+            _airplaneController.SetPlanePositionAndRotation(new PositionRotationTuple(respawnPoint, respawnRotation));
 
             yield return new WaitForSeconds(0.3f);
 
-            _player.isKinematic = false;
+            _airplaneController.EnablePhysics(true);
 
         }
     }

@@ -3,15 +3,16 @@ using UnityEngine;
 
 namespace AirRace.Player
 {
+    [RequireComponent(typeof(Rigidbody))]
     public class AirplanePhysics : MonoBehaviour
     {
-        [NonSerialized] public float rollInputMultiplier;
-        [NonSerialized] public float pitchInputMultiplier;
-        [NonSerialized] public float yawInputMultiplier;
-        [NonSerialized] public float thrustInputMultiplier;
 
+        public Rigidbody Plane { get; private set; }
 
-        [SerializeField] private Rigidbody _plane;
+        [NonSerialized] public float RollInputMultiplier;
+        [NonSerialized] public float PitchInputMultiplier;
+        [NonSerialized] public float YawInputMultiplier;
+        [NonSerialized] public float ThrustInputMultiplier;
 
         [SerializeField] [Tooltip("Acceleration in m/s^2")] [Min(0)] private float _thrustAcceleration;
 
@@ -21,6 +22,11 @@ namespace AirRace.Player
 
 
 
+        private void Awake()
+        {
+            Plane = GetComponent<Rigidbody>();
+        }
+
         private void FixedUpdate()
         {
             ApplyThrustForce();
@@ -29,19 +35,19 @@ namespace AirRace.Player
 
         private void ApplyThrustForce()
         {
-            float magnitude = _thrustAcceleration * thrustInputMultiplier;
+            float magnitude = _thrustAcceleration * ThrustInputMultiplier;
             Vector3 direction = Vector3.forward;
 
-            _plane.AddRelativeForce(direction * magnitude, ForceMode.Acceleration);
+            Plane.AddRelativeForce(direction * magnitude, ForceMode.Acceleration);
         }
 
         private void ApplyRotationForces()
         {
-            Vector3 rollComponent = _rollForceMultiplier * rollInputMultiplier * Vector3.forward;
-            Vector3 pitchComponent = _pitchForceMultiplier * pitchInputMultiplier * Vector3.right;
-            Vector3 yawComponent = _yawForceMultiplier * yawInputMultiplier * Vector3.up;
-            Vector3 torque = _plane.velocity.magnitude * (rollComponent + pitchComponent + yawComponent);
-            _plane.AddRelativeTorque(torque, ForceMode.Force);
+            Vector3 rollComponent = _rollForceMultiplier * RollInputMultiplier * Vector3.forward;
+            Vector3 pitchComponent = _pitchForceMultiplier * PitchInputMultiplier * Vector3.right;
+            Vector3 yawComponent = _yawForceMultiplier * YawInputMultiplier * Vector3.up;
+            Vector3 torque = Plane.velocity.magnitude * (rollComponent + pitchComponent + yawComponent);
+            Plane.AddRelativeTorque(torque, ForceMode.Force);
         }
     }
 }
