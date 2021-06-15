@@ -109,7 +109,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1681466764414533927}
         m_TargetAssemblyTypeName: InputController, Input
-        m_MethodName: OnPauseGame
+        m_MethodName: OnPauseUnpauseGame
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

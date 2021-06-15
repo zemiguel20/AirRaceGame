@@ -24,7 +24,7 @@ public class InputController : MonoBehaviour
         _planeMovement.OnElevatorsMove(context.ReadValue<float>());
     }
 
-    public void OnPauseGame(InputAction.CallbackContext context)
+    public void OnPauseUnpauseGame(InputAction.CallbackContext context)
     {
         if (context.started)
         {
@@ -33,6 +33,5 @@ public class InputController : MonoBehaviour
             else
                 _gameManager.PauseGame();
         }
-
     }
 }
