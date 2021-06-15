@@ -8,11 +8,6 @@ namespace AirRace.Player
     {
         public delegate void TerrainHitHandler();
         public event TerrainHitHandler TerrainHit;
-
-        // TODO -  move sensivity to input
-        [SerializeField] [Range(0, 1)] private float _rotationInputSensivity;
-        [SerializeField] [Range(0, 1)] private float _accelerateInputSensivity;
-
         private AirplanePhysics _airplanePhysics;
 
         private void Awake()
@@ -22,27 +17,27 @@ namespace AirRace.Player
 
         private void OnCollisionEnter()
         {
-            TerrainHit.Invoke();
+            TerrainHit?.Invoke();
         }
 
         public void OnAccelerate(float inputValue)
         {
-            _airplanePhysics.ThrustInputMultiplier = inputValue * _accelerateInputSensivity;
+            _airplanePhysics.ThrustInputMultiplier = inputValue;
         }
 
         public void OnAileronsMove(float inputValue)
         {
-            _airplanePhysics.RollInputMultiplier = inputValue * _rotationInputSensivity;
+            _airplanePhysics.RollInputMultiplier = inputValue;
         }
 
         public void OnElevatorsMove(float inputValue)
         {
-            _airplanePhysics.PitchInputMultiplier = inputValue * _rotationInputSensivity;
+            _airplanePhysics.PitchInputMultiplier = inputValue;
         }
 
         public void OnRudderMove(float inputValue)
         {
-            _airplanePhysics.YawInputMultiplier = inputValue * _rotationInputSensivity;
+            _airplanePhysics.YawInputMultiplier = inputValue;
         }
 
         public void EnablePhysics(bool value)
