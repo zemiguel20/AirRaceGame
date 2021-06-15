@@ -612,6 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dfc8f23a7990e44eb453b79eedac016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameManager: {fileID: 0}
   _timeText: {fileID: 1834891467569062889}
   _leaderboardText: {fileID: 7294026837112112335}
   _leaderboard: {fileID: 0}
@@ -2307,7 +2308,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8926387985674970044}
-  - component: {fileID: 1844280555971927409}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -2331,20 +2331,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1844280555971927409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7328258520338400919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad940d096cda50741ae14c9a82499e72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EndGamePanel: {fileID: 6779204764829637493}
-  PauseMenu: {fileID: 7960810439150065620}
 --- !u!1 &7926170351152773751
 GameObject:
   m_ObjectHideFlags: 0
