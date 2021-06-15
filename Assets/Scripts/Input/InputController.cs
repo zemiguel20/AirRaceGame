@@ -27,6 +27,11 @@ public class InputController : MonoBehaviour
         _planeMovement.OnElevatorsMove(context.ReadValue<float>() * _rotationInputSensivity);
     }
 
+    public void OnRudderMove(InputAction.CallbackContext context)
+    {
+        _planeMovement.OnRudderMove(context.ReadValue<float>() * _rotationInputSensivity);
+    }
+
     public void OnPauseUnpauseGame(InputAction.CallbackContext context)
     {
         if (context.started)

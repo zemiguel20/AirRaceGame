@@ -30,6 +30,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "RudderMove",
+                    "type": "Value",
+                    "id": "168d3b3c-e0a2-448f-9601-4b8f26dfd799",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Pause/Unpause",
                     "type": "Button",
                     "id": "5ce094c3-5e7f-4dbe-a57a-5a3a462eea3a",
@@ -247,6 +255,72 @@
                     "action": "Pause/Unpause",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "660564f0-4d8a-47cb-b83a-fa06cdd5f40e",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RudderMove",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "4b6e1812-1f72-4b25-a909-939ed48736ee",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "RudderMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "1bbdf648-00a3-4eea-90a3-7e4683f60f80",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "RudderMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "9032d06d-2fe1-4f7b-af29-8123197ee383",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RudderMove",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "e5938ccd-367f-4413-b928-ed12ea699158",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "RudderMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "5c626c99-d2e2-4249-86ab-96c5d218787d",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "RudderMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

@@ -121,6 +121,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5ce094c3-5e7f-4dbe-a57a-5a3a462eea3a
     m_ActionName: PlayerControls/Pause/Unpause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1681466764414533927}
+        m_TargetAssemblyTypeName: InputController, Input
+        m_MethodName: OnRudderMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 168d3b3c-e0a2-448f-9601-4b8f26dfd799
+    m_ActionName: PlayerControls/RudderMove[/Keyboard/q,/Keyboard/e,/XInputControllerWindows/leftShoulder,/XInputControllerWindows/rightShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: PlayerControls
@@ -140,3 +156,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _planeMovement: {fileID: 0}
   _gameManager: {fileID: 0}
+  _rotationInputSensivity: 0
+  _accelerateInputSensivity: 0
