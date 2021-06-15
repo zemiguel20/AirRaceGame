@@ -39,16 +39,14 @@ In this game we have isolated scenes, where 1 is the Main Menu scene and the oth
 
 The base objects/components that compose each scene are represented in the following diagram:
 
-![domaindiagram](./ArchitectureImages/domaindiagram.png)
-
-- explain Event based communication
+![domaindiagram](./ArchitectureImages/AirRaceDomain.png)
 
 ### Events <a name="Events"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 To increase modularity and decoupling between separate systems, entities, etc., we can use events
 for communication instead of direct calls.
 
-We can use C# events and delegates, explained in the [documentation](https://docs.microsoft.com/en-us/dotnet/standard/events/).
+We can use C# events and delegates, which follow the Observer pattern. Explained in the [documentation](https://docs.microsoft.com/en-us/dotnet/standard/events/).
 
 
 ### Scriptable Objects <a name="ScriptableObjects"></a> <a href="#Index" style="font-size:13px">(index)</a>
