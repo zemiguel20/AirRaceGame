@@ -2343,7 +2343,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad940d096cda50741ae14c9a82499e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CountdownTimerUI: {fileID: 6730589925642925078}
   EndGamePanel: {fileID: 6779204764829637493}
   PauseMenu: {fileID: 7960810439150065620}
 --- !u!1 &7926170351152773751
@@ -2478,6 +2477,7 @@ GameObject:
   - component: {fileID: 1743013809900038203}
   - component: {fileID: 8980643632596300794}
   - component: {fileID: 8936008302227823487}
+  - component: {fileID: 1559285720433996694}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -2546,6 +2546,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1559285720433996694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960810439150065620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16e52049fa2069f49849c170f64cd9d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameManager: {fileID: 0}
 --- !u!1 &8933566882714769593
 GameObject:
   m_ObjectHideFlags: 0
@@ -2693,7 +2706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0b2d99316ee0d84d9ef2cfddf6a1e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tmpText: {fileID: 8529957725354423043}
+  _gameManager: {fileID: 0}
 --- !u!1 &9045415321635634453
 GameObject:
   m_ObjectHideFlags: 0
