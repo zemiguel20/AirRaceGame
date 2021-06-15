@@ -26,9 +26,6 @@ namespace AirRace.Race
         #endregion
 
         #region Events
-        public delegate void CountdownStartedHandler();
-        public event CountdownStartedHandler CountdownStarted;
-
         public delegate void RaceEndHandler();
         public event RaceEndHandler RaceEnded;
 
@@ -73,7 +70,6 @@ namespace AirRace.Race
             _airplaneController.EnablePhysics(false);
 
             StartCoroutine(_timer.StartTimer(5));
-            CountdownStarted?.Invoke();
         }
 
         private void StartRace()
