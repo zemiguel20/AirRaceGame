@@ -2,7 +2,8 @@
     "name": "Race",
     "rootNamespace": "AirRace.Race",
     "references": [
-        "GUID:7ff318a4589694a45926949058573717"
+        "GUID:7ff318a4589694a45926949058573717",
+        "GUID:aaa79f00c09754e448248b9c7c72c0e0"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

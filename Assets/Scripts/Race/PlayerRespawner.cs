@@ -3,7 +3,7 @@ using AirRace.Player;
 using System.Collections;
 using UnityEngine;
 
-namespace AirRace.GameState
+namespace AirRace.Race
 {
     public class PlayerRespawner : MonoBehaviour
     {
