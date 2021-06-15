@@ -50,10 +50,13 @@ namespace AirRace.Race
             }
         }
 
+        private void Awake()
+        {
+            _timer = new Timer();
+        }
 
         private void Start()
         {
-            _timer = new Timer();
             Timer.TimerEnded += StartRace;
 
             foreach (Goal goal in _pathManager.Goals)
