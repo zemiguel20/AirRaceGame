@@ -13,6 +13,7 @@
     2. [Input](#Input)
     3. [Plane Colliders](#PlaneColliders)
     4. [Player Camera](#PlayerCamera)
+    5. [Hit terrain and respawn](#Respawn) 
 3. [Race](#Race)
     1. [Goals](#Goals)
     2. [Race Controller](#RaceController)
@@ -201,6 +202,48 @@ Then we use *LookAt* function to rotate the camera to look at the player.
 ```scharp
 this.transform.LookAt(player);
 ```
+
+### Hit terrain and respawn <a name="Respawn"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+A script *PlayerRespawner* is added as a component to the Plane. When a TerrainHit event happens, it triggers the player *Respawn* as a coroutine.
+
+```csharp
+private void OnTerrainHit()
+        {
+            StartCoroutine(Respawn());
+        }
+
+private IEnumerator Respawn()
+        {
+            _airplaneController.EnablePhysics(false);
+
+            yield return new WaitForSeconds(0.3f);
+
+            _airplaneController.SetPlanePositionAndRotation(new PositionRotationTuple(respawnPoint, respawnRotation));
+
+            yield return new WaitForSeconds(0.3f);
+
+            _airplaneController.EnablePhysics(true);
+
+        }
+```
+First, forces on the plane are disabled.
+Then it stops for a small time for the player to recognize it collided and his going to respawn.
+Then the player position and rotation are set to the ones saved as variables and stops for a small time again for the
+player to prepare. Finally enables forces on the plane again.
+
+The saved respawn position and rotation start off as the starting point of the race.
+
+This component listens for the *GoalPassed* event, and when raised, the respawn transform is updated to the passed Goal transform.
+
+```csharp
+public void UpdateRespawn(GameObject goal)
+        {
+            respawnPoint = goal.transform.position;
+            respawnRotation = goal.transform.rotation;
+        }
+```
+
 
 ## Race <a name="Race"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
