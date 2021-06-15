@@ -15,25 +15,18 @@
     4. [Player Camera](#PlayerCamera)
     5. [Hit terrain and respawn](#Respawn) 
 3. [Race](#Race)
-    1. [Goals](#Goals)
-    2. [Race Controller](#RaceController)
-    3. [Path Manager](#PathManager)
-    4. [Chronometer](#Chronometer)
-    5. [Hit terrain and respawn](#Respawn) 
-4. [Leaderboard](#Leaderboard)
-5. [Game State/Flow](#GameState)
-    1. [States](#States)
+    1. [Race State/Flow](#RaceState)
     2. [Game Manager](#GameManager)
-       1. [State class](#StateClass) 
-    3. [Countdown](#CountdownState)
-    4. [Race](#RaceState)
-    5. [End Game](#EndGameState)
-    6. [Pausing the game](#Pausing)
-6. [UI](#UI)
+    3. [Goals](#Goals)
+    4. [Path Manager](#PathManager)
+    5. [Chronometer](#Chronometer)
+    6. [Leaderboard](#Leaderboard)
+    7. [Pausing the game](#Pausing)
+4. [UI](#UI)
    1. [UI Prefab](#UIPrefab)
    2. [Waypoint](#Waypoint)
-7. [Main Menu](#MainMenu)
-8. [Physics](#Physics)
+5. [Main Menu](#MainMenu)
+6. [Physics](#Physics)
 
 
 ## Architecture <a name="Architecture"></a> <a href="#Index" style="font-size:13px">(index)</a>
@@ -254,7 +247,81 @@ The player has to pass through the goals in the order they are defined.
 
 A chronometer tracks the time passed from start of the race until the last goal is reached.
 
-The path and chronometer management is done by *RaceController*.
+Each map has a leaderboard of the top player times.
+
+### Race State/Flow <a name="RaceState"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+The game flow is divided into a sequence of phases.
+
+![states](./GameStateImages/state_diagram.png)
+
+The game starts on the *Countdown* phase, where only a countdown happens to let the player prepare.
+
+Then it transitions to the Race phase, where the player can move around the map and the time and score start counting.
+
+Then when the player finishes the race, it transitions to the End Game phase, where the leaderboard is updated and is displayed in a panel.
+
+At any moment, the game can also be Paused and Resumed.
+
+To coordinate the flow of the events of the game, a GameManager is used.
+
+### Game Manager <a name="GameManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+
+The GameManager controls the flow of the race.
+
+It starts by starting the countdown. Airplane movent is disabled during this phase.
+
+```csharp
+private void StartCountdown()
+        {
+            _airplaneController.EnablePhysics(false);
+
+            StartCoroutine(_timer.StartTimer(5));
+        }
+```
+When the *TimerEnded* event is raised, then it starts the race. The race path is initialized, the chronometer is started and the airplane movement is activated.
+
+```csharp
+private void StartRace()
+        {
+            _chronometer.StartChrono();
+            _pathManager.StartPath();
+
+            _airplaneController.EnablePhysics(true);
+        }
+```
+
+During the race, when a Goal is passed, a *GoalPassed* event is raised. GameManager listens for this event and tells the PathManager to change the active goal. If this was the last goal and the race is finished, then it changes to the EndGame phase.
+
+```csharp
+private void OnGoalPassed(Goal goal)
+        {
+            _pathManager.ChangeActiveGoal();
+
+            if (_pathManager.IsFinished())
+            {
+                EndRace();
+            }
+        }
+```
+
+When the game ends, the chronometer and the airplane movement are both stopped. Then the leaderboard is updated and saved to a file.
+
+```csharp
+private void EndRace()
+        {
+            _chronometer.StopChrono();
+            _airplaneController.EnablePhysics(false);
+
+            //Save leaderboard
+            _leaderboard.AddEntry(_chronometer.time);
+            SaveManager.SaveLeaderboard(_leaderboard.ToSerializable(), _leaderboard.name);
+
+            RaceEnded?.Invoke();
+        }
+```
+
 
 ### Goals <a name="Goals"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
@@ -269,28 +336,16 @@ private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("GoalHitter"))
         {
-            _eventManager.RaiseGoalPassedEvent(this.gameObject);
+            GoalPassed?.Invoke(this);
         }
     }
 ```
 
-### Race Controller <a name="RaceController"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-A Prefab which manages the Race path and chronometer. It has a *PathManager* component and a *Chronometer* component.
-
-###### Race Start
-
-RaceController listens for the *RaceStarted* event. When raised, it initializes the path and starts the chronometer.
-
-###### Passing Goals
-
-RaceController listens for the *GoalPassed* event. When raised, it changes the active goal to the next.
-
-If the last goal was passed and there is no next goal on the path, then *RaceEnded* event is raised.
-
 ### Path Manager <a name="PathManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 Component that manages a list of Goals during the race.
+
+The GameManager uses this component to control the race path during the race.
 
 ###### Race Path
 
@@ -378,52 +433,7 @@ public void StopChrono()
         }
 ```
 
-
-### Hit terrain and respawn <a name="Respawn"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-A script *PlayerRespawner* is added as a component to the Plane. When a collision happens, it triggers the player *Respawn*
-as a coroutine.
-
-```csharp
-private void OnCollisionEnter(Collision collision)
-    {
-        StartCoroutine(Respawn());
-    }
-
-private IEnumerator Respawn()
-    {
-        plane.isKinematic = true;
-
-        yield return new WaitForSeconds(0.3f);
-
-        plane.transform.position = respawnPosition;
-        plane.transform.rotation = respawnRotation;
-
-        yield return new WaitForSeconds(0.3f);
-
-        plane.isKinematic = false;
-    }
-```
-First, forces on the plane are disabled.
-Then it stops for a small time for the player to recognize it collided and his going to respawn.
-Then the player position and rotation are set to the ones saved as variables and stops for a small time again for the
-player to prepare. Finally enables forces on the plane again.
-
-The saved respawn position and rotation start off as the starting point of the race.
-
-This component listens for the *GoalPassed* event, and when raised, the respawn transform is updated
-to the passed Goal transform.
-
-```csharp
-public void UpdateRespawn(GameObject goal)
-        {
-            respawnPoint = goal.transform.position;
-            respawnRotation = goal.transform.rotation;
-        }
-```
-
-
-## Leaderboard <a name="Leaderboard"></a> <a href="#Index" style="font-size:13px">(index)</a>
+### Leaderboard <a name="Leaderboard"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 Each race map has a Leaderboard of the best times.
 
@@ -455,280 +465,25 @@ so it will be a ScriptableObject.
 
     (....)
     }
-````
+```
 
 Also we have the *LeaderboardSerializable*, a class marked as *Serializable*, which represents the
 Leaderboard in a form that can be *persisted in a binary file* by the *SaveManager*.
 
-## Game State/Flow <a name="GameState"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-To coordinate the flow of the events of the game, Manager objects are used. <br>
-Managers are organized in a hierarchy, and the Root normally is the Game Manager.
-
-### States <a name="States"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-Each state describes a different phase of the game, where the behaviour of the game changes and
-the actions that can be done may change as well.
-
-The state/phase flow of the game is represented in the following image.
-
-![states](./GameStateImages/state_diagram.png)
-
-The game starts on the *Countdown* phase, where only a countdown happens to let the player prepare.
-
-Then it transitions to the Race phase, where the player can move around the map and the time and score
-start counting.
-
-Then when the player finishes the race, it transitions to the End Game phase, where a panel with the
-results appear.
-
-### Game Manager <a name="GameManager"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-- Review
-
-The Game Manager is a Prefab with a GameManager script component.
-
-It acts as a state machine, and follows the [State Pattern](https://refactoring.guru/design-patterns/state). <br>
-The implementation follows [this video](https://youtu.be/G1bd75R10m4) as example, and it uses
-[Coroutines](https://docs.unity3d.com/2021.1/Documentation/Manual/Coroutines.html)
-
-The *State* type is an Interface which defines a set of actions that can be done in a State. Then each
-class implementation of State defines the behaviour of each action in its own way.
-
-The GameManager class has State attribute which represents the *current* state
-```csharp
-private State state;
-```
-and a method for changing the current state.
-```csharp
-public void SetState(State newState)
-    {
-        this.state = newState;
-        StartCoroutine(this.state.Start());
-    }
-```
-This method sets the current state to the given state, and *starts a Coroutine*, calling the *Start action*
-of the state.
-
-Also, it has methods to be called from outside, for example, when an event occurs that calls an action:
-```csharp
-public void PauseGame()
-    {
-        state.Pause();
-    }
-```
-
-The GameManager has as attributes other objects and variables, which States can get.
-
-##### State class <a name="StateClass"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-
-
-Since in C# we have inheritance, we will use an abstract class to represent the State interface, which
-will have a default empty implementation for each action (no behaviour, does nothing when action called).
-
-```csharp
-public abstract class State
-    {
-        ...
-
-        public virtual IEnumerator Start()
-        {
-            yield break;
-        }
-        
-        ...
-
-    }
-```
-
-This allows to keep implementation classes more clean, by just overriding behaviour of the actions that
-do matter for that specific state.
-
-Also we return a *IEnumerator* so the actions can be called in a Coroutine.
-
-GameManager class is also added as a protected attribute for backreferencing, 
-since implementation classes most likely will need access to it.
-
-```csharp
-public abstract class State
-    {
-        protected GameManager gameManager;
-
-        public State(GameManager gameManager)
-        {
-            this.gameManager = gameManager;
-        }
-        ...
-    }
-```
-
-An example implementation of a State can be the *InitialCountdownState*
-
-```csharp
-public class InitialCountdownState : State
-    {
-        private int initialCountdown = 3;
-
-        private UIManager _UI;
-
-        public InitialCountdownState(GameManager gameManager) : base(gameManager)
-        {
-            _UI = gameManager.GetUIManager();
-        }
-
-        public override IEnumerator Start()
-        {
-            _UI.SetCountdownTimerActive(true);
-
-            _UI.SetCountdownTimerText("Starting in...");
-            yield return new WaitForSeconds(1.5f);
-
-            for (int i = initialCountdown; i > 0; i--)
-            {
-                _UI.SetCountdownTimerText(i.ToString());
-                yield return new WaitForSeconds(1);
-            }
-
-            _UI.SetCountdownTimerText("GO");
-            gameManager.SetState(new RaceState(gameManager));
-
-            yield return new WaitForSeconds(1);
-
-            _UI.SetCountdownTimerActive(false);
-        }
-    }
-```
-
-### Countdown <a name="CountdownState"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-This state overrides the *Start* action and uses the *initialCountdown* and *UI* from GameManager.
-
-```csharp
-public override IEnumerator Start()
-        {
-            UI.SetCountdownTimerActive(true);
-
-            UI.SetCountdownTimerText("Starting in...");
-            yield return new WaitForSeconds(1.5f);
-
-            for (int i = initialCountdown; i > 0; i--)
-            {
-                UI.SetCountdownTimerText(i.ToString());
-                yield return new WaitForSeconds(1);
-            }
-
-            UI.SetCountdownTimerText("GO");
-            gameManager.SetState(new RaceState(gameManager));
-
-            yield return new WaitForSeconds(1);
-
-            UI.SetCountdownTimerActive(false);
-        }
-```
-
-In the Start coroutine, the UI part of the countdown timer is set active, and by using WaitForSeconds and updating the
-text that the UI displays, we show a countdown timer.
-
-When the countdown timer ends, a "Go" message is displayed and the state changes to Race.
-
-Then it waits a bit before disabling the display of the countdown and terminating the coroutine.
-
-### Race <a name="RaceState"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-This state overrides the *Start*, *Pause* and *Resume* actions and uses the *RaceManager*, *Player* and *UI* from GameManager.
-The Pause and Resume will be covered in the [Pausing section](#Pausing)
-
-On Start, it basically raises the *RaceStarted* event.
-
-```csharp
-public override IEnumerator Start()
-        {
-            _eventManager.RaiseRaceStartedEvent();
-            yield break;
-        }
-```
-
-### End Game <a name="EndGameState"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-The GameManager listens to the *RaceEnded* event, which when raise sets the State to EndGameState.
-
-In this state, the leaderboard is updated with the player time and saved using the SaveManager,  
-and the EndGame Panel in the UI is activated.
-
-```csharp
-public override IEnumerator Start()
-{
-    //Save leaderboard
-    _leaderboard.AddEntry(playerTime);
-    SaveManager.SaveLeaderboard(_leaderboard.ToSerializable(), _leaderboard.name);
-
-    _UI.SetEndGamePanelActive(true);
-    _UI.SetEndGamePanelInfo(playerTime);
-
-    yield break;
-}
-```
 
 ### Pausing the game <a name="Pausing"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 The [player Input action map](#Input) has a keybind for pausing and unpausing the game.
 
-We bind to the callback in InputManager's *OnPauseGame*.
-
-The InputManager checks the GameManager if the game is paused or not, and calls the GameManager call back acordingly.
-
-Due to how the InputSystem works, we check state of the input action in the context, as we only want to do something
-the moment the button is pressed.
-
-```csharp
- public void OnPauseGame(InputAction.CallbackContext context)
-    {
-         if (GameManager.isPaused)
-                _gameManager.ResumeGame();
-         else
-                _gameManager.PauseGame();
-
-    }
-```
-
-```csharp
- public void PauseGame()
-    {
-        StartCoroutine(state.Pause());
-    }
-
- public void ResumeGame()
-    {
-        StartCoroutine(state.Resume());
-    }
-```
-
-Currently, these actions are only implemented by the Race state.
-```csharp
-public override IEnumerator Pause()
-        {
-            Time.timeScale = 0;
-            GameManager.isPaused = true;
-            UI.SetPauseMenuActive(true);
-            yield break;
-        }
-
-public override IEnumerator Resume()
-        {
-            Time.timeScale = 1;
-            GameManager.isPaused = false;
-            UI.SetPauseMenuActive(false);
-            yield break;
-        }
-```
-Depending on if its Pause or Resume, the Pause Menu is displayed or not and the time scale and paused flag are set accordingly.
+The GameManager switched between the two, and the time scale and paused flag are set accordingly.
 
 As said in the [documentation](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Time-timeScale.html),
 the time scale *"is the scale at which time passes"*. 
 
 *"When timeScale is 1.0, time passes as fast as real time." ... 
 "When timeScale is set to zero your application acts as if paused if all your functions are frame rate independent."*. 
+
+Also, when the game is paused, a PauseMenu is displayed.
 
 ## UI <a name="UI"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
@@ -865,10 +620,6 @@ Drag acts in a direction that is opposite to the motion of the aircraft."
 Drag has multiple components, such has form drag and induced drag.
 
 The factors that affect the drag are similar to lift, and so the Drag Equation is similar to the lift equation too. [[14]]
-
-Unity's physics system simulates drag on Rigidbodys, we just have to set the Drag Coefficient value.
-
-![drag_value](./PhysicsImages/drag_value.png)
 
 
 #### Thrust <a name="Thrust"></a> <a href="#Index" style="font-size:13px">(index)</a>
