@@ -1,4 +1,5 @@
 using AirRace.Core.SOs;
+using AirRace.Race;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -7,13 +8,27 @@ namespace AirRace.UI.Race
 {
     public class EndGamePanel : MonoBehaviour
     {
+        [SerializeField] private GameManager _gameManager;
         [SerializeField] private TextMeshProUGUI _timeText;
         [SerializeField] private TextMeshProUGUI _leaderboardText;
         [SerializeField] private LeaderboardSO _leaderboard;
 
-        public void SetInfo(float playerTime)
+        private void Start()
         {
-            _timeText.text = playerTime.ToString("F2");
+            gameObject.SetActive(false);
+
+            _gameManager.RaceEnded += ShowPanel;
+        }
+
+        private void OnDestroy()
+        {
+            _gameManager.RaceEnded -= ShowPanel;
+        }
+
+
+        public void ShowPanel()
+        {
+            _timeText.text = _gameManager.Chronometer.time.ToString("F2");
 
             StringBuilder sb = new StringBuilder();
 
@@ -33,6 +48,8 @@ namespace AirRace.UI.Race
 
             _leaderboardText.text = sb.ToString();
 
+
+            gameObject.SetActive(true);
         }
     }
 }
