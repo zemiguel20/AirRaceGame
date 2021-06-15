@@ -1,7 +1,6 @@
-using AirRace.Core.Events;
+using AirRace.Core;
 using AirRace.Core.SOs;
-using AirRace.GameState.States;
-using AirRace.UI.Race;
+using AirRace.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,51 +8,106 @@ namespace AirRace.Race
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private EventManager _eventManager;
-        [SerializeField] private UIManager _UIManager;
         [SerializeField] private LeaderboardSO _leaderboard;
+        [SerializeField] private AirplaneController _airplaneController;
+        [SerializeField] private Chronometer _chronometer;
+        [SerializeField] private PathManager _pathManager;
 
-        public static bool isPaused = false;
+        private Timer _timer;
+        private bool _isPaused = false;
 
-        private State state;
 
-        public EventManager GetEventManager()
-        {
-            return _eventManager;
-        }
+        #region Getters
+        public LeaderboardSO Leaderboard { get => _leaderboard; }
+        public Timer Timer { get => _timer; }
+        public AirplaneController AirplaneController { get => _airplaneController; }
+        public Chronometer Chronometer { get => _chronometer; }
+        public PathManager PathManager { get => _pathManager; }
+        #endregion
 
-        public UIManager GetUIManager()
-        {
-            return _UIManager;
-        }
+        #region Events
+        public delegate void CountdownStartedHandler();
+        public event CountdownStartedHandler CountdownStarted;
 
-        public LeaderboardSO GetLeaderboard()
-        {
-            return _leaderboard;
-        }
+        public delegate void RaceEndHandler();
+        public event RaceEndHandler RaceEnded;
 
-        private void Start()
-        {
-            _eventManager.RaceEnded += OnRaceEnd;
+        public delegate void GamePausedHandler();
+        public event GamePausedHandler GamePaused;
 
-            SetState(new InitialCountdownState(this));
-        }
+        public delegate void GameResumedHandler();
+        public event GameResumedHandler GameResumed;
+        #endregion
+
 
         private void OnDisable()
         {
-            _eventManager.RaceEnded -= OnRaceEnd;
+            Timer.TimerEnded -= StartRace;
+
+            foreach (Goal goal in _pathManager.Goals)
+            {
+                goal.GoalPassed -= OnGoalPassed;
+            }
         }
 
-        public void SetState(State newState)
+
+        private void Start()
         {
-            state = newState;
-            StartCoroutine(state.Start());
+            _timer = new Timer();
+            Timer.TimerEnded += StartRace;
+
+            foreach (Goal goal in _pathManager.Goals)
+            {
+                goal.GoalPassed += OnGoalPassed;
+            }
+
+            StartCountdown();
         }
 
-        public void OnRaceEnd(float time)
+        #region Race Sequence
+        private void StartCountdown()
         {
-            SetState(new EndGameState(this, time));
+            _airplaneController.EnablePhysics(false);
+
+            StartCoroutine(_timer.StartTimer(5));
+            CountdownStarted?.Invoke();
         }
+
+        private void StartRace()
+        {
+            GameLogger.Debug("Race Started!");
+
+            _chronometer.StartChrono();
+            _pathManager.StartPath();
+
+            _airplaneController.EnablePhysics(true);
+        }
+
+        private void OnGoalPassed(Goal goal)
+        {
+            _pathManager.ChangeActiveGoal();
+
+            if (_pathManager.IsFinished())
+            {
+                EndRace();
+            }
+        }
+
+        private void EndRace()
+        {
+            _chronometer.StopChrono();
+            _airplaneController.EnablePhysics(false);
+
+            GameLogger.Debug("Race Finished: " + _chronometer.time);
+
+            //Save leaderboard
+            _leaderboard.AddEntry(_chronometer.time);
+            SaveManager.SaveLeaderboard(_leaderboard.ToSerializable(), _leaderboard.name);
+
+            RaceEnded?.Invoke();
+        }
+        #endregion
+
 
 
         public void ExitToMenu()
@@ -68,14 +122,20 @@ namespace AirRace.Race
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
-        public void PauseGame()
+        public void PauseResumeGame()
         {
-            StartCoroutine(state.Pause());
-        }
-
-        public void ResumeGame()
-        {
-            StartCoroutine(state.Resume());
+            if (_isPaused)
+            {
+                Time.timeScale = 1;
+                _isPaused = false;
+                GameResumed?.Invoke();
+            }
+            else
+            {
+                Time.timeScale = 0;
+                _isPaused = true;
+                GamePaused?.Invoke();
+            }
         }
 
     }

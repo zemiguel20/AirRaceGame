@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4070240514383966983}
-  - component: {fileID: 4070240514383966982}
+  - component: {fileID: 3430390760657645654}
+  - component: {fileID: 2905209449413546404}
+  - component: {fileID: 1196239973451643522}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -31,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4070240514383966982
+--- !u!114 &3430390760657645654
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,7 +42,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 4070240514383966976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f78dc7e443754464997338ed97675bf3, type: 3}
+  m_Script: {fileID: 11500000, guid: 9312058ede90c8148b64bb96fe095c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _eventManager: {fileID: 0}
+  _leaderboard: {fileID: 11400000, guid: 416cca4d04744d144a6c9ea5c17ea30c, type: 2}
+  _airplaneController: {fileID: 0}
+  _chronometer: {fileID: 1196239973451643522}
+  _pathManager: {fileID: 2905209449413546404}
+--- !u!114 &2905209449413546404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4070240514383966976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0160ff933f9871f45a22ba4fee7e677a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _goals:
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &1196239973451643522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4070240514383966976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cad93f91818d224fb6986d0198ec20c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

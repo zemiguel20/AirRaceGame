@@ -6,7 +6,8 @@ namespace AirRace.Race
 {
     public class PathManager : MonoBehaviour
     {
-        [SerializeField] private List<Goal> goals;
+        [SerializeField] private List<Goal> _goals;
+        public List<Goal> Goals => new List<Goal>(_goals);
 
         private int currentGoalIndex;
 
@@ -15,7 +16,7 @@ namespace AirRace.Race
             GameLogger.Debug("Path Started");
 
             //Turns off goals
-            foreach (Goal goal in goals)
+            foreach (Goal goal in _goals)
             {
                 goal.gameObject.SetActive(false);
             }
@@ -26,14 +27,14 @@ namespace AirRace.Race
 
         public void ChangeActiveGoal()
         {
-            if (currentGoalIndex < goals.Count)
+            if (currentGoalIndex < _goals.Count)
             {
                 SetGoalStatus(currentGoalIndex, false);
                 currentGoalIndex++;
                 GameLogger.Debug("Goal passed! Num of goals passed: " + currentGoalIndex);
             }
 
-            if (currentGoalIndex < goals.Count)
+            if (currentGoalIndex < _goals.Count)
             {
                 SetGoalStatus(currentGoalIndex, true);
             }
@@ -41,24 +42,24 @@ namespace AirRace.Race
 
         private void SetGoalStatus(int index, bool status)
         {
-            goals[index].gameObject.SetActive(status);
+            _goals[index].gameObject.SetActive(status);
         }
 
         public bool IsFinished()
         {
-            return currentGoalIndex >= goals.Count;
+            return currentGoalIndex >= _goals.Count;
         }
 
         public Goal GetCurrentGoal()
         {
-            if (currentGoalIndex < goals.Count)
+            if (currentGoalIndex < _goals.Count)
             {
-                return goals[currentGoalIndex];
+                return _goals[currentGoalIndex];
             }
             else
             {
                 // If race finished just return last one
-                return goals[goals.Count - 1];
+                return _goals[_goals.Count - 1];
             }
         }
     }

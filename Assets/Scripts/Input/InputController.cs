@@ -1,4 +1,4 @@
-using AirRace.GameState;
+using AirRace.Race;
 using AirRace.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,10 +28,7 @@ public class InputController : MonoBehaviour
     {
         if (context.started)
         {
-            if (GameManager.isPaused)
-                _gameManager.ResumeGame();
-            else
-                _gameManager.PauseGame();
+            _gameManager.PauseResumeGame();
         }
     }
 }
