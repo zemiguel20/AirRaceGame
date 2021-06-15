@@ -4,7 +4,7 @@ using AirRace.UI.Race;
 using System.Collections;
 using UnityEngine;
 
-namespace AirRace.GameState.States
+namespace AirRace.Race.States
 {
     public class RaceState : State
     {

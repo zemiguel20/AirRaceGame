@@ -5,7 +5,7 @@ using AirRace.UI.Race;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace AirRace.GameState
+namespace AirRace.Race
 {
     public class GameManager : MonoBehaviour
     {

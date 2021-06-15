@@ -3,7 +3,7 @@ using AirRace.Core.SOs;
 using AirRace.UI.Race;
 using System.Collections;
 
-namespace AirRace.GameState.States
+namespace AirRace.Race.States
 {
     public class EndGameState : State
     {
