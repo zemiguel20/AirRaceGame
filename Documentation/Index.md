@@ -3,11 +3,10 @@
 ## Index
 
  
-1. [Architecture](#Architecture)
-   1. [Events](#Events) 
-   2. [ScriptableObjects](#ScriptableObjects)
-   3. [Prototyping using ScriptableObjects](#Prototyping)
-   4. [Assemblies](#Assemblies)
+1. [Architecture](Architecture/architecture)
+   1. [Events](Architecture/architecture#events) 
+   2. [ScriptableObjects](Architecture/architecture#scriptable-objects)
+   3. [Assemblies](Architecture/architecture#assemblies)
 2. [Player](#Player)
     1. [Airplane Controller](#AirplaneController)
     2. [Input](#Input)
@@ -32,81 +31,6 @@
       2. [Lift and Drag](#LiftDrag)
       3. [Thrust](#Thrust)
    2. [Rotation](#PlaneRotation)
-
-
-## Architecture <a name="Architecture"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-The engine used is Unity, where games can be divided into multiple loadable scenes. Scenes can be loaded individualy,
-where the current one is replaced with the loaded one, and each scene is isolated. They can be also loaded additively, where
-scenes can be loaded on top of the current one, and objects in different loaded scenes can communicate.
-
-In this game we have isolated scenes, where 1 is the Main Menu scene and the others are Race maps.
-
-The base objects/components that compose each scene are represented in the following diagram:
-
-![domaindiagram](./ArchitectureImages/AirRaceDomain.png)
-
-### Events <a name="Events"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-To increase modularity and decoupling between separate systems, entities, etc., we can use events
-for communication instead of direct calls.
-
-We can use C# events and delegates, which follow the Observer pattern. Explained in the [documentation](https://docs.microsoft.com/en-us/dotnet/standard/events/).
-
-
-### Scriptable Objects <a name="ScriptableObjects"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-ScriptableObjects can be used to store data commonly used that can also be accessed between scenes.
-
-In this game, we will use a SO to create a data container for the Leaderboard.
-
-As said in the [unity docs](https://docs.unity3d.com/2021.1/Documentation/Manual/class-ScriptableObject.html),
-"a ScriptableObject is a data container that you can use to save large amounts of data, independent of class instances."
-
-The "instances" of ScriptableObjects live as assets on your project, which are globally accessible and scene-independent.
-
-In addition to saving data, SOs can store functionality, so they can act as layers to expose and reuse common functionality.
-
-###### Example
-
-We can use a ScriptableObject to create data containers with a variable of a certain type, for example, FloatVariable.
-
-
-```csharp
-[CreateAssetMenu(menuName = "ScriptableObjects/Variables/FloatVariable")]
-public class FloatVariable : ScriptableObject
-{
-    public string description;
-    public float value;
-}
-```
-
-We also have a description that can be set and seen in the inspector for clarity in what this variable will be use for.
-
-![sovariable](./SOImages/sovariable.png)
-
-
-
-### Prototyping using Scriptable Objects <a name="Prototyping"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-
-Architecture of games can be built around using scriptable objects, which can increase modularity and allow for easier iteration,
-both for programmers and game designers. On this topic, there is a [small video made by Unity](https://youtu.be/WLDgtRNK2VE)
-and [presentation by Ryan Hipple](https://youtu.be/raQ3iHhE_Kk) at Unite Austin 2017.
-
-
-### Assemblies <a name="Assemblies"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-To increase project organization, modularity, reusability and compilation times when scripts are changed, we can group C# files
-into assemblies.
-
-In Unity, we can create Assembly Definition assets to define this assemblies.
-
-Detailed explanation in the [documentation page](https://docs.unity3d.com/2021.1/Documentation/Manual/ScriptCompilationAssemblyDefinitionFiles.html).
-
-This projects assembly organization is represented in the next diagram.
-
-![assemblies](./ArchitectureImages/assemblies.png)
 
 
 ## Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
