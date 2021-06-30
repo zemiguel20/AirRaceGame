@@ -10,4 +10,4 @@ This part has information for project development.
 
 ### Documentation
 
-Open Documentation folder.
+[(link)](./Documentation/Index.md)
