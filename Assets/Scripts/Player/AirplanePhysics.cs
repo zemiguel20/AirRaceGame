@@ -1,62 +1,47 @@
 using System;
 using AirRace.Core;
+using AirRace.Core.SOs;
 using UnityEngine;
 
 namespace AirRace.Player
 {
-    [RequireComponent(typeof(Rigidbody))]
-    public class AirplanePhysics : MonoBehaviour
+    public class AirplanePhysics
     {
-
-        public Rigidbody Plane { get; private set; }
-
-        [NonSerialized] public float RollInputMultiplier;
-        [NonSerialized] public float PitchInputMultiplier;
-        [NonSerialized] public float YawInputMultiplier;
-        [NonSerialized] public float ThrustInputMultiplier;
-
-        [SerializeField] [Tooltip("Acceleration in m/s^2")] [Min(0)] private float _thrustAcceleration;
-
-        [SerializeField] [Tooltip("Force multiplier on Roll axis")] [Min(0)] private float _rollForceMultiplier;
-        [SerializeField] [Tooltip("Force multiplier on Pitch axis")] [Min(0)] private float _pitchForceMultiplier;
-        [SerializeField] [Tooltip("Force multiplier on Yaw axis")] [Min(0)] private float _yawForceMultiplier;
-
-        [SerializeField] [Tooltip("Angle of attack at which lift is maximum and starts decreasing.")] private float _stallAngle;
-        [SerializeField] [Tooltip("Max lift coeficcient when stall angle is reached")] private float _maxLiftCf;
-
         private float[,] _liftCoefficientTable;
 
-        [SerializeField] [Tooltip("Lowest drag coefficient")] private float _minDragCf;
-        [SerializeField] [Tooltip("Max drag coefficient")] private float _maxDragCf;
+        private const float AIR_DENSITY = 1.225f;
+        private PlanePropertiesSO _planeProperties;
+        private Rigidbody _plane;
 
-        [SerializeField] private float _wingArea;
-
-        private float _airDensity = 1.225f;
-
-        private void Awake()
+        public AirplanePhysics(Rigidbody plane, PlanePropertiesSO planeProperties)
         {
-            Plane = GetComponent<Rigidbody>();
+            _plane = plane;
+            _planeProperties = planeProperties;
+            BuildLiftCfTable();
+        }
 
+        private void BuildLiftCfTable()
+        {
             _liftCoefficientTable = new float[6, 2];
             _liftCoefficientTable[0, 0] = -180;
-            _liftCoefficientTable[1, 0] = -180 + _stallAngle;
-            _liftCoefficientTable[2, 0] = -_stallAngle;
-            _liftCoefficientTable[3, 0] = _stallAngle;
-            _liftCoefficientTable[4, 0] = 180 - _stallAngle;
+            _liftCoefficientTable[1, 0] = -180 + _planeProperties.StallAngle;
+            _liftCoefficientTable[2, 0] = -_planeProperties.StallAngle;
+            _liftCoefficientTable[3, 0] = _planeProperties.StallAngle;
+            _liftCoefficientTable[4, 0] = 180 - _planeProperties.StallAngle;
             _liftCoefficientTable[5, 0] = 180;
 
             _liftCoefficientTable[0, 1] = 0;
-            _liftCoefficientTable[1, 1] = _maxLiftCf;
-            _liftCoefficientTable[2, 1] = -_maxLiftCf;
-            _liftCoefficientTable[3, 1] = _maxLiftCf;
-            _liftCoefficientTable[4, 1] = -_maxLiftCf;
+            _liftCoefficientTable[1, 1] = _planeProperties.MaxLiftCf;
+            _liftCoefficientTable[2, 1] = -_planeProperties.MaxLiftCf;
+            _liftCoefficientTable[3, 1] = _planeProperties.MaxLiftCf;
+            _liftCoefficientTable[4, 1] = -_planeProperties.MaxLiftCf;
             _liftCoefficientTable[5, 1] = 0;
         }
 
-        private void FixedUpdate()
+        public void UpdateForces(float thrustInputMultiplier, float rollInputMultiplier, float pitchInputMultiplier, float yawInputMultiplier)
         {
-            ApplyThrustForce();
-            ApplyRotationForces();
+            ApplyThrustForce(thrustInputMultiplier);
+            ApplyRotationForces(rollInputMultiplier, pitchInputMultiplier, yawInputMultiplier);
 
             float AoA = CalculateAngleOfAttack();
 
@@ -64,28 +49,28 @@ namespace AirRace.Player
             ApplyLiftForce(AoA);
         }
 
-        private void ApplyThrustForce()
+        private void ApplyThrustForce(float thrustInputMultiplier)
         {
-            float magnitude = _thrustAcceleration * ThrustInputMultiplier;
+            float magnitude = _planeProperties.MaxAcceleration * thrustInputMultiplier;
             Vector3 direction = Vector3.forward;
 
-            Plane.AddRelativeForce(direction * magnitude, ForceMode.Acceleration);
+            _plane.AddRelativeForce(direction * magnitude, ForceMode.Acceleration);
         }
 
-        private void ApplyRotationForces()
+        private void ApplyRotationForces(float rollInputMultiplier, float pitchInputMultiplier, float yawInputMultiplier)
         {
-            Vector3 rollComponent = _rollForceMultiplier * RollInputMultiplier * Vector3.forward;
-            Vector3 pitchComponent = _pitchForceMultiplier * PitchInputMultiplier * Vector3.right;
-            Vector3 yawComponent = _yawForceMultiplier * YawInputMultiplier * Vector3.up;
-            Vector3 torque = Plane.velocity.magnitude * (rollComponent + pitchComponent + yawComponent);
-            Plane.AddRelativeTorque(torque, ForceMode.Force);
+            Vector3 rollComponent = _planeProperties.RollForceMultiplier * rollInputMultiplier * Vector3.forward;
+            Vector3 pitchComponent = _planeProperties.PitchForceMultiplier * pitchInputMultiplier * Vector3.right;
+            Vector3 yawComponent = _planeProperties.YawForceMultiplier * yawInputMultiplier * Vector3.up;
+            Vector3 torque = _plane.velocity.magnitude * (rollComponent + pitchComponent + yawComponent);
+            _plane.AddRelativeTorque(torque, ForceMode.Force);
         }
 
         private float CalculateAngleOfAttack()
         {
-            Vector3 planeDir = Plane.transform.forward;
-            Vector3 vel = Plane.velocity;
-            Vector3 axis = Plane.transform.right;
+            Vector3 planeDir = _plane.transform.forward;
+            Vector3 vel = _plane.velocity;
+            Vector3 axis = _plane.transform.right;
             return Vector3.SignedAngle(planeDir, vel, axis);
         }
 
@@ -93,22 +78,22 @@ namespace AirRace.Player
         private void ApplyDragForce(float AoA)
         {
             float dragCf = CalculateDragCoefficient(AoA);
-            float magnitude = dragCf * _wingArea * 0.5f * _airDensity * Mathf.Pow(Plane.velocity.magnitude, 2);
-            Vector3 direction = Plane.velocity.normalized * -1;
-            Plane.AddForce(direction * magnitude, ForceMode.Force);
+            float magnitude = dragCf * _planeProperties.WingArea * 0.5f * AIR_DENSITY * Mathf.Pow(_plane.velocity.magnitude, 2);
+            Vector3 direction = _plane.velocity.normalized * -1;
+            _plane.AddForce(direction * magnitude, ForceMode.Force);
         }
 
         private float CalculateDragCoefficient(float angleOfAttack)
         {
-            return (_maxDragCf - _minDragCf) * Mathf.Pow(Mathf.Sin(angleOfAttack), 2);
+            return (_planeProperties.MaxDragCf - _planeProperties.MinDragCf) * Mathf.Pow(Mathf.Sin(angleOfAttack), 2);
         }
 
         private void ApplyLiftForce(float AoA)
         {
             float liftCf = CalculateLiftCoefficient(AoA);
-            float magnitude = liftCf * _wingArea * 0.5f * _airDensity * Mathf.Pow(Plane.velocity.magnitude, 2);
-            Vector3 direction = Plane.transform.up;
-            Plane.AddForce(direction * magnitude, ForceMode.Force);
+            float magnitude = liftCf * _planeProperties.WingArea * 0.5f * AIR_DENSITY * Mathf.Pow(_plane.velocity.magnitude, 2);
+            Vector3 direction = _plane.transform.up;
+            _plane.AddForce(direction * magnitude, ForceMode.Force);
         }
 
         private float CalculateLiftCoefficient(float angleOfAttack)

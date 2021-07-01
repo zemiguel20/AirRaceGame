@@ -2,7 +2,8 @@
     "name": "Player",
     "rootNamespace": "AirRace.Player",
     "references": [
-        "GUID:7ff318a4589694a45926949058573717"
+        "GUID:7ff318a4589694a45926949058573717",
+        "GUID:42083a838fb9a014f9965b3f6814841a"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
