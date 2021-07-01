@@ -8,14 +8,16 @@ Both lift and drag coefficients will be calculated based only on the angle of at
 Thrust will be a percentage of a manually defined value.
 No representation of control surfaces, so torque is applied
 
-Also, the plane should expose an interface methods for the input system to interact with the plane movement.
+Also, the plane movement is influenced by [input](input.md).
 
 ---
 
-AirplaneController class is a script that controls the movement of the plane and provides an interface to set input multipliers.
-
+AirplaneController class is a script that controls the movement of the plane.
 It uses the AirplanePhysics class, responsible for the physics calculations and 
-Physics calculations take into account multiple parameters, which come in a PlaneProperties data container, as well as input multipliers passed on by the AirplaneController.
+Physics calculations take into account multiple parameters, which come in a PlaneProperties data container, as well as input values passed on by the AirplaneController.
+It subscribes to InputController events, and when raised the input values are updated.
+
+Unity has a physics system that AirplanePhysics can interact with to apply forces and move the plane.
 
 ![class diagram](MovementImages/plane_movement_class_diagram.png)
 
@@ -55,12 +57,24 @@ We create a table with the peak points. Then we can find between what 2 X values
 For the rotations, each of the 3 torques have a direction depending on the corresponding axis, and magnitude depends on the force multipler, the input multiplier and the plane velocity.
 
 ---
+
+The Rigidbody component represents the plane in Unity's the physics system.
+
+PlaneProperties is a ScriptableObject, a Unity's class that can be used to create scene independent data containers. They can be created as assets and linked in the editor to fill dependencies.
+
+The Rigidbody, PlaneProperties and InputController have the SerializeField so dependencies can be set in the editor.
+
+The MonoBehaviour's Start method is used to initialize the AirplanePhysics and subscribe to the input events.
+
+The input values are stored in private variables.
+
+MonoBehaviour.Update is called every frame, and throttle multiplier is updated here.
+Its incremented/decremented by `accelerate input multiplier * Time.deltaTime * Throttle increase per sec`.
+Time.deltaTime is a variable provided by Unity which gives the time passed between the last Update call and the current one, in fractions of second.
+Throttle increase per sec is a SerializedField private variable that can be set in the inspector.
+
 AirplanePhysics applies the forces to a Rigidbody component through its API.
 This is done every physics step as explained in the [Rigidbody documentation][1]. So AirplaneController calls AirplanePhysics update forces every FixedUpdate.
-
-PlaneProperties is a ScriptableObject. This way multiple configurations can be created for different planes.
-
-Both the plane Rigidbody and the PlaneProperties are injected in the AirplaneController using the inspector, which then it passes to the constructor of the AirplanePhysics.
 
 Unity's physics system allows gravity to be simulated on any Rigidbody, as long as they have *Use Gravity* flag set to true. <br>
 ![use_gravity](MovementImages/use_gravity.png)

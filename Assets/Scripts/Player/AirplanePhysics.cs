@@ -38,9 +38,9 @@ namespace AirRace.Player
             _liftCoefficientTable[5, 1] = 0;
         }
 
-        public void UpdateForces(float thrustInputMultiplier, float rollInputMultiplier, float pitchInputMultiplier, float yawInputMultiplier)
+        public void UpdateForces(float throttleMultiplier, float rollInputMultiplier, float pitchInputMultiplier, float yawInputMultiplier)
         {
-            ApplyThrustForce(thrustInputMultiplier);
+            ApplyThrustForce(throttleMultiplier);
             ApplyRotationForces(rollInputMultiplier, pitchInputMultiplier, yawInputMultiplier);
 
             float AoA = CalculateAngleOfAttack();
@@ -49,9 +49,9 @@ namespace AirRace.Player
             ApplyLiftForce(AoA);
         }
 
-        private void ApplyThrustForce(float thrustInputMultiplier)
+        private void ApplyThrustForce(float throttleMultiplier)
         {
-            float magnitude = _planeProperties.MaxAcceleration * thrustInputMultiplier;
+            float magnitude = _planeProperties.MaxAcceleration * throttleMultiplier;
             Vector3 direction = Vector3.forward;
 
             _plane.AddRelativeForce(direction * magnitude, ForceMode.Acceleration);
@@ -92,7 +92,7 @@ namespace AirRace.Player
         {
             float liftCf = CalculateLiftCoefficient(AoA);
             float magnitude = liftCf * _planeProperties.WingArea * 0.5f * AIR_DENSITY * Mathf.Pow(_plane.velocity.magnitude, 2);
-            Vector3 direction = _plane.transform.up;
+            Vector3 direction = Vector3.Cross(_plane.velocity, _plane.transform.right).normalized;
             _plane.AddForce(direction * magnitude, ForceMode.Force);
         }
 
