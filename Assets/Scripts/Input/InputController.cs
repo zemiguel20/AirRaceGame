@@ -1,42 +1,52 @@
-using AirRace.Race;
-using AirRace.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
 {
-
-    [SerializeField] private AirplaneController _planeMovement;
-    [SerializeField] private GameManager _gameManager;
-
     [SerializeField] [Range(0, 1)] private float _rotationInputSensivity;
     [SerializeField] [Range(0, 1)] private float _accelerateInputSensivity;
 
+    public delegate void AccelerateHandler(float value);
+    public event AccelerateHandler AccelerateInputTriggered;
+
+    public delegate void AileronsHandler(float value);
+    public event AileronsHandler AileronsInputTriggered;
+
+    public delegate void ElevatorsHandler(float value);
+    public event ElevatorsHandler ElevatorsInputTriggered;
+
+    public delegate void RudderHandler(float value);
+    public event RudderHandler RudderInputTriggered;
+
+    public delegate void PauseHandler();
+    public event PauseHandler PauseInputTriggered;
+
+
     public void OnAccelerate(InputAction.CallbackContext context)
     {
-        _planeMovement.OnAccelerate(context.ReadValue<float>() * _accelerateInputSensivity);
+        AccelerateInputTriggered?.Invoke(context.ReadValue<float>() * _accelerateInputSensivity);
     }
 
     public void OnAileronsMove(InputAction.CallbackContext context)
     {
-        _planeMovement.OnAileronsMove(context.ReadValue<float>() * _rotationInputSensivity);
+        AileronsInputTriggered?.Invoke(context.ReadValue<float>() * _rotationInputSensivity);
     }
 
     public void OnElevatorsMove(InputAction.CallbackContext context)
     {
-        _planeMovement.OnElevatorsMove(context.ReadValue<float>() * _rotationInputSensivity);
+        ElevatorsInputTriggered?.Invoke(context.ReadValue<float>() * _rotationInputSensivity);
     }
 
     public void OnRudderMove(InputAction.CallbackContext context)
     {
-        _planeMovement.OnRudderMove(context.ReadValue<float>() * _rotationInputSensivity);
+        RudderInputTriggered?.Invoke(context.ReadValue<float>() * _rotationInputSensivity);
     }
 
     public void OnPauseUnpauseGame(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            _gameManager.PauseResumeGame();
+            PauseInputTriggered?.Invoke();
         }
     }
 }

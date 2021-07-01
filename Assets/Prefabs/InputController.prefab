@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2758923202211319826}
   - component: {fileID: 1681466764414533927}
   m_Layer: 0
-  m_Name: PlayerController
+  m_Name: InputController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,7 +154,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a434c7ead4266fc43a96783e691241b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _planeMovement: {fileID: 0}
-  _gameManager: {fileID: 0}
   _rotationInputSensivity: 0
   _accelerateInputSensivity: 0

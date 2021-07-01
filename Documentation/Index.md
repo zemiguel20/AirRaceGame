@@ -6,7 +6,7 @@
 1. [Architecture](Architecture/architecture)
 2. Player
     1. [Airplane Movement](Player/plane_movement.md)
-    2. [Input](#Input)
+    2. [Input](Player/input.md)
     3. [Plane Colliders](#PlaneColliders)
     4. [Player Camera](#PlayerCamera)
     5. [Hit terrain and respawn](#Respawn) 
@@ -24,52 +24,6 @@
 5. [Main Menu](#MainMenu)
 
 ## Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-### Input <a name="Input"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-
-For processing input, Unity's InputSystem is used.
-
-We have a PlayerController object with a Input System component.
-
-![input system component](./PlayerInputImages/inputsystem_component.png)
-
-This component as a Input Actions asset attached.
-
-![input actions](./PlayerInputImages/input_action_movement.png)
-
-A Input Actions asset has Maps of Actions. So we have a set of actions, and for each action on that Action Map we can
-create mappings for keybinds. We can also have different schemes, for example, one for keyboard and another for gamepad,
-and map keybinds specific to a scheme.
-
-Then we must also bind Callback functions to each Action, as seen in the image below.
-
-![callbacks binding](./PlayerInputImages/player_controller_input_bind.png)
-
-In our case, it will bind to the *InputController* component, which has *input processing functions*.
-
-
-Since we use Unity's InputSystem, the callback functions on input events receive a InputAction Context. <br>
-From these contexts we retreive the input values, and then call the *callback functions* in the *target objects*. <br>
-We resolve the dependecies(target objects) in the inspector since we use *SerializeField*.
-
-```csharp
-public class InputController : MonoBehaviour
-{
-
-    [SerializeField] private MovementController _planeMovement;
-    [SerializeField] private GameManager _gameManager;
-
-    public void OnAccelerate(InputAction.CallbackContext context)
-    {
-        _planeMovement.OnAccelerate(context.ReadValue<float>());
-    }
-
-    (.....)
-}
-```
-
-
 ### Plane Colliders <a name="PlaneColliders"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 For the physics engine, a objects shape is represented by its colliders.
