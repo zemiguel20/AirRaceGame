@@ -61,7 +61,7 @@
                 {
                     "name": "negative",
                     "id": "88fb1da6-c20c-41c3-97ea-6e6d9c45ff73",
-                    "path": "",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -94,7 +94,7 @@
                 {
                     "name": "negative",
                     "id": "a137afab-12ff-4e66-86fb-5b49af43b733",
-                    "path": "",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
