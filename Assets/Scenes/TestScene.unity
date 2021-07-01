@@ -631,6 +631,17 @@ Transform:
   m_Father: {fileID: 343877335}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1335825908 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1681466764414533927, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
+  m_PrefabInstance: {fileID: 4035906439749274015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a434c7ead4266fc43a96783e691241b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1349008146
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,8 +758,24 @@ PrefabInstance:
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3305866022684432785, guid: bce9ba419ec7bef4f9d0871f0ee672e1, type: 3}
+      propertyPath: _plane
+      value: 
+      objectReference: {fileID: 596430142}
+    - target: {fileID: 3305866022684432785, guid: bce9ba419ec7bef4f9d0871f0ee672e1, type: 3}
       propertyPath: _eventManager
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3305866022684432785, guid: bce9ba419ec7bef4f9d0871f0ee672e1, type: 3}
+      propertyPath: _inputController
+      value: 
+      objectReference: {fileID: 1335825908}
+    - target: {fileID: 3305866022684432785, guid: bce9ba419ec7bef4f9d0871f0ee672e1, type: 3}
+      propertyPath: _planeProperties
+      value: 
+      objectReference: {fileID: 11400000, guid: 6528b0c59c4227f429536c10ce78213a, type: 2}
+    - target: {fileID: 3305866022684432785, guid: bce9ba419ec7bef4f9d0871f0ee672e1, type: 3}
+      propertyPath: THROTTLE_INCREASE_PER_SEC
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3684640445376374197, guid: bce9ba419ec7bef4f9d0871f0ee672e1, type: 3}
       propertyPath: m_RootOrder
