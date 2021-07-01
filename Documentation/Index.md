@@ -4,8 +4,8 @@
 
  
 1. [Architecture](Architecture/architecture)
-2. [Player](#Player)
-    1. [Airplane Controller](#AirplaneController)
+2. Player
+    1. [Airplane Movement](Player/plane_movement.md)
     2. [Input](#Input)
     3. [Plane Colliders](#PlaneColliders)
     4. [Player Camera](#PlayerCamera)
@@ -22,27 +22,8 @@
    1. [UI Prefab](#UIPrefab)
    2. [Waypoint](#Waypoint)
 5. [Main Menu](#MainMenu)
-6. [Physics](#Physics)
-   1. [Forces on plane during flight](#Forces)
-      1. [Weight](#Weight)
-      2. [Lift and Drag](#LiftDrag)
-      3. [Thrust](#Thrust)
-   2. [Rotation](#PlaneRotation)
-
 
 ## Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-The player is represented by a Plane prefab which has components for Physics like Ridigbody and Colliders, scripts, etc.
-
-### Airplane Controller <a name="AirplaneController"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-This is the controller of the Airplane. Other objects can use this controller to interact with the Airplane.
-
-It can be used to set the input multiplier values of the component AirplanePhysics, which is responsible for the movement of the airplane.
-
-In AirplanePhysics, movement is calculated every physics step, in *FixedUpdate* calls, as explained in the [documentation](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Rigidbody.html).
-
-Physics calculations take into account multiple parameters, which can be tweaked through the inspector. Physics of the plane movement explained in the [Physics](#Physics) section.
 
 ### Input <a name="Input"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
@@ -469,89 +450,3 @@ Play opens a Map selector, with box buttons for each map.
 When a map is selected, the panel for that map is shown, which shows a preview photo of the map and the leaderboard for that map.
 If the Play button on this panel is clicked, the Scene of the map is loaded.
 
-
-
-## Physics <a name="Physics"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-
-
-For the plane specifications, we took as reference the Zivko Edge 540. [[4]]
-
-
-#### Weight <a name="Weight"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-Unity's physics system allows gravity to be simulated on any Rigidbody, as long as they have *Use Gravity* flag activated. <br>
-![use_gravity](./PhysicsImages/use_gravity.png)
-
-Gravity's vector default value is (0, -9.81, 0), but it can be changed in the Preferences or at runtime. In this case the default is what is needed. <br>
-Unity's coordinate system uses the Y axis for up and down directions, so a negative Y value is used so it points downwards. <br>
-In case of the magnitude, its independent of mass. Only direction and acceleration are specified. Later, the physics engine deals
-with calculating the final force using this vector and each objects mass.
-
-#### Lift and Drag <a name="LiftDrag"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-
-To simplify, the air density will stay constant. The value used will be 1.225 kg/m^3 . [[8]] <br>
-There are no wind zones, so windspeed is always 0. The airspeed (V) will be equal to the groundspeed, which means it will be equal to plane velocity.
-[[9]] <br>
-Also both coefficients will be calculated based on the angle of attack only.
-
-Lift will be applied to the plane on the local Y axis, and Drag will be applied in the opposite direction of the velocity.
-
-##### Coefficients calculation
-
-To calculate the angle of attack, we calculate the angle between the planes forward vector and the velocity vector.
-
-The drag and lift coefficient curves will be based on [symmetrical airfloils][17].
-
-For the drag, we can use a sine function model [[16]]. We will have the parameters: minimum drag coefficient (MinDC) and maximum drag coefficient (MaxDC). <br>
-The function can be expressed as `DragCf = (MaxDC - MinDC) * sin(angle of attack) ^2`
-
-![drag curve](./PhysicsImages/functionsDrag.png)
-
-For the lift coefficient, we can use different linear functions, depending on the angle.
-We have the parameters: maximum lift coefficient, and stall angle, at which lift coefficient is max.
-
-![lift curve](./PhysicsImages/functionsLift.png)
-
-We create a table with the peak points. Then we can find between what 2 X values our angle of attack is, get the Y values and find our angle of attack's Y value by interpolation.
-
-#### Thrust <a name="Thrust"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-Calculation of the thrust involves mass flow rate [[13]]. Since we have no air on our game, thrust will be simplified
-to Force = mass * acceleration, which is applied directly on the plane´s forward direction on the *local* Z axis.
-
-The acceleration of the plane is given by parameter, and the force is calculated with the weight of the plane.
-
-
-### Plane Rotation <a name="PlaneRotation"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-![plane rotations](./PhysicsImages/plane_rotation.png)
-
-Plane rotation is produced by the aerodynamic forces that are applied at the center of pressure of control surfaces. [[15]]
-
-Since we dont have control surfaces on our simplified implementation, a torque force will be
-applied with its magnitude depending on the plane velocity.
-
-
-
-
-
-
-[1]: https://www.grc.nasa.gov/www/k-12/airplane/forces.html
-[2]: https://www.grc.nasa.gov/www/k-12/airplane/wteq.html
-[3]: https://www.grc.nasa.gov/www/k-12/airplane/weight1.html
-[4]: https://en.wikipedia.org/wiki/Zivko_Edge_540
-[5]: https://www.grc.nasa.gov/www/k-12/airplane/lift1.html
-[6]: https://www.grc.nasa.gov/www/k-12/airplane/factors.html
-[7]: https://www.grc.nasa.gov/www/k-12/airplane/lifteq.html
-[8]: https://en.wikipedia.org/wiki/Density_of_air
-[9]: https://www.grc.nasa.gov/www/k-12/airplane/move.html
-[10]: https://www.grc.nasa.gov/www/k-12/airplane/drag1.html
-[11]: https://www.grc.nasa.gov/www/k-12/airplane/thrust1.html
-[12]: https://www.grc.nasa.gov/www/k-12/airplane/propeller.html
-[13]: https://www.grc.nasa.gov/www/k-12/airplane/thrsteq.html
-[14]: https://www.grc.nasa.gov/www/k-12/airplane/drageq.html
-[15]: https://www.grc.nasa.gov/www/k-12/airplane/rotations.html
-[16]: https://en.wikipedia.org/wiki/Sine_wave
-[17]: http://airfoiltools.com/search/index?m%5BmaxCamber%5D=0&m%5Bsort%5D=5
