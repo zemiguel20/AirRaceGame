@@ -9,7 +9,6 @@ namespace AirRace.Player
     {
         private float[,] _liftCoefficientTable;
 
-        private const float AIR_DENSITY = 1.225f;
         private PlanePropertiesSO _planeProperties;
         private Rigidbody _plane;
 
@@ -53,16 +52,15 @@ namespace AirRace.Player
         {
             float magnitude = _planeProperties.MaxAcceleration * throttleMultiplier;
             Vector3 direction = Vector3.forward;
-
-            _plane.AddRelativeForce(direction * magnitude, ForceMode.Acceleration);
+            _plane.AddRelativeForce(_plane.mass * magnitude * direction, ForceMode.Force);
         }
 
         private void ApplyRotationForces(float rollInputMultiplier, float pitchInputMultiplier, float yawInputMultiplier)
         {
-            Vector3 rollComponent = _planeProperties.RollForceMultiplier * rollInputMultiplier * Vector3.forward;
-            Vector3 pitchComponent = _planeProperties.PitchForceMultiplier * pitchInputMultiplier * Vector3.right;
-            Vector3 yawComponent = _planeProperties.YawForceMultiplier * yawInputMultiplier * Vector3.up;
-            Vector3 torque = _plane.velocity.magnitude * (rollComponent + pitchComponent + yawComponent);
+            Vector3 rollComponent = rollInputMultiplier * Vector3.forward;
+            Vector3 pitchComponent = pitchInputMultiplier * Vector3.right;
+            Vector3 yawComponent = yawInputMultiplier * Vector3.up;
+            Vector3 torque = Mathf.Pow(_plane.velocity.magnitude, 2) * _planeProperties.TorqueMultiplier * (rollComponent + pitchComponent + yawComponent);
             _plane.AddRelativeTorque(torque, ForceMode.Force);
         }
 
@@ -78,20 +76,20 @@ namespace AirRace.Player
         private void ApplyDragForce(float AoA)
         {
             float dragCf = CalculateDragCoefficient(AoA);
-            float magnitude = dragCf * _planeProperties.WingArea * 0.5f * AIR_DENSITY * Mathf.Pow(_plane.velocity.magnitude, 2);
+            float magnitude = dragCf * Mathf.Pow(_plane.velocity.magnitude, 2);
             Vector3 direction = _plane.velocity.normalized * -1;
             _plane.AddForce(direction * magnitude, ForceMode.Force);
         }
 
         private float CalculateDragCoefficient(float angleOfAttack)
         {
-            return (_planeProperties.MaxDragCf - _planeProperties.MinDragCf) * Mathf.Pow(Mathf.Sin(angleOfAttack), 2);
+            return (_planeProperties.MaxDragCf - _planeProperties.MinDragCf) * Mathf.Pow(Mathf.Sin(angleOfAttack), 2) + _planeProperties.MinDragCf;
         }
 
         private void ApplyLiftForce(float AoA)
         {
             float liftCf = CalculateLiftCoefficient(AoA);
-            float magnitude = liftCf * _planeProperties.WingArea * 0.5f * AIR_DENSITY * Mathf.Pow(_plane.velocity.magnitude, 2);
+            float magnitude = liftCf * Mathf.Pow(_plane.velocity.magnitude, 2);
             Vector3 direction = Vector3.Cross(_plane.velocity, _plane.transform.right).normalized;
             _plane.AddForce(direction * magnitude, ForceMode.Force);
         }

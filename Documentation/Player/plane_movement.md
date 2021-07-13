@@ -2,18 +2,16 @@
 
 The plane movement will be based on a simplified model of the [physics of a plane](plane_physics.md). <br>
 There is no representation of air on the game. <br>
-The air density will be a constant with value [1.225 kg/m^3][2]. <br>
-There are no wind zones, so windspeed is always 0. The relative velocity (V) will be equal to plane velocity. <br>
+The relative velocity (V) will be equal to plane velocity. <br>
 Both lift and drag coefficients will be calculated based only on the angle of attack. <br>
-Thrust will be a percentage of a manually defined value.
-No representation of control surfaces, so torque is applied
+No representation of control surfaces, each force is represented by only one respective vector.
 
 Also, the plane movement is influenced by [input](input.md).
 
 ---
 
 AirplaneController class is a script that controls the movement of the plane.
-It uses the AirplanePhysics class, responsible for the physics calculations and 
+It uses the AirplanePhysics class, responsible for the physics calculations.
 Physics calculations take into account multiple parameters, which come in a PlaneProperties data container, as well as input values passed on by the AirplaneController.
 It subscribes to InputController events, and when raised the input values are updated.
 
@@ -23,16 +21,13 @@ Unity has a physics system that AirplanePhysics can interact with to apply force
 
 List of plane properties:
 - Max acceleration
-- Roll force multiplier
-- Pitch force multiplier
-- Yaw force multiplier
+- torque multiplier
 - Stall angle
 - Max lift coefficient
 - Min drag coefficient
 - Max drag coefficient
-- Wing area
 
-Thrust force will be defined by `Force = mass * max acceleration * throttle percentage`, which is applied directly on the plane´s forward direction.
+Thrust force will be defined by `Force = plane mass * max acceleration * throttle percentage`, which is applied directly on the plane´s forward direction.
 The throttle percentage is changed with input by AirplaneController, which passes this percentage to AirplanePhysics when forces are updated.
 
 
@@ -42,7 +37,7 @@ To calculate the angle of attack, we calculate the angle between the planes forw
 
 
 For the drag, we can use a sine function model. We will have the parameters: minimum drag coefficient (MinDC) and maximum drag coefficient (MaxDC). <br>
-The function can be expressed as `DragCf = (MaxDC - MinDC) * sin(angle of attack) ^2`
+The function can be expressed as `DragCf = (MaxDC - MinDC) * sin(angle of attack) ^2  + MinDC`
 
 ![drag curve](MovementImages/functionsDrag.png)
 
@@ -53,8 +48,12 @@ We create a table with the peak points. Then we can find between what 2 X values
 
 ![lift curve](MovementImages/functionsLift.png)
 
+The lift and drag magnitude are calculated by `coefficient * relativeVelocity^2`.
 
-For the rotations, each of the 3 torques have a direction depending on the corresponding axis, and magnitude depends on the force multipler, the input multiplier and the plane velocity.
+
+
+
+For the rotations, each of the 3 torques have a direction depending on the corresponding axis, and magnitude depends on the torque multipler, the input multiplier and the plane velocity.
 
 ---
 

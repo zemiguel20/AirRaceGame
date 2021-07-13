@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f2b7ee4bfd952a4fbf48930797b9600, type: 3}
   m_Name: Plane1
   m_EditorClassIdentifier: 
-  _maxAcceleration: 30
-  _rollForceMultiplier: 50
-  _pitchForceMultiplier: 50
-  _yawForceMultiplier: 50
+  _maxAcceleration: 40
+  _torqueMultiplier: 0.747
   _stallAngle: 20
   _maxLiftCf: 0.8
-  _minDragCf: 0.1
-  _maxDragCf: 3
-  _wingArea: 9.1
+  _minDragCf: 5
+  _maxDragCf: 17.39
