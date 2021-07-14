@@ -7,7 +7,7 @@
 2. Player
     1. [Airplane Movement](Player/plane_movement.md)
     2. [Input](Player/input.md)
-    3. [Plane Colliders](#PlaneColliders)
+    3. [Plane Colliders](Player/plane_colliders.md)
     4. [Player Camera](Player/player_camera.md)
     5. [Hit terrain and respawn](#Respawn) 
 3. [Race](#Race)
@@ -24,16 +24,6 @@
 5. [Main Menu](#MainMenu)
 
 ## Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
-### Plane Colliders <a name="PlaneColliders"></a> <a href="#Index" style="font-size:13px">(index)</a>
-
-For the physics engine, a objects shape is represented by its colliders.
-
-Each plane as a group of colliders for each part.
-
-![colliders](./PlaneColliderImages/colliders.png)
-
-Colliders can be tagged with a tag *GoalHitter*. Goals only react with colliders with this tag.
-
 ### Hit terrain and respawn <a name="Respawn"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 A script *PlayerRespawner* is added as a component to the Plane. When a TerrainHit event happens, it triggers the player *Respawn* as a coroutine.
