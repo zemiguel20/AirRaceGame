@@ -7,7 +7,7 @@ namespace AirRace.UI.Race
 {
     public class CountdownTimerUI : MonoBehaviour
     {
-        [SerializeField] private GameManager _gameManager;
+        [SerializeField] private RaceController _gameManager;
 
         private TextMeshProUGUI tmpText;
 

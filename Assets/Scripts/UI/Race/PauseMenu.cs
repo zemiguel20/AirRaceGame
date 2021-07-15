@@ -7,7 +7,7 @@ namespace AirRace.UI
 {
     public class PauseMenu : MonoBehaviour
     {
-        [SerializeField] private GameManager _gameManager;
+        [SerializeField] private RaceController _gameManager;
 
         private void Start()
         {

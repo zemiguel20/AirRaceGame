@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace AirRace.Race
 {
-    public class GameManager : MonoBehaviour
+    public class RaceController : MonoBehaviour
     {
         [SerializeField] private LeaderboardSO _leaderboard;
         [SerializeField] private AirplaneController _airplaneController;

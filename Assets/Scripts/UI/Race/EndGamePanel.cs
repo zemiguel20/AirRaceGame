@@ -8,7 +8,7 @@ namespace AirRace.UI.Race
 {
     public class EndGamePanel : MonoBehaviour
     {
-        [SerializeField] private GameManager _gameManager;
+        [SerializeField] private RaceController _gameManager;
         [SerializeField] private TextMeshProUGUI _timeText;
         [SerializeField] private TextMeshProUGUI _leaderboardText;
         [SerializeField] private LeaderboardSO _leaderboard;
