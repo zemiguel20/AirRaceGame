@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace AirRace.Core.SOs
+namespace AirRace.Leaderboard
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/Leaderboard")]
     public class LeaderboardSO : ScriptableObject

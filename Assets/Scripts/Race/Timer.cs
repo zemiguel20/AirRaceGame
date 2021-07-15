@@ -1,6 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using AirRace.Core;
+using AirRace.Utils;
 using UnityEngine;
 
 namespace AirRace.Race

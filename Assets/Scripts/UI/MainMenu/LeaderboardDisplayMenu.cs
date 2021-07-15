@@ -1,5 +1,5 @@
-﻿using AirRace.Core.SOs;
-using System.Text;
+﻿using System.Text;
+using AirRace.Leaderboard;
 using TMPro;
 using UnityEngine;
 

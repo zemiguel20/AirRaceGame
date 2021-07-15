@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using AirRace.Utils;
 
-namespace AirRace.Core
+namespace AirRace.Leaderboard
 {
     public static class SaveManager
     {

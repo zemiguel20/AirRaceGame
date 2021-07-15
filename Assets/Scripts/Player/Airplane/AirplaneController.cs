@@ -1,6 +1,4 @@
-﻿using AirRace.Core;
-using AirRace.Core.SOs;
-using AirRace.Input;
+﻿using AirRace.Utils;
 using UnityEngine;
 
 namespace AirRace.Player

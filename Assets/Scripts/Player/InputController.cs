@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace AirRace.Input
+namespace AirRace.Player
 {
     public class InputController : MonoBehaviour
     {

@@ -1,8 +1,8 @@
-using AirRace.Core;
-using AirRace.Core.SOs;
+using AirRace.Utils;
 using AirRace.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using AirRace.Leaderboard;
 
 namespace AirRace.Race
 {

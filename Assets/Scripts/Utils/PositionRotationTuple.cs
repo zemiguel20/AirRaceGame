@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AirRace.Core
+namespace AirRace.Utils
 {
     public class PositionRotationTuple
     {

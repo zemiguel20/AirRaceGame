@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AirRace.Core.SOs
+namespace AirRace.Player
 {
     [CreateAssetMenu(menuName = "ScriptableObjects/PlaneProperties")]
     public class PlanePropertiesSO : ScriptableObject
