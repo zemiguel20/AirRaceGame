@@ -3,7 +3,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using AirRace.Utils;
 
-namespace AirRace.Leaderboard
+namespace AirRace
 {
     public static class SaveManager
     {

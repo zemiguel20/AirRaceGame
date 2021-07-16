@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AirRace.Leaderboard
+namespace AirRace
 {
     [System.Serializable]
     public class LeaderboardSerializable
