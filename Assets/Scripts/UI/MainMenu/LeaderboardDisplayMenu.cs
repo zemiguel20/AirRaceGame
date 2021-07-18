@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace AirRace.UI.MainMenu
+namespace AirRace.UI
 {
     public class LeaderboardDisplayMenu : MonoBehaviour
     {
