@@ -6,29 +6,35 @@ namespace AirRace
     public class Leaderboard
     {
         private static readonly int SIZE = 10;
-        private List<float> times;
+        private List<float> _times;
+        public float[] Times { get => _times.ToArray(); }
 
         public Leaderboard()
         {
-            times = new List<float>();
+            _times = new List<float>();
         }
 
         public void AddEntry(float time)
         {
-            times.Add(time);
-
-            times.Sort(); //default is ascending order
-
-            // Trims to SIZE
-            if (times.Count > SIZE)
-            {
-                times = times.GetRange(0, SIZE);
-            }
+            _times.Add(time);
+            SortAndTrim();
         }
 
-        public List<float> Values()
+        public void SetTimes(float[] times)
         {
-            return new List<float>(times);
+            _times = new List<float>(times);
+            SortAndTrim();
+        }
+
+        private void SortAndTrim()
+        {
+            _times.Sort(); //default is ascending order
+
+            // Trims to SIZE
+            if (_times.Count > SIZE)
+            {
+                _times = _times.GetRange(0, SIZE);
+            }
         }
     }
 }

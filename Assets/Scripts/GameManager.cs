@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using AirRace.Utils;
 using UnityEngine;
@@ -27,27 +26,14 @@ namespace AirRace
         #endregion
 
         private List<MapInfoSO> _maps;
-        public List<MapInfoSO> Maps { get => new List<MapInfoSO>(_maps); private set => _maps = value; }
+        public List<MapInfoSO> Maps { get => new List<MapInfoSO>(_maps); }
 
         // Start is called before the first frame update
         void Start()
         {
-            Bootstrap();
-            AsyncOperation loadOperation = SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
-            loadOperation.allowSceneActivation = true;
-        }
+            _maps = SaveManager.LoadAllMapInfos();
 
-        private void Bootstrap()
-        {
-            _maps = new List<MapInfoSO>();
-
-            var maps = Resources.LoadAll<MapInfoSO>("MapInfo");
-            foreach (var map in maps)
-            {
-                _maps.Add(map);
-            }
-
-            // TODO - load leaderboards
+            SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
         }
     }
 }

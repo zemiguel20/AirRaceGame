@@ -2,12 +2,13 @@
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using AirRace.Utils;
+using System.Collections.Generic;
 
 namespace AirRace
 {
     public static class SaveManager
     {
-        private static string SavePath = Application.persistentDataPath + "/";
+        private static readonly string SavePath = Application.persistentDataPath + "/";
 
         public static void SaveLeaderboard(LeaderboardSerializable leaderboard, string filename)
         {
@@ -18,7 +19,7 @@ namespace AirRace
             stream.Close();
         }
 
-        public static LeaderboardSerializable LoadLeaderboard(string filename)
+        public static Leaderboard LoadLeaderboard(string filename)
         {
             string filepath = SavePath + filename + ".save";
 
@@ -26,7 +27,7 @@ namespace AirRace
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 FileStream stream = new FileStream(filepath, FileMode.Open);
-                LeaderboardSerializable leaderboard = formatter.Deserialize(stream) as LeaderboardSerializable;
+                Leaderboard leaderboard = formatter.Deserialize(stream) as Leaderboard;
                 stream.Close();
                 return leaderboard;
             }
@@ -35,6 +36,22 @@ namespace AirRace
                 GameLogger.Debug("File not found: " + filepath);
                 return null;
             }
+        }
+
+        public static List<MapInfoSO> LoadAllMapInfos()
+        {
+            var maps = Resources.LoadAll<MapInfoSO>("MapInfo");
+            foreach (var mapInfo in maps)
+            {
+                string scriptableObjectName = mapInfo.name;
+                Leaderboard leaderboard = LoadLeaderboard(scriptableObjectName);
+                if (leaderboard != null)
+                {
+                    mapInfo.Leaderboard.SetTimes(leaderboard.Times);
+                }
+            }
+
+            return new List<MapInfoSO>(maps);
         }
 
     }
