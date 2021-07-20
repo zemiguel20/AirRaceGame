@@ -5,7 +5,7 @@ namespace AirRace
     [System.Serializable]
     public class Leaderboard
     {
-        private static readonly int SIZE = 10;
+        public static readonly int SIZE = 10;
         private List<float> _times;
         public float[] Times { get => _times.ToArray(); }
 
