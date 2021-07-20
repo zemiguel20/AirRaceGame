@@ -13,13 +13,13 @@ namespace AirRace.UI
 
         private void LoadMapButtons()
         {
-            MapButton button = Resources.Load<MapButton>("MainMenu/MapButton");
-            foreach (MapInfoSO map in GameManager.Instance.Maps)
-            {
-                MapButton instance = Instantiate(button);
-                instance.transform.SetParent(grid.transform);
-                instance.SetMapInfo(map);
-            }
+            // MapButton button = Resources.Load<MapButton>("MainMenu/MapButton");
+            // foreach (MapInfoSO map in GameManager.Instance.Maps)
+            // {
+            //     MapButton instance = Instantiate(button);
+            //     instance.transform.SetParent(grid.transform);
+            //     instance.SetMapInfo(map);
+            // }
         }
 
     }
