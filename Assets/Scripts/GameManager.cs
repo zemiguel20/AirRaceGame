@@ -1,5 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
+using AirRace.UI;
 using AirRace.Utils;
+using AirRace.GameState;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,12 +12,19 @@ namespace AirRace
     {
         private List<MapInfoSO> _maps;
 
-        // Start is called before the first frame update
-        void Start()
+        private SceneState _sceneState;
+
+        public void ChangeScene(SceneState newScene)
+        {
+            _sceneState = newScene;
+            StartCoroutine(_sceneState.Load());
+        }
+
+        void Awake()
         {
             _maps = SaveManager.LoadAllMapInfos();
 
-            SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+            ChangeScene(new MainMenuSceneState(this));
         }
     }
 }
