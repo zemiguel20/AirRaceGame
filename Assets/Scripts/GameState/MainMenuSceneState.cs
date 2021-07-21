@@ -1,4 +1,6 @@
 using System.Collections;
+using AirRace.UI;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace AirRace.GameState
@@ -11,9 +13,14 @@ namespace AirRace.GameState
 
         public override IEnumerator Load()
         {
-            SceneManager.LoadSceneAsync("LoadingScreen", LoadSceneMode.Additive);
+            SceneManager.LoadScene("LoadingScreen", LoadSceneMode.Additive);
 
-            // TODO - Load Main Menu
+            SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+
+            SceneManager.UnloadSceneAsync("LoadingScreen");
+
+            MainMenu mainMenu = Object.FindObjectOfType<MainMenu>();
+            mainMenu.Initialize(_gameManager.Maps);
 
             yield break;
         }
