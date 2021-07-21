@@ -1,25 +1,55 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AirRace.UI
 {
     public class MainMenu : MonoBehaviour
     {
-        [SerializeField] GameObject grid;
+        [SerializeField] GridLayoutGroup grid;
+        [SerializeField] MapButton mapButtonPrefab;
 
-        private void Start()
+        [SerializeField] GameObject menuPanel;
+        [SerializeField] GameObject mapSelectionPanel;
+        [SerializeField] GameObject mapInfoPanel;
+
+
+        public void Initialize(List<MapInfoSO> maps)
         {
-            LoadMapButtons();
+            LoadMapButtons(maps);
+            ShowMenuPanel();
         }
 
-        private void LoadMapButtons()
+        private void LoadMapButtons(List<MapInfoSO> maps)
         {
-            // MapButton button = Resources.Load<MapButton>("MainMenu/MapButton");
-            // foreach (MapInfoSO map in GameManager.Instance.Maps)
-            // {
-            //     MapButton instance = Instantiate(button);
-            //     instance.transform.SetParent(grid.transform);
-            //     instance.SetMapInfo(map);
-            // }
+            foreach (MapInfoSO map in maps)
+            {
+                MapButton instance = Instantiate(mapButtonPrefab);
+                instance.transform.SetParent(grid.transform);
+                instance.Initialize(map);
+                instance.MapSelected += ShowMapInfoPanel;
+            }
+        }
+
+        public void ShowMenuPanel()
+        {
+            menuPanel.SetActive(true);
+            mapSelectionPanel.SetActive(false);
+            mapInfoPanel.SetActive(false);
+        }
+
+        public void ShowMapSelectionPanel()
+        {
+            menuPanel.SetActive(false);
+            mapSelectionPanel.SetActive(true);
+            mapInfoPanel.SetActive(false);
+        }
+
+        public void ShowMapInfoPanel(MapInfoSO map)
+        {
+            menuPanel.SetActive(false);
+            mapSelectionPanel.SetActive(false);
+            mapInfoPanel.SetActive(true);
         }
 
     }
