@@ -10,7 +10,8 @@ namespace AirRace
 {
     public class GameManager : MonoBehaviour
     {
-        private List<MapInfoSO> _maps;
+        [SerializeField] private List<MapInfoSO> _maps;
+        public List<MapInfoSO> Maps { get => _maps; }
 
         private SceneState _sceneState;
 
@@ -22,9 +23,22 @@ namespace AirRace
 
         void Awake()
         {
-            _maps = SaveManager.LoadAllMapInfos();
+            LoadMapsLeaderboards();
 
             ChangeScene(new MainMenuSceneState(this));
+        }
+
+        private void LoadMapsLeaderboards()
+        {
+            foreach (var mapInfo in _maps)
+            {
+                string scriptableObjectName = mapInfo.name;
+                Leaderboard leaderboard = SaveManager.LoadLeaderboard(scriptableObjectName);
+                if (leaderboard != null)
+                {
+                    mapInfo.Leaderboard.SetTimes(leaderboard.Times);
+                }
+            }
         }
     }
 }

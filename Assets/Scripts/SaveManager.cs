@@ -38,21 +38,5 @@ namespace AirRace
             }
         }
 
-        public static List<MapInfoSO> LoadAllMapInfos()
-        {
-            var maps = Resources.LoadAll<MapInfoSO>("MapInfo");
-            foreach (var mapInfo in maps)
-            {
-                string scriptableObjectName = mapInfo.name;
-                Leaderboard leaderboard = LoadLeaderboard(scriptableObjectName);
-                if (leaderboard != null)
-                {
-                    mapInfo.Leaderboard.SetTimes(leaderboard.Times);
-                }
-            }
-
-            return new List<MapInfoSO>(maps);
-        }
-
     }
 }
