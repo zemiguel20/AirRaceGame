@@ -1,20 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 namespace AirRace.UI
 {
     public class MapButton : MonoBehaviour
     {
-        [SerializeField] Image _image;
-        [SerializeField] TextMeshProUGUI _nameLabel;
+        [SerializeField] private Image _image;
+        [SerializeField] private TextMeshProUGUI _nameLabel;
 
-        public void SetMapInfo(MapInfoSO mapInfo)
+        private MapInfoSO _map;
+
+        public event Action<MapInfoSO> MapSelected;
+
+
+        public void Initialize(MapInfoSO mapInfo)
         {
             _nameLabel.text = mapInfo.MapName;
             _image.sprite = mapInfo.Image;
+
+            _map = mapInfo;
+        }
+
+        public void OnButtonClicked()
+        {
+            MapSelected.Invoke(_map);
         }
     }
 }
