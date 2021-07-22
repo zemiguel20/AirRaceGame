@@ -40,5 +40,16 @@ namespace AirRace
                 }
             }
         }
+
+        public void LoadMap(MapInfoSO map)
+        {
+            StartCoroutine(_sceneState.LoadMap(map));
+        }
+
+        public void QuitGame()
+        {
+            GameLogger.Debug("Game Quit!");
+            Application.Quit();
+        }
     }
 }

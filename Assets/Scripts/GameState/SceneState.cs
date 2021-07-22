@@ -15,5 +15,10 @@ namespace AirRace.GameState
         {
             yield break;
         }
+
+        public virtual IEnumerator LoadMap(MapInfoSO map)
+        {
+            yield break;
+        }
     }
 }
