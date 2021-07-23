@@ -8,7 +8,7 @@ namespace AirRace.Race
     public class RaceController : MonoBehaviour
     {
         [SerializeField] private LeaderboardSO _leaderboard;
-        [SerializeField] private AirplaneController _airplaneController;
+        [SerializeField] private Airplane _airplaneController;
         [SerializeField] private Chronometer _chronometer;
         [SerializeField] private PathManager _pathManager;
 
@@ -19,7 +19,7 @@ namespace AirRace.Race
         #region Getters
         public LeaderboardSO Leaderboard { get => _leaderboard; }
         public Timer Timer { get => _timer; }
-        public AirplaneController AirplaneController { get => _airplaneController; }
+        public Airplane AirplaneController { get => _airplaneController; }
         public Chronometer Chronometer { get => _chronometer; }
         public PathManager PathManager { get => _pathManager; }
         #endregion

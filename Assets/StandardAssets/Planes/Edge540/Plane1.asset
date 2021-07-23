@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Plane1
   m_EditorClassIdentifier: 
   _maxAcceleration: 40
+  _throttleIncreasePerSecond: 0.5
   _torqueMultiplier: 0.747
   _stallAngle: 20
   _maxLiftCf: 0.8

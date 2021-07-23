@@ -7,18 +7,18 @@ namespace AirRace.Race
 {
     public class PlayerRespawner : MonoBehaviour
     {
-        [SerializeField] private AirplaneController _airplaneController;
+        [SerializeField] private Airplane _airplaneController;
 
         private Vector3 respawnPoint;
         private Quaternion respawnRotation;
 
         void Start()
         {
-            PositionRotationTuple tuple = _airplaneController.PlanePositionAndRotation();
-            respawnPoint = tuple.Position;
-            respawnRotation = tuple.Rotation;
+            // PositionRotationTuple tuple = _airplaneController.PlanePositionAndRotation();
+            // respawnPoint = tuple.Position;
+            // respawnRotation = tuple.Rotation;
 
-            _airplaneController.TerrainHit += OnTerrainHit;
+            // _airplaneController.TerrainHit += OnTerrainHit;
         }
 
         private void OnDisable()
@@ -45,7 +45,7 @@ namespace AirRace.Race
 
             yield return new WaitForSeconds(0.3f);
 
-            _airplaneController.SetPlanePositionAndRotation(new PositionRotationTuple(respawnPoint, respawnRotation));
+            //_airplaneController.SetPlanePositionAndRotation(new PositionRotationTuple(respawnPoint, respawnRotation));
 
             yield return new WaitForSeconds(0.3f);
 

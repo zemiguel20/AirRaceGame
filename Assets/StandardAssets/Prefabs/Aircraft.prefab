@@ -93,11 +93,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3885654993453160146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b89c77b258ae65f4e80babcb8c2098a4, type: 3}
+  m_Script: {fileID: 11500000, guid: b66a86c6aed64ba429311fd930df3b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _plane: {fileID: 0}
-  _planeProperties: {fileID: 0}
+  _plane: {fileID: 7626520303407911630}
+  _planeProperties: {fileID: 11400000, guid: 6528b0c59c4227f429536c10ce78213a, type: 2}
 --- !u!1 &6174436668702038168
 GameObject:
   m_ObjectHideFlags: 0
