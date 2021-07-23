@@ -6,7 +6,3 @@ scenes can be loaded on top of the current one, and objects in different loaded 
 
 There will be a scene for each map.
 
-The basic composition of a map scene is represented in the following diagram.
-
-![domaindiagram](AirRaceDomain.png)
-

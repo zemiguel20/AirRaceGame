@@ -23,8 +23,8 @@
    2. [Waypoint](#Waypoint)
 5. [Main Menu](#MainMenu)
 
-## Player <a name="Player"></a> <a href="#Index" style="font-size:13px">(index)</a>
-### Hit terrain and respawn <a name="Respawn"></a> <a href="#Index" style="font-size:13px">(index)</a>
+
+## Hit terrain and respawn <a name="Respawn"></a> <a href="#Index" style="font-size:13px">(index)</a>
 
 A script *PlayerRespawner* is added as a component to the Plane. When a TerrainHit event happens, it triggers the player *Respawn* as a coroutine.
 
