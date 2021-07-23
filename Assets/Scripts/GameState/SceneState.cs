@@ -20,5 +20,10 @@ namespace AirRace.GameState
         {
             yield break;
         }
+
+        public virtual IEnumerator LoadMainMenu()
+        {
+            yield break;
+        }
     }
 }
