@@ -15,14 +15,29 @@ namespace AirRace.GameState
 
         public override IEnumerator Load()
         {
+            yield return LoadScene();
+            InitializeScene();
+            yield break;
+        }
+
+        private IEnumerator LoadScene()
+        {
             AsyncOperation operation = SceneManager.LoadSceneAsync("LoadingScreen", LoadSceneMode.Additive);
             while (operation.isDone == false)
                 yield return null;
 
-            //TODO - Load Map
+            operation = SceneManager.LoadSceneAsync(_map.SceneName, LoadSceneMode.Additive);
+            while (operation.isDone == false)
+                yield return null;
 
-            Debug.Log("Map Loaded: " + _map.MapName);
-            yield break;
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(_map.SceneName));
+
+            SceneManager.UnloadSceneAsync("LoadingScreen");
+        }
+
+        private void InitializeScene()
+        {
+            //TODO - intialize map
         }
     }
 }
