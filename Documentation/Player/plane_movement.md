@@ -6,21 +6,29 @@ The relative velocity (V) will be equal to plane velocity. <br>
 Both lift and drag coefficients will be calculated based only on the angle of attack. <br>
 No representation of control surfaces, each force is represented by only one respective vector.
 
-Also, the plane movement is influenced by [input](input.md).
+Also, the plane movement is influenced by input.
+
+The player should be able to use controllers like keyboard and gamepad for input actions.
 
 ---
 
-AirplaneController class is a script that controls the movement of the plane.
-It uses the AirplanePhysics class, responsible for the physics calculations.
-Physics calculations take into account multiple parameters, which come in a PlaneProperties data container, as well as input values passed on by the AirplaneController.
-It subscribes to InputController events, and when raised the input values are updated.
+`Airplane` class is a script that controls the movement of the plane.
+It uses the `AirplanePhysics` class, responsible for the physics calculations.
+Physics calculations take into account multiple parameters, which come in a `PlaneProperties` `ScriptableObject` data container, as well as input values passed on by the `Airplane`.
+`Airplane` gets the input values from `InputController`.
 
-Unity has a physics system that AirplanePhysics can interact with to apply forces and move the plane.
+For the player input, the Input System module from Unity is used.
+The `InputController` gameobject has a `PlayerInput` component from the InputSystem, which using events defines the input values in `InputController`.
+The `InputController` implements the `IPlayerInput` interface which defines getter methods for the input values.
+The `PlayerInput` component uses a `InputAction` asset, in which are defined a set of Actions.
+In the editor the Actions are defined, as well as their return value and the keybind schemes.
 
-![class diagram](MovementImages/plane_movement_class_diagram.png)
+`AirplanePhysics` controls a `Rigidbody`, a Unity class that represents a physics gameobject.
+The airplane gameobject will have a `Rigidbody` component.
 
 List of plane properties:
 - Max acceleration
+- Throttle increase per second
 - torque multiplier
 - Stall angle
 - Max lift coefficient
@@ -51,34 +59,6 @@ We create a table with the peak points. Then we can find between what 2 X values
 The lift and drag magnitude are calculated by `coefficient * relativeVelocity^2`.
 
 
-
-
 For the rotations, each of the 3 torques have a direction depending on the corresponding axis, and magnitude depends on the torque multipler, the input multiplier and the plane velocity.
 
 ---
-
-The Rigidbody component represents the plane in Unity's the physics system.
-
-PlaneProperties is a ScriptableObject, a Unity's class that can be used to create scene independent data containers. They can be created as assets and linked in the editor to fill dependencies.
-
-The Rigidbody, PlaneProperties and InputController have the SerializeField so dependencies can be set in the editor.
-
-The MonoBehaviour's Start method is used to initialize the AirplanePhysics and subscribe to the input events.
-
-The input values are stored in private variables.
-
-MonoBehaviour.Update is called every frame, and throttle multiplier is updated here.
-Its incremented/decremented by `accelerate input multiplier * Time.deltaTime * Throttle increase per sec`.
-Time.deltaTime is a variable provided by Unity which gives the time passed between the last Update call and the current one, in fractions of second.
-Throttle increase per sec is a SerializedField private variable that can be set in the inspector.
-
-AirplanePhysics applies the forces to a Rigidbody component through its API.
-This is done every physics step as explained in the [Rigidbody documentation][1]. So AirplaneController calls AirplanePhysics update forces every FixedUpdate.
-
-Unity's physics system allows gravity to be simulated on any Rigidbody, as long as they have *Use Gravity* flag set to true. <br>
-![use_gravity](MovementImages/use_gravity.png)
-
-
-[1]: https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Rigidbody.html
-[2]: https://en.wikipedia.org/wiki/Density_of_air
-[3]: http://airfoiltools.com/search/index?m%5BmaxCamber%5D=0&m%5Bsort%5D=5
