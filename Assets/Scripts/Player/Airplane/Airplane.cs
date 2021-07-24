@@ -17,12 +17,13 @@ namespace AirRace.Player
         private AirplanePhysics _airplanePhysics;
         private IPlayerInput _playerInput;
 
-        private float _throttleMultiplier;
+        private float _throttleMultiplier = 0;
 
         public void Initialize(IPlayerInput inputController)
         {
             _airplanePhysics = new AirplanePhysics(_plane, _planeProperties);
             _playerInput = inputController;
+            EnablePhysics(true);
         }
 
         private void FixedUpdate()
@@ -35,8 +36,11 @@ namespace AirRace.Player
 
         private void Update()
         {
-            _throttleMultiplier += _playerInput.AccelerateInputMultiplier * Time.deltaTime * _planeProperties.ThrottleIncreasePerSecond;
-            _throttleMultiplier = Mathf.Clamp01(_throttleMultiplier);
+            if (_playerInput != null)
+            {
+                _throttleMultiplier += _playerInput.AccelerateInputMultiplier * Time.deltaTime * _planeProperties.ThrottleIncreasePerSecond;
+                _throttleMultiplier = Mathf.Clamp01(_throttleMultiplier);
+            }
         }
 
 
