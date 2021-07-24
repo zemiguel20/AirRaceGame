@@ -1,32 +1,25 @@
 # Player Camera
 
-The camera that renders the scene should follow the player during the race.
+The position of the camera that renders the scene should follow the player's position during the race.
 
 ---
 
 In Unity, the camera is represented by a game object in the scene with a camera component attached.
 
-A script component can be attached to the camera game object that controls the Transform component.
+A component is attached to the camera game object that controls the Transform component.
 It takes in a reference of the airplanes Transform, which uses as target.
 Each frame, the cameras position is interpolated between the current position and the airplane position with an offset in local space specified by parameter.
 Then, the camera is rotated in order to be looking at the airplane.
+The interpolation of the camera position uses a damping functions.
 
 ---
 
-As an interpolation function for camera follow, Unity recommends using the 
-[SmoothDamp function](https://docs.unity3d.com/2021.1/Documentation/ScriptReference/Vector3.SmoothDamp.html).
+Using Unity's Cinemachine module, a CinemachineBrain component is attached to the Camera game object which controls the Camera position.
 
-The target position is the player position with an offset *in local space*. The offset is specified in the editor's inspector.
-```csharp
-Vector3 target = player.position + player.up * offsety + player.forward * offsetz;
-```
+The CinemachineBrain has a reference to a VirtualCamera object which uses as target, and interpolates the Camera position to the VirtualCamera position.
 
-Then we set the camera position using SmoothDamp.
-```scharp
-this.transform.position = Vector3.SmoothDamp(this.transform.position, target, ref velocity, smoothTime);
-```
+The movement properties are specified by the target VirtualCamera.
 
-Then we use *LookAt* function to rotate the camera to look at the player.
-```scharp
-this.transform.LookAt(player);
-```
+In the VirtualCamera, the target Transform is set to the Airplane.
+The Aim is set to always look at the Airplane.
+The Body, which defines the translation properties, has some damping and an offset specified.
