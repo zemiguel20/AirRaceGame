@@ -10,7 +10,7 @@ namespace AirRace.Player
         [SerializeField] private Rigidbody _plane;
         [SerializeField] private PlanePropertiesSO _planeProperties;
 
-        public event Action GoalHit;
+        public event Action<GameObject> GoalHit;
         public event Action TerrainHit;
 
         private AirplanePhysics _airplanePhysics;
@@ -48,7 +48,7 @@ namespace AirRace.Player
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Goal")) GoalHit?.Invoke();
+            if (other.CompareTag("Goal")) GoalHit?.Invoke(other.gameObject);
         }
 
         public void EnablePhysics(bool value)
@@ -56,5 +56,7 @@ namespace AirRace.Player
             _plane.isKinematic = !value;
         }
 
+        public Vector3 Position { get => _plane.position; set => _plane.position = value; }
+        public Quaternion Rotation { get => _plane.rotation; set => _plane.rotation = value; }
     }
 }

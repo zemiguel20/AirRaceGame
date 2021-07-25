@@ -1,56 +1,33 @@
-﻿using AirRace.Utils;
-using AirRace.Player;
-using System.Collections;
+﻿using AirRace.Player;
 using UnityEngine;
 
 namespace AirRace.Race
 {
-    public class PlayerRespawner : MonoBehaviour
+    public class PlayerRespawner
     {
-        [SerializeField] private Airplane _airplaneController;
+        private Airplane _player;
 
         private Vector3 respawnPoint;
         private Quaternion respawnRotation;
 
-        void Start()
-        {
-            // PositionRotationTuple tuple = _airplaneController.PlanePositionAndRotation();
-            // respawnPoint = tuple.Position;
-            // respawnRotation = tuple.Rotation;
 
-            // _airplaneController.TerrainHit += OnTerrainHit;
-        }
-
-        private void OnDisable()
+        public PlayerRespawner(Airplane player)
         {
-            _airplaneController.TerrainHit -= OnTerrainHit;
+            _player = player;
+            respawnPoint = _player.Position;
+            respawnRotation = _player.Rotation;
         }
 
         public void UpdateRespawn(GameObject goal)
         {
             respawnPoint = goal.transform.position;
             respawnRotation = goal.transform.rotation;
-
-            GameLogger.Debug("Respawn updated.");
         }
 
-        private void OnTerrainHit()
+        public void Respawn()
         {
-            StartCoroutine(Respawn());
-        }
-
-        private IEnumerator Respawn()
-        {
-            _airplaneController.EnablePhysics(false);
-
-            yield return new WaitForSeconds(0.3f);
-
-            //_airplaneController.SetPlanePositionAndRotation(new PositionRotationTuple(respawnPoint, respawnRotation));
-
-            yield return new WaitForSeconds(0.3f);
-
-            _airplaneController.EnablePhysics(true);
-
+            _player.Position = respawnPoint;
+            _player.Rotation = respawnRotation;
         }
     }
 }

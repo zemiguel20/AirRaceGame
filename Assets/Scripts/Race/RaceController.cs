@@ -13,6 +13,7 @@ namespace AirRace.Race
         private Airplane _airplane;
         private Path _path;
         private Chronometer _chronometer;
+        private PlayerRespawner _respawner;
 
         private Leaderboard _leaderboard;
 
@@ -71,20 +72,25 @@ namespace AirRace.Race
             GameLogger.Debug("Race Started!");
 
             _chronometer = new Chronometer();
+            _respawner = new PlayerRespawner(_airplane);
             _path.Initialize();
+
             _airplane.GoalHit += OnGoalPassed;
+            _airplane.TerrainHit += OnPlayerTerrainHit;
+            _playerInput.PauseInputTriggered += PauseResumeGame;
+
             _isRacing = true;
             _airplane.EnablePhysics(true);
 
             RaceStarted?.Invoke();
-
-            _playerInput.PauseInputTriggered += PauseResumeGame;
         }
 
-        private void OnGoalPassed()
+        private void OnGoalPassed(GameObject goal)
         {
             GameLogger.Debug("Passed goal");
             _path.NextGoal();
+
+            _respawner.UpdateRespawn(goal);
 
             if (_path.IsFinished()) EndRacePhase();
         }
@@ -100,17 +106,19 @@ namespace AirRace.Race
             _playerInput.PauseInputTriggered -= PauseResumeGame;
         }
 
-        // public void ExitToMenu()
-        // {
-        //     Time.timeScale = 1;
-        //     SceneManager.LoadScene(0);
-        // }
+        private void OnPlayerTerrainHit()
+        {
+            StartCoroutine(RespawnSequence());
+        }
 
-        // public void RestartGame()
-        // {
-        //     Time.timeScale = 1;
-        //     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        // }
+        private IEnumerator RespawnSequence()
+        {
+            _airplane.EnablePhysics(false);
+            yield return new WaitForSeconds(0.3f);
+            _respawner.Respawn();
+            yield return new WaitForSeconds(0.3f);
+            _airplane.EnablePhysics(true);
+        }
 
         public void PauseResumeGame()
         {
