@@ -7,7 +7,7 @@ namespace AirRace.UI.Race.HUD
     public class Waypoint : MonoBehaviour
     {
         [SerializeField] private Camera _playerCamera;
-        [SerializeField] private PathManager _pathManager;
+        [SerializeField] private Path _pathManager;
 
         public int offsetY;
 
