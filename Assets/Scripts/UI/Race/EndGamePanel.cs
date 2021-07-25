@@ -27,7 +27,7 @@ namespace AirRace.UI.Race
 
         public void ShowPanel()
         {
-            _timeText.text = _gameManager.Chronometer.time.ToString("F2");
+            //_timeText.text = _gameManager.Chronometer.time.ToString("F2");
 
             StringBuilder sb = new StringBuilder();
 

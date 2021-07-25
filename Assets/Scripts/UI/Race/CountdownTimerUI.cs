@@ -17,20 +17,20 @@ namespace AirRace.UI.Race
 
             tmpText.text = "Starting in...";
 
-            _gameManager.Timer.TimerEnded += OnTimerEnded;
+            //_gameManager.Timer.TimerEnded += OnTimerEnded;
         }
 
         private void OnDisable()
         {
-            _gameManager.Timer.TimerEnded -= OnTimerEnded;
+            //_gameManager.Timer.TimerEnded -= OnTimerEnded;
         }
 
         private void Update()
         {
-            if (_gameManager.Timer.IsRunning)
-            {
-                tmpText.text = _gameManager.Timer.RemainingSeconds.ToString();
-            }
+            // if (_gameManager.Timer.IsRunning)
+            // {
+            //     tmpText.text = _gameManager.Timer.RemainingSeconds.ToString();
+            // }
         }
 
         private void OnTimerEnded()
