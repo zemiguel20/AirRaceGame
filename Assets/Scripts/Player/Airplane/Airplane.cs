@@ -1,4 +1,5 @@
-﻿using AirRace.Utils;
+﻿using System;
+using AirRace.Utils;
 using UnityEngine;
 
 namespace AirRace.Player
@@ -6,13 +7,11 @@ namespace AirRace.Player
 
     public class Airplane : MonoBehaviour
     {
-
         [SerializeField] private Rigidbody _plane;
         [SerializeField] private PlanePropertiesSO _planeProperties;
 
-
-        public delegate void TerrainHitHandler();
-        public event TerrainHitHandler TerrainHit;
+        public event Action GoalHit;
+        public event Action TerrainHit;
 
         private AirplanePhysics _airplanePhysics;
         private IPlayerInput _playerInput;
@@ -43,10 +42,14 @@ namespace AirRace.Player
             }
         }
 
-
         private void OnCollisionEnter()
         {
             TerrainHit?.Invoke();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Goal")) GoalHit?.Invoke();
         }
 
         public void EnablePhysics(bool value)
