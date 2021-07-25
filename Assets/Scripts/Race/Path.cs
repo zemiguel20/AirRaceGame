@@ -28,7 +28,6 @@ namespace AirRace.Race
             {
                 _goals[_currentGoalIndex].SetActive(false);
                 _currentGoalIndex++;
-                GameLogger.Debug("Goal passed! Num of goals passed: " + _currentGoalIndex);
             }
 
             if (_currentGoalIndex < _goals.Count)
