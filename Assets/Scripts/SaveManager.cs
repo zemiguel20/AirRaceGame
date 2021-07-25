@@ -10,7 +10,7 @@ namespace AirRace
     {
         private static readonly string SavePath = Application.persistentDataPath + "/";
 
-        public static void SaveLeaderboard(LeaderboardSerializable leaderboard, string filename)
+        public static void SaveLeaderboard(Leaderboard leaderboard, string filename)
         {
             string filepath = SavePath + filename + ".save";
             BinaryFormatter formatter = new BinaryFormatter();
