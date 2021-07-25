@@ -22,7 +22,6 @@ namespace AirRace.Player
         {
             _airplanePhysics = new AirplanePhysics(_plane, _planeProperties);
             _playerInput = inputController;
-            EnablePhysics(true);
         }
 
         private void FixedUpdate()
