@@ -6,34 +6,34 @@ namespace AirRace.Race
 {
     public class Path : MonoBehaviour
     {
-        [SerializeField] private List<Goal> _goals;
+        [SerializeField] private List<GameObject> _goals;
 
         private int _currentGoalIndex;
 
         public void Initialize()
         {
             //Turns off goals
-            foreach (Goal goal in _goals)
+            foreach (GameObject goal in _goals)
             {
-                goal.gameObject.SetActive(false);
+                goal.SetActive(false);
             }
 
             _currentGoalIndex = 0;
-            _goals[_currentGoalIndex].gameObject.SetActive(true);
+            _goals[_currentGoalIndex].SetActive(true);
         }
 
         public void NextGoal()
         {
             if (_currentGoalIndex < _goals.Count)
             {
-                _goals[_currentGoalIndex].gameObject.SetActive(false);
+                _goals[_currentGoalIndex].SetActive(false);
                 _currentGoalIndex++;
                 GameLogger.Debug("Goal passed! Num of goals passed: " + _currentGoalIndex);
             }
 
             if (_currentGoalIndex < _goals.Count)
             {
-                _goals[_currentGoalIndex].gameObject.SetActive(true);
+                _goals[_currentGoalIndex].SetActive(true);
             }
         }
 
@@ -42,7 +42,7 @@ namespace AirRace.Race
             return _currentGoalIndex >= _goals.Count;
         }
 
-        public Goal GetCurrentGoal()
+        public GameObject GetCurrentGoal()
         {
             if (_currentGoalIndex < _goals.Count)
             {

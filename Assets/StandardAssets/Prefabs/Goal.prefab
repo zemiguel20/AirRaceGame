@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7497974104108689694}
   - component: {fileID: 9090922736766529825}
   - component: {fileID: 5371756898137093111}
-  - component: {fileID: 2154179362514981246}
   m_Layer: 0
   m_Name: Goal
   m_TagString: Goal
@@ -4822,16 +4821,3 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -2124705421725058983, guid: 50d1f583947101f43bba56822e1ce6bb, type: 3}
---- !u!114 &2154179362514981246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8940119166657563078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0997237e11df48545b61264a68ffeee9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GoalHit: {fileID: 11400000, guid: fb2275dd69957f74e83a08bbd83ce865, type: 2}
