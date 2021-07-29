@@ -1,4 +1,7 @@
 using System.Collections;
+using AirRace.Player;
+using AirRace.Race;
+using AirRace.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -32,12 +35,36 @@ namespace AirRace.GameState
 
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(_map.SceneName));
 
+            operation = SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
+            while (operation.isDone == false)
+                yield return null;
+
             SceneManager.UnloadSceneAsync("LoadingScreen");
         }
 
         private void InitializeScene()
         {
-            //TODO - intialize map
+            // Initialize race
+
+            IPlayerInput input = Object.FindObjectOfType<InputController>();
+
+            Airplane player = Object.FindObjectOfType<Airplane>();
+            player.Initialize(input);
+
+            Path path = Object.Instantiate(_map.PathPrefab);
+
+            RaceController controller = Object.FindObjectOfType<RaceController>();
+            controller.Initialize(player, path, _map.Leaderboard, input);
+
+            // Initialize UI
+
+            CountdownTimerUI countdownTimerUI = Object.FindObjectOfType<CountdownTimerUI>();
+            countdownTimerUI.Initialize(controller);
+
+
+
+            // start race
+            controller.StartRace();
         }
     }
 }
