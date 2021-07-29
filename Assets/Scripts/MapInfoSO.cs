@@ -1,3 +1,4 @@
+using AirRace.Race;
 using UnityEngine;
 
 namespace AirRace
@@ -16,5 +17,8 @@ namespace AirRace
 
         [SerializeField] private string _sceneName;
         public string SceneName { get => _sceneName; }
+
+        [SerializeField] private Path _pathPrefab;
+        public Path PathPrefab { get => _pathPrefab; }
     }
 }
