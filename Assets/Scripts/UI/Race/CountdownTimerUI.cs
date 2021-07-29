@@ -3,43 +3,46 @@ using AirRace.Race;
 using TMPro;
 using UnityEngine;
 
-namespace AirRace.UI.Race
+namespace AirRace.UI
 {
     public class CountdownTimerUI : MonoBehaviour
     {
-        [SerializeField] private RaceController _gameManager;
-
+        private RaceController _raceController;
         private TextMeshProUGUI tmpText;
 
-        private void Start()
+        private bool countdownRunning = false;
+
+        public void Initialize(RaceController controller)
         {
             tmpText = GetComponent<TextMeshProUGUI>();
-
             tmpText.text = "Starting in...";
 
-            //_gameManager.Timer.TimerEnded += OnTimerEnded;
+            _raceController = controller;
+            _raceController.CountdownStarted += OnCountdownStarted;
+            _raceController.CountdownFinished += OnCountdownFinished;
         }
 
-        private void OnDisable()
+        private void OnCountdownStarted()
         {
-            //_gameManager.Timer.TimerEnded -= OnTimerEnded;
+            countdownRunning = true;
         }
 
         private void Update()
         {
-            // if (_gameManager.Timer.IsRunning)
-            // {
-            //     tmpText.text = _gameManager.Timer.RemainingSeconds.ToString();
-            // }
+            if (countdownRunning)
+            {
+                tmpText.text = _raceController.Timer.RemaingSeconds.ToString();
+            }
         }
 
-        private void OnTimerEnded()
+        private void OnCountdownFinished()
         {
             StartCoroutine(DisplayFinalTextAndDisable());
         }
 
         private IEnumerator DisplayFinalTextAndDisable()
         {
+            countdownRunning = false;
             tmpText.text = "GO";
             yield return new WaitForSeconds(1.5f);
 

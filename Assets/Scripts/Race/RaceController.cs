@@ -9,6 +9,7 @@ namespace AirRace.Race
     public class RaceController : MonoBehaviour
     {
         private Timer _countdownTimer;
+        public Timer Timer { get => _countdownTimer; }
 
         private Airplane _airplane;
         private Path _path;
