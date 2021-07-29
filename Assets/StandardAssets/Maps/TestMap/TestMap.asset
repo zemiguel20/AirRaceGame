@@ -15,3 +15,4 @@ MonoBehaviour:
   _mapName: test
   _image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   _sceneName: TestScene
+  _pathPrefab: {fileID: 1545400377850764479, guid: 09f8d9640b76a204fb120d9ff24cffc7, type: 3}
