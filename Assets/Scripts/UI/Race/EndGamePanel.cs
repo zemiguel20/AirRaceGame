@@ -3,50 +3,29 @@ using AirRace.Race;
 using TMPro;
 using UnityEngine;
 
-namespace AirRace.UI.Race
+namespace AirRace.UI
 {
     public class EndGamePanel : MonoBehaviour
     {
-        [SerializeField] private RaceController _gameManager;
         [SerializeField] private TextMeshProUGUI _timeText;
-        [SerializeField] private TextMeshProUGUI _leaderboardText;
-        [SerializeField] private Leaderboard _leaderboard;
+        [SerializeField] private LeaderboardUI _leaderboardUI;
+        private Leaderboard _leaderboard;
+        private RaceController _raceController;
 
-        private void Start()
+        public void Initialize(RaceController raceController, Leaderboard leaderboard)
         {
             gameObject.SetActive(false);
 
-            _gameManager.RaceEnded += ShowPanel;
-        }
+            _raceController = raceController;
+            _leaderboard = leaderboard;
 
-        private void OnDestroy()
-        {
-            _gameManager.RaceEnded -= ShowPanel;
+            _raceController.RaceEnded += ShowPanel;
         }
-
 
         public void ShowPanel()
         {
-            //_timeText.text = _gameManager.Chronometer.time.ToString("F2");
-
-            StringBuilder sb = new StringBuilder();
-
-
-            for (int i = 0; i < Leaderboard.SIZE; i++)
-            {
-                try
-                {
-                    float value = _leaderboard.Times[i];
-                    sb.AppendFormat("{0,-5} {1,-10} {2} \n", (i + 1).ToString(), ".........", value.ToString("F2"));
-                }
-                catch (System.Exception)
-                {
-                    sb.AppendFormat("{0,-5} {1,-10} {2} \n", (i + 1).ToString(), ".........", "N/A");
-                }
-            }
-
-            _leaderboardText.text = sb.ToString();
-
+            _timeText.text = _raceController.Chronometer.Time.ToString("F2");
+            _leaderboardUI.Initialize(_leaderboard);
 
             gameObject.SetActive(true);
         }

@@ -1093,7 +1093,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &815884958
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1131,9 +1131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dfc8f23a7990e44eb453b79eedac016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 0}
   _timeText: {fileID: 843676472}
-  _leaderboardText: {fileID: 1050985159}
+  _leaderboardUI: {fileID: 1050985161}
 --- !u!114 &815884960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1401,7 +1400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec19b3cfe03a174da9c8a8ed546abed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetY: 0
 --- !u!1 &1036661328
 GameObject:
   m_ObjectHideFlags: 0
@@ -1547,6 +1545,7 @@ GameObject:
   - component: {fileID: 1050985158}
   - component: {fileID: 1050985160}
   - component: {fileID: 1050985159}
+  - component: {fileID: 1050985161}
   m_Layer: 5
   m_Name: Leaderboard
   m_TagString: Untagged
@@ -1688,6 +1687,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1050985157}
   m_CullTransparentMesh: 1
+--- !u!114 &1050985161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050985157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82bace353ef44434bafc236fb87b8601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _leaderboardText: {fileID: 1050985159}
 --- !u!1 &1161455923
 GameObject:
   m_ObjectHideFlags: 0

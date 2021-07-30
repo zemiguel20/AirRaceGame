@@ -67,6 +67,9 @@ namespace AirRace.GameState
             Waypoint waypoint = Object.FindObjectOfType<Waypoint>();
             waypoint.Initialize(player.transform, Camera.main, path);
 
+            EndGamePanel endGamePanel = Object.FindObjectOfType<EndGamePanel>();
+            endGamePanel.Initialize(controller, _map.Leaderboard);
+
             // start race
             controller.StartRace();
         }
