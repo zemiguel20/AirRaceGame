@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using AirRace.Race;
 
-namespace AirRace
+namespace AirRace.UI
 {
     public class HUD : MonoBehaviour
     {
