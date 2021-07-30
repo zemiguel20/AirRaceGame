@@ -2,34 +2,36 @@
 using System.Collections;
 using UnityEngine;
 
-namespace AirRace.UI.Race.HUD
+namespace AirRace.UI
 {
     public class Waypoint : MonoBehaviour
     {
-        [SerializeField] private Camera _playerCamera;
-        [SerializeField] private Path _pathManager;
+        private Transform _player;
+        private Camera _playerCamera;
+        private Path _path;
 
-        public int offsetY;
+        public void Initialize(Transform player, Camera playerCamera, Path path)
+        {
+            _player = player;
+            _path = path;
+            _playerCamera = playerCamera;
+        }
 
         // Update is called once per frame
         void Update()
         {
-            Vector3 goalPositionWorld = _pathManager.GetCurrentGoal().transform.position;
+            Vector3 goalWorldPosition = _path.GetCurrentGoal().transform.position;
+            Vector3 playerWorldPosition = _player.position;
+
+            Vector3 goalLocalPositionRelativeToCamera = _playerCamera.transform.InverseTransformPoint(goalWorldPosition);
+            Vector3 playerLocalPositionRelativeToCamera = _playerCamera.transform.InverseTransformPoint(playerWorldPosition);
 
             /*
-             * Target relative position to the Camera transform.
-             * Waypoint "mirrors" transform of Camera, so Target is also relative to Waypoint.
-             * Offset because waypoint is not on the center
+             * Waypoint "mirrors" Camera position.
+             * Target position relative to Waypoint.
              */
-            Vector3 goalPositionLocalPlayerCamera = _playerCamera.transform.InverseTransformPoint(goalPositionWorld) + (_playerCamera.transform.up * offsetY);
-
-            /*
-             * LookAt looks at point in World coords.
-             * So we had the Waypoint world position to the relative vector.
-             * 
-             */
-            Vector3 target = goalPositionLocalPlayerCamera + this.transform.position ;
-            this.transform.LookAt(target);
+            Vector3 target = goalLocalPositionRelativeToCamera - playerLocalPositionRelativeToCamera + this.transform.position;
+            transform.LookAt(target);
         }
     }
 }

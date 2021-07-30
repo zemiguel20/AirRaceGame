@@ -64,6 +64,9 @@ namespace AirRace.GameState
             HUD hud = Object.FindObjectOfType<HUD>();
             hud.Initialize(controller);
 
+            Waypoint waypoint = Object.FindObjectOfType<Waypoint>();
+            waypoint.Initialize(player.transform, Camera.main, path);
+
             // start race
             controller.StartRace();
         }
