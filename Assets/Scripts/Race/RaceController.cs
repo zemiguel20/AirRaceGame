@@ -106,6 +106,7 @@ namespace AirRace.Race
             GameLogger.Debug("Race Finished: " + _chronometer.Time);
 
             _airplane.EnablePhysics(false);
+            _isRacing = false;
             _leaderboard.AddEntry(_chronometer.Time);
             RaceEnded?.Invoke();
 
