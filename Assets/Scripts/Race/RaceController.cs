@@ -12,8 +12,13 @@ namespace AirRace.Race
         public Timer Timer { get => _countdownTimer; }
 
         private Airplane _airplane;
+        public Airplane Airplane { get => _airplane; }
+
         private Path _path;
+
         private Chronometer _chronometer;
+        public Chronometer Chronometer { get => _chronometer; }
+
         private PlayerRespawner _respawner;
 
         private Leaderboard _leaderboard;
@@ -43,6 +48,10 @@ namespace AirRace.Race
             _path = path;
             _leaderboard = leaderboard;
             _playerInput = playerInput;
+
+            _countdownTimer = new Timer(5);
+            _chronometer = new Chronometer();
+            _respawner = new PlayerRespawner(_airplane);
         }
 
         public void StartRace()
@@ -53,8 +62,6 @@ namespace AirRace.Race
         private IEnumerator StartCountdownPhase()
         {
             _airplane.EnablePhysics(false);
-
-            _countdownTimer = new Timer(5);
 
             CountdownStarted?.Invoke();
             while (_countdownTimer.IsFinished == false)
@@ -72,8 +79,6 @@ namespace AirRace.Race
         {
             GameLogger.Debug("Race Started!");
 
-            _chronometer = new Chronometer();
-            _respawner = new PlayerRespawner(_airplane);
             _path.Initialize();
 
             _airplane.GoalHit += OnGoalPassed;

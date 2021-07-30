@@ -761,13 +761,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 605416401}
+  - component: {fileID: 605416402}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &605416401
 RectTransform:
   m_ObjectHideFlags: 0
@@ -791,6 +792,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &605416402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605416400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb3662e72a30f24fa80eea064839457, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _velocityLabel: {fileID: 2101208274}
+  _altitudeLabel: {fileID: 1607821964}
+  _chronometerLabel: {fileID: 1844472366}
 --- !u!1 &660141321
 GameObject:
   m_ObjectHideFlags: 0
@@ -2017,7 +2033,6 @@ GameObject:
   - component: {fileID: 1607821962}
   - component: {fileID: 1607821965}
   - component: {fileID: 1607821964}
-  - component: {fileID: 1607821963}
   m_Layer: 5
   m_Name: Altitude
   m_TagString: Untagged
@@ -2044,20 +2059,6 @@ RectTransform:
   m_AnchoredPosition: {x: -189, y: -194}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1607821963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1607821961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb46d34a60f676341bcfad168c13a484, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 0}
-  _label: {fileID: 1607821964}
 --- !u!114 &1607821964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2361,7 +2362,6 @@ GameObject:
   - component: {fileID: 1844472364}
   - component: {fileID: 1844472367}
   - component: {fileID: 1844472366}
-  - component: {fileID: 1844472365}
   m_Layer: 5
   m_Name: TimeCounter
   m_TagString: Untagged
@@ -2388,48 +2388,6 @@ RectTransform:
   m_AnchoredPosition: {x: 145, y: -144}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1844472365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1844472363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3ecf79e69d88d043805820aa8ce5e72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _colorGradient:
-    serializedVersion: 2
-    key0: {r: 1, g: 1, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
-  _label: {fileID: 1844472366}
 --- !u!114 &1844472366
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2927,7 +2885,6 @@ GameObject:
   - component: {fileID: 2101208272}
   - component: {fileID: 2101208275}
   - component: {fileID: 2101208274}
-  - component: {fileID: 2101208273}
   m_Layer: 5
   m_Name: Velocity
   m_TagString: Untagged
@@ -2954,20 +2911,6 @@ RectTransform:
   m_AnchoredPosition: {x: -117, y: -87}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2101208273
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2101208271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c78b0628659888c41a5d80c8f30e628d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _player: {fileID: 0}
-  _label: {fileID: 2101208274}
 --- !u!114 &2101208274
 MonoBehaviour:
   m_ObjectHideFlags: 0

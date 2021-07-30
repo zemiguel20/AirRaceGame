@@ -61,7 +61,8 @@ namespace AirRace.GameState
             CountdownTimerUI countdownTimerUI = Object.FindObjectOfType<CountdownTimerUI>();
             countdownTimerUI.Initialize(controller);
 
-
+            HUD hud = Object.FindObjectOfType<HUD>();
+            hud.Initialize(controller);
 
             // start race
             controller.StartRace();
