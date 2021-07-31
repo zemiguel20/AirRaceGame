@@ -7,20 +7,16 @@ namespace AirRace.UI
 {
     public class PauseMenu : MonoBehaviour
     {
-        [SerializeField] private RaceController _gameManager;
+        private RaceController _raceController;
 
-        private void Start()
+        public void Initialize(RaceController raceController)
         {
             gameObject.SetActive(false);
 
-            _gameManager.GamePaused += OnPause;
-            _gameManager.GameResumed += OnResume;
-        }
+            _raceController = raceController;
 
-        private void OnDestroy()
-        {
-            _gameManager.GamePaused -= OnPause;
-            _gameManager.GameResumed -= OnResume;
+            _raceController.GamePaused += OnPause;
+            _raceController.GameResumed += OnResume;
         }
 
         private void OnPause()
@@ -33,6 +29,20 @@ namespace AirRace.UI
             gameObject.SetActive(false);
         }
 
+        public void ResumePressed()
+        {
+            _raceController.PauseResumeGame();
+        }
+
+        public void RestartPressed()
+        {
+            _raceController.RestartRace();
+        }
+
+        public void ExitPressed()
+        {
+            _raceController.ExitRace();
+        }
 
     }
 }

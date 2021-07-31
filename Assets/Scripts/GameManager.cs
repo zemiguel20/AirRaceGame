@@ -40,7 +40,7 @@ namespace AirRace
         {
             if (loadedMap != null)
             {
-                SceneManager.UnloadSceneAsync(loadedMap.MapName);
+                SceneManager.UnloadSceneAsync(loadedMap.SceneName);
                 SceneManager.UnloadSceneAsync("UI");
                 loadedMap = null;
             }
@@ -77,7 +77,7 @@ namespace AirRace
         {
             if (loadedMap != null)
             {
-                SceneManager.UnloadSceneAsync(loadedMap.MapName);
+                SceneManager.UnloadSceneAsync(loadedMap.SceneName);
                 SceneManager.UnloadSceneAsync("UI");
                 loadedMap = null;
             }
@@ -137,6 +137,9 @@ namespace AirRace
 
             EndGamePanel endGamePanel = FindObjectOfType<EndGamePanel>();
             endGamePanel.Initialize(controller, loadedMap.Leaderboard);
+
+            PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
+            pauseMenu.Initialize(controller);
 
             // events
             controller.RaceExited += OnRaceExited;
