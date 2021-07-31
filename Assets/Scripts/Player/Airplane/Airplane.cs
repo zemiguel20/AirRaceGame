@@ -59,5 +59,6 @@ namespace AirRace.Player
         public Vector3 Position { get => _plane.position; set => _plane.position = value; }
         public Quaternion Rotation { get => _plane.rotation; set => _plane.rotation = value; }
         public Vector3 Velocity { get => _plane.velocity; }
+        public float Throttle { get => _throttleMultiplier; }
     }
 }
