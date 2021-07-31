@@ -29,5 +29,9 @@ namespace AirRace.UI
 
             gameObject.SetActive(true);
         }
+
+        public void OnExitButtonPressed(){
+            _raceController.ExitRace();
+        }
     }
 }

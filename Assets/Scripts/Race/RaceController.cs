@@ -35,6 +35,7 @@ namespace AirRace.Race
         public event Action RaceEnded;
         public event Action GamePaused;
         public event Action GameResumed;
+        public event Action RaceExited;
 
         //Called every frame update
         private void Update()
@@ -141,6 +142,11 @@ namespace AirRace.Race
                 _isPaused = true;
                 GamePaused?.Invoke();
             }
+        }
+
+        public void ExitRace()
+        {
+            RaceExited?.Invoke();
         }
 
     }
