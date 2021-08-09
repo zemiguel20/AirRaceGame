@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace AirRace.Player
 {
-    public class InputController : MonoBehaviour, IPlayerInput
+    public class PlayerInput : MonoBehaviour
     {
         [SerializeField] [Range(0, 1)] private float _rotationInputSensivity;
         [SerializeField] [Range(0, 1)] private float _accelerateInputSensivity;

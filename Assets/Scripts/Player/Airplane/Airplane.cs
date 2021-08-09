@@ -9,16 +9,16 @@ namespace AirRace.Player
     {
         [SerializeField] private Rigidbody _plane;
         [SerializeField] private PlanePropertiesSO _planeProperties;
+        [SerializeField] private PlayerInput _playerInput;
 
         public event Action<GameObject> GoalHit;
         public event Action TerrainHit;
 
         private AirplanePhysics _airplanePhysics;
-        private IPlayerInput _playerInput;
 
         private float _throttleMultiplier = 0;
 
-        public void Initialize(IPlayerInput inputController)
+        public void Initialize(PlayerInput inputController)
         {
             _airplanePhysics = new AirplanePhysics(_plane, _planeProperties);
             _playerInput = inputController;

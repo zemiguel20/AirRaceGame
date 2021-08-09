@@ -114,7 +114,7 @@ namespace AirRace
         {
             // Initialize race
 
-            IPlayerInput input = FindObjectOfType<InputController>();
+            PlayerInput input = FindObjectOfType<PlayerInput>();
 
             Airplane player = FindObjectOfType<Airplane>();
             player.Initialize(input);
