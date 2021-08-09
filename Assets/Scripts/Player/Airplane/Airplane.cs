@@ -18,10 +18,9 @@ namespace AirRace.Player
 
         private float _throttleMultiplier = 0;
 
-        public void Initialize(PlayerInput inputController)
+        private void Awake()
         {
             _airplanePhysics = new AirplanePhysics(_plane, _planeProperties);
-            _playerInput = inputController;
         }
 
         private void FixedUpdate()
@@ -34,11 +33,8 @@ namespace AirRace.Player
 
         private void Update()
         {
-            if (_playerInput != null)
-            {
-                _throttleMultiplier += _playerInput.AccelerateInputMultiplier * Time.deltaTime * _planeProperties.ThrottleIncreasePerSecond;
-                _throttleMultiplier = Mathf.Clamp01(_throttleMultiplier);
-            }
+            _throttleMultiplier += _playerInput.AccelerateInputMultiplier * Time.deltaTime * _planeProperties.ThrottleIncreasePerSecond;
+            _throttleMultiplier = Mathf.Clamp01(_throttleMultiplier);
         }
 
         private void OnCollisionEnter()

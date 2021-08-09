@@ -651,6 +651,10 @@ PrefabInstance:
       propertyPath: _pitchForce
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 3305866022684432785, guid: bce9ba419ec7bef4f9d0871f0ee672e1, type: 3}
+      propertyPath: _playerInput
+      value: 
+      objectReference: {fileID: 4035906439749274016}
     - target: {fileID: 3684640445376374197, guid: bce9ba419ec7bef4f9d0871f0ee672e1, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -899,14 +903,6 @@ PrefabInstance:
       propertyPath: _planeMovement
       value: 
       objectReference: {fileID: 596430144}
-    - target: {fileID: 1681466764414533927, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: _rotationInputSensivity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1681466764414533927, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
-      propertyPath: _accelerateInputSensivity
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2233268970484365842, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -989,6 +985,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
+--- !u!114 &4035906439749274016 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1681466764414533927, guid: f0f31c3e3267e7b47acb425999269ba8, type: 3}
+  m_PrefabInstance: {fileID: 4035906439749274015}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b99c59918a67a864bb3d566dcffb7d86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8067189417478682293
 PrefabInstance:
   m_ObjectHideFlags: 0
