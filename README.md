@@ -6,7 +6,7 @@ Redbull Air Race styled racing game made in Unity Engine.
 This part has information for project development.
 
 ### Engine Version
-2021.1.9f1
+2020.3.15f2
 
 ### Documentation
 
