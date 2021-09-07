@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 namespace AirRace
 {
-    [System.Serializable]
     public class Leaderboard
     {
         public static readonly int SIZE = 10;
+
         private List<float> _times;
-        public float[] Times { get => _times.ToArray(); }
+        public List<float> Times { get => new List<float>(_times); }
 
         public Leaderboard()
         {
@@ -20,9 +20,9 @@ namespace AirRace
             SortAndTrim();
         }
 
-        public void SetTimes(float[] times)
+        public void SetTimes(List<float> times)
         {
-            _times = new List<float>(times);
+            _times = times;
             SortAndTrim();
         }
 

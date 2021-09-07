@@ -14,19 +14,19 @@ namespace AirRace.UI
         [SerializeField] private GameObject mapSelectionPanel;
         [SerializeField] private MapInfoPanel mapInfoPanel;
 
-        public event Action<MapInfoSO> MapChosen;
+        public event Action<Map> MapChosen;
         public event Action QuitPressed;
 
-        public void Initialize(List<MapInfoSO> maps)
+        public void Initialize(List<Map> maps)
         {
             LoadMapButtons(maps);
             mapInfoPanel.PlayMapPressed += OnPlayMapPressed;
             ShowMenuPanel();
         }
 
-        private void LoadMapButtons(List<MapInfoSO> maps)
+        private void LoadMapButtons(List<Map> maps)
         {
-            foreach (MapInfoSO map in maps)
+            foreach (Map map in maps)
             {
                 MapButton instance = Instantiate(mapButtonPrefab);
                 instance.transform.SetParent(grid.transform);
@@ -49,7 +49,7 @@ namespace AirRace.UI
             mapInfoPanel.gameObject.SetActive(false);
         }
 
-        public void ShowMapInfoPanel(MapInfoSO map)
+        public void ShowMapInfoPanel(Map map)
         {
             menuPanel.SetActive(false);
             mapSelectionPanel.SetActive(false);
@@ -58,7 +58,7 @@ namespace AirRace.UI
             mapInfoPanel.Initialize(map);
         }
 
-        public void OnPlayMapPressed(MapInfoSO map)
+        public void OnPlayMapPressed(Map map)
         {
             MapChosen?.Invoke(map);
         }

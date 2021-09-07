@@ -10,26 +10,26 @@ namespace AirRace
     {
         private static readonly string SavePath = Application.persistentDataPath + "/";
 
-        public static void SaveLeaderboard(Leaderboard leaderboard, string filename)
+        public static void SaveLeaderboard(List<float> values, string mapName)
         {
-            string filepath = SavePath + filename + ".save";
+            string filepath = SavePath + mapName + ".save";
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(filepath, FileMode.Create);
-            formatter.Serialize(stream, leaderboard);
+            formatter.Serialize(stream, values);
             stream.Close();
         }
 
-        public static Leaderboard LoadLeaderboard(string filename)
+        public static List<float> LoadLeaderboard(string mapName)
         {
-            string filepath = SavePath + filename + ".save";
+            string filepath = SavePath + mapName + ".save";
 
             if (File.Exists(filepath))
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 FileStream stream = new FileStream(filepath, FileMode.Open);
-                Leaderboard leaderboard = formatter.Deserialize(stream) as Leaderboard;
+                List<float> values = formatter.Deserialize(stream) as List<float>;
                 stream.Close();
-                return leaderboard;
+                return values;
             }
             else
             {

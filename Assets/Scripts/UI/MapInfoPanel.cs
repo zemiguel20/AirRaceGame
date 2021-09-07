@@ -13,16 +13,16 @@ namespace AirRace.UI
         [SerializeField] private TextMeshProUGUI _nameLabel;
         [SerializeField] private LeaderboardUI _leaderboardUI;
 
-        private MapInfoSO _selectedMap;
+        private Map _selectedMap;
 
-        public event Action<MapInfoSO> PlayMapPressed;
+        public event Action<Map> PlayMapPressed;
 
-        public void Initialize(MapInfoSO map)
+        public void Initialize(Map map)
         {
             _selectedMap = map;
 
             _image.sprite = _selectedMap.Image;
-            _nameLabel.text = _selectedMap.MapName;
+            _nameLabel.text = _selectedMap.Name;
             _leaderboardUI.Initialize(map.Leaderboard);
         }
 

@@ -11,10 +11,12 @@ namespace AirRace
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private List<MapInfoSO> _maps;
-        public List<MapInfoSO> Maps { get => _maps; }
+        [SerializeField] GameObject loadingScreen;
 
-        private MapInfoSO loadedMap;
+        [SerializeField] private List<Map> _maps;
+        public List<Map> Maps { get => _maps; }
+
+        private Map loadedMap;
 
         void Awake()
         {
@@ -25,13 +27,12 @@ namespace AirRace
 
         private void LoadMapsLeaderboards()
         {
-            foreach (var mapInfo in _maps)
+            foreach (var map in _maps)
             {
-                string scriptableObjectName = mapInfo.name;
-                Leaderboard leaderboard = SaveManager.LoadLeaderboard(scriptableObjectName);
-                if (leaderboard != null)
+                List<float> values = SaveManager.LoadLeaderboard(map.Name);
+                if (values != null)
                 {
-                    mapInfo.Leaderboard.SetTimes(leaderboard.Times);
+                    map.Leaderboard.SetTimes(values);
                 }
             }
         }
@@ -45,17 +46,16 @@ namespace AirRace
                 loadedMap = null;
             }
 
-            AsyncOperation operation = SceneManager.LoadSceneAsync("LoadingScreen", LoadSceneMode.Additive);
+            loadingScreen.SetActive(true);
+
+            AsyncOperation operation = SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
             while (operation.isDone == false)
                 yield return null;
-
-            operation = SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
-            while (operation.isDone == false)
-                yield return null;
-
-            SceneManager.UnloadSceneAsync("LoadingScreen");
 
             InitializeMainMenu();
+
+            loadingScreen.SetActive(false);
+
 
             yield break;
         }
@@ -68,12 +68,12 @@ namespace AirRace
             mainMenu.QuitPressed += QuitGame;
         }
 
-        private void OnMapChosen(MapInfoSO map)
+        private void OnMapChosen(Map map)
         {
             StartCoroutine(LoadMap(map));
         }
 
-        private IEnumerator LoadMap(MapInfoSO map)
+        private IEnumerator LoadMap(Map map)
         {
             if (loadedMap != null)
             {
@@ -87,11 +87,9 @@ namespace AirRace
             }
 
 
-            AsyncOperation operation = SceneManager.LoadSceneAsync("LoadingScreen", LoadSceneMode.Additive);
-            while (operation.isDone == false)
-                yield return null;
+            loadingScreen.SetActive(true);
 
-            operation = SceneManager.LoadSceneAsync(map.SceneName, LoadSceneMode.Additive);
+            AsyncOperation operation = SceneManager.LoadSceneAsync(map.SceneName, LoadSceneMode.Additive);
             while (operation.isDone == false)
                 yield return null;
 
@@ -101,11 +99,12 @@ namespace AirRace
             while (operation.isDone == false)
                 yield return null;
 
-            SceneManager.UnloadSceneAsync("LoadingScreen");
 
             loadedMap = map;
 
             InitializeMap();
+
+            loadingScreen.SetActive(false);
 
             yield break;
         }
@@ -150,7 +149,7 @@ namespace AirRace
 
         private void OnRaceExited()
         {
-            SaveManager.SaveLeaderboard(loadedMap.Leaderboard, loadedMap.name);
+            SaveManager.SaveLeaderboard(loadedMap.Leaderboard.Times, loadedMap.Name);
             StartCoroutine(LoadMainMenu());
         }
 

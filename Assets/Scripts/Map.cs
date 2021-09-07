@@ -1,13 +1,14 @@
-using AirRace.Race;
+﻿using AirRace.Race;
+using System.Collections;
 using UnityEngine;
 
 namespace AirRace
 {
-    [CreateAssetMenu(fileName = "MapInfoSO", menuName = "ScriptableObjects/MapInfoSO")]
-    public class MapInfoSO : ScriptableObject
+    [System.Serializable]
+    public class Map
     {
         [SerializeField] private string _mapName;
-        public string MapName { get => _mapName; }
+        public string Name { get => _mapName; }
 
         [SerializeField] private Sprite _image;
         public Sprite Image { get => _image; }
