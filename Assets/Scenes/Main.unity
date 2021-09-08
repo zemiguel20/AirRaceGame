@@ -168,10 +168,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingScreen: {fileID: 976355654}
   _maps:
-  - _mapName: 
-    _image: {fileID: 0}
-    _sceneName: 
-    _pathPrefab: {fileID: 0}
+  - _mapName: Test Map
+    _image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    _sceneName: TestScene
+    _pathPrefab: {fileID: 1545400377850764479, guid: 09f8d9640b76a204fb120d9ff24cffc7, type: 3}
 --- !u!1 &976355654 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4316171429452780381, guid: 344bb884dcf6cba4bb7c422ffb9a6af5, type: 3}
