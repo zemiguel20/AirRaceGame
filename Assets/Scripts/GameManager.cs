@@ -39,16 +39,24 @@ namespace AirRace
 
         private IEnumerator LoadMainMenu()
         {
+            AsyncOperation operation;
+
             if (loadedMap != null)
             {
-                SceneManager.UnloadSceneAsync(loadedMap.SceneName);
-                SceneManager.UnloadSceneAsync("UI");
+                operation = SceneManager.UnloadSceneAsync("UI");
+                while (operation.isDone == false)
+                    yield return null;
+
+                operation = SceneManager.UnloadSceneAsync(loadedMap.SceneName);
+                while (operation.isDone == false)
+                    yield return null;
+
                 loadedMap = null;
             }
 
             loadingScreen.SetActive(true);
 
-            AsyncOperation operation = SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+            operation = SceneManager.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
             while (operation.isDone == false)
                 yield return null;
 
@@ -75,21 +83,31 @@ namespace AirRace
 
         private IEnumerator LoadMap(Map map)
         {
+            AsyncOperation operation;
+
             if (loadedMap != null)
             {
-                SceneManager.UnloadSceneAsync(loadedMap.SceneName);
-                SceneManager.UnloadSceneAsync("UI");
+                operation = SceneManager.UnloadSceneAsync("UI");
+                while (operation.isDone == false)
+                    yield return null;
+
+                operation = SceneManager.UnloadSceneAsync(loadedMap.SceneName);
+                while (operation.isDone == false)
+                    yield return null;
+
                 loadedMap = null;
             }
             else
             {
-                SceneManager.UnloadSceneAsync("MainMenu");
+                operation = SceneManager.UnloadSceneAsync("MainMenu");
+                while (operation.isDone == false)
+                    yield return null;
             }
 
 
             loadingScreen.SetActive(true);
 
-            AsyncOperation operation = SceneManager.LoadSceneAsync(map.SceneName, LoadSceneMode.Additive);
+            operation = SceneManager.LoadSceneAsync(map.SceneName, LoadSceneMode.Additive);
             while (operation.isDone == false)
                 yield return null;
 
@@ -124,14 +142,8 @@ namespace AirRace
 
             // Initialize UI
 
-            CountdownTimerUI countdownTimerUI = FindObjectOfType<CountdownTimerUI>();
-            countdownTimerUI.Initialize(controller);
-
             HUD hud = FindObjectOfType<HUD>();
             hud.Initialize(controller);
-
-            Waypoint waypoint = FindObjectOfType<Waypoint>();
-            waypoint.Initialize(player.transform, Camera.main, path);
 
             EndGamePanel endGamePanel = FindObjectOfType<EndGamePanel>();
             endGamePanel.Initialize(controller, loadedMap.Leaderboard);
@@ -158,7 +170,7 @@ namespace AirRace
             StartCoroutine(LoadMap(loadedMap));
         }
 
-        public void QuitGame()
+        private void QuitGame()
         {
             GameLogger.Debug("Game Quit!");
             Application.Quit();
