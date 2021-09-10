@@ -25,15 +25,15 @@ namespace AirRace.Player
 
         private void FixedUpdate()
         {
-            float rollInputMultiplier = 0;
-            float pitchInputMultiplier = 0;
+            float rollInputMultiplier = -_playerInput.RotateInput.x;
+            float pitchInputMultiplier = _playerInput.RotateInput.y;
             float yawInputMultiplier = 0;
             _airplanePhysics.UpdateForces(_throttleMultiplier, rollInputMultiplier, pitchInputMultiplier, yawInputMultiplier);
         }
 
         private void Update()
         {
-            _throttleMultiplier += 0 * Time.deltaTime * _planeProperties.ThrottleIncreasePerSecond;
+            _throttleMultiplier += _playerInput.ThrottleInput * Time.deltaTime * _planeProperties.ThrottleIncreasePerSecond;
             _throttleMultiplier = Mathf.Clamp01(_throttleMultiplier);
         }
 
