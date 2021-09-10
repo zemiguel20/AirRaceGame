@@ -23,7 +23,7 @@ namespace AirRace.UI
 
             _image.sprite = _selectedMap.Image;
             _nameLabel.text = _selectedMap.Name;
-            _leaderboardUI.Initialize(map.Leaderboard);
+            _leaderboardUI.SetLeaderboard(map.Leaderboard);
         }
 
         public void OnPlayMapPressed()
