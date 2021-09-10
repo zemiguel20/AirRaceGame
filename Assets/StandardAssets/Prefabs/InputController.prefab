@@ -102,16 +102,64 @@ MonoBehaviour:
   changeThrottleAction:
     m_Name: Change Throttle
     m_Type: 0
-    m_ExpectedControlType: 
+    m_ExpectedControlType: Axis
     m_Id: 6d0a5b8c-32db-4116-bea9-7fac63cda40f
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: LShit/LCtrl
+      m_Id: 936078f6-3500-48cc-aef3-dd137b6d4152
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Change Throttle
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 5ab51c07-56a8-46cc-8ed0-e03cd982f841
+      m_Path: <Keyboard>/leftCtrl
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Change Throttle
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 392f39a0-e489-46b6-9a7f-a22d1d95ca37
+      m_Path: <Keyboard>/leftShift
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Change Throttle
+      m_Flags: 8
+    - m_Name: 
+      m_Id: 1c03310b-01dc-4479-b310-517b2c0ec14e
+      m_Path: <Gamepad>/rightStick/y
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Change Throttle
+      m_Flags: 0
   pauseUnpauseGameAction:
     m_Name: Pause Unpause Game
-    m_Type: 0
-    m_ExpectedControlType: 
+    m_Type: 1
+    m_ExpectedControlType: Button
     m_Id: 2041945c-a36e-4e7f-9aa2-6024c33ba83b
     m_Processors: 
     m_Interactions: 
-    m_SingletonActionBindings: []
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: f3e0ca1b-eb0c-4a65-847c-d0be738d6d32
+      m_Path: <Gamepad>/start
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pause Unpause Game
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 9000ede4-e2cb-4ae5-bbed-c1e7edc6d86f
+      m_Path: <Keyboard>/escape
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pause Unpause Game
+      m_Flags: 0
