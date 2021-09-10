@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace AirRace.Player
+namespace AirRace
 {
     public class PlayerInput : MonoBehaviour
     {
