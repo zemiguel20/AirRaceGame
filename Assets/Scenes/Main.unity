@@ -170,7 +170,7 @@ MonoBehaviour:
   _maps:
   - _mapName: Test Map
     _image: {fileID: 21300000, guid: 8c3140bafcad43e4a9bc483ca0dce760, type: 3}
-    _sceneName: TestScene
+    _sceneName: Islands
     _pathPrefab: {fileID: 1545400377850764479, guid: 09f8d9640b76a204fb120d9ff24cffc7, type: 3}
 --- !u!1 &976355654 stripped
 GameObject:
