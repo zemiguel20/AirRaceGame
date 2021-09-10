@@ -6,43 +6,40 @@ namespace AirRace.Player
 {
     public class PlayerInput : MonoBehaviour
     {
-        [SerializeField] [Range(0, 1)] private float _rotationInputSensivity;
-        [SerializeField] [Range(0, 1)] private float _accelerateInputSensivity;
+        [SerializeField] private InputAction rotatePlaneAction;
+        [SerializeField] private InputAction changeThrottleAction;
+        [SerializeField] private InputAction pauseUnpauseGameAction;
 
-
-        public float RollInputMultiplier { get; private set; }
-        public float PitchInputMultiplier { get; private set; }
-        public float YawInputMultiplier { get; private set; }
-        public float AccelerateInputMultiplier { get; private set; }
+        public Vector2 RotateInput { get; private set; }
+        public float ThrottleInput { get; private set; }
 
         public event Action PauseInputTriggered;
 
-        public void OnAccelerate(InputAction.CallbackContext context)
+        private void OnEnable()
         {
-            AccelerateInputMultiplier = context.ReadValue<float>() * _accelerateInputSensivity;
+            rotatePlaneAction.Enable();
+            changeThrottleAction.Enable();
+            pauseUnpauseGameAction.Enable();
+            pauseUnpauseGameAction.started += OnPauseUnpauseGame;
         }
 
-        public void OnAileronsMove(InputAction.CallbackContext context)
+        private void OnDisable()
         {
-            RollInputMultiplier = context.ReadValue<float>() * _rotationInputSensivity;
+            rotatePlaneAction.Disable();
+            changeThrottleAction.Disable();
+            pauseUnpauseGameAction.Disable();
+            pauseUnpauseGameAction.started -= OnPauseUnpauseGame;
         }
 
-        public void OnElevatorsMove(InputAction.CallbackContext context)
+        private void Update()
         {
-            PitchInputMultiplier = context.ReadValue<float>() * _rotationInputSensivity;
-        }
-
-        public void OnRudderMove(InputAction.CallbackContext context)
-        {
-            YawInputMultiplier = context.ReadValue<float>() * _rotationInputSensivity;
+            RotateInput = rotatePlaneAction.ReadValue<Vector2>();
+            ThrottleInput = changeThrottleAction.ReadValue<float>();
         }
 
         public void OnPauseUnpauseGame(InputAction.CallbackContext context)
         {
-            if (context.started)
-            {
-                PauseInputTriggered?.Invoke();
-            }
+            PauseInputTriggered?.Invoke();
         }
     }
 }
