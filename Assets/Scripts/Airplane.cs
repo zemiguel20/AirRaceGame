@@ -35,7 +35,7 @@ namespace AirRace.Player
 
         private void Update()
         {
-            _throttleMultiplier += _playerInput.ThrottleInput * Time.deltaTime * _planeProperties.ThrottleIncreasePerSecond;
+            _throttleMultiplier += _playerInput.ThrottleInput * Time.deltaTime * 5;
             _throttleMultiplier = Mathf.Clamp01(_throttleMultiplier);
         }
 

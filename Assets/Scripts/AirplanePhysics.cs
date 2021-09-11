@@ -47,7 +47,7 @@ namespace AirRace.Player
 
         private void ApplyThrustForce(float throttleMultiplier)
         {
-            float magnitude = _planeProperties.MaxAcceleration * throttleMultiplier;
+            float magnitude = _planeProperties.MaxThrottle * throttleMultiplier;
             Vector3 direction = Vector3.forward;
             _plane.AddRelativeForce(_plane.mass * magnitude * direction, ForceMode.Force);
         }
@@ -57,7 +57,7 @@ namespace AirRace.Player
             Vector3 rollComponent = rollInputMultiplier * Vector3.forward;
             Vector3 pitchComponent = pitchInputMultiplier * Vector3.right;
             Vector3 yawComponent = yawInputMultiplier * Vector3.up;
-            Vector3 torque = Mathf.Pow(_plane.velocity.magnitude, 2) * _planeProperties.TorqueMultiplier * (rollComponent + pitchComponent + yawComponent);
+            Vector3 torque = Mathf.Pow(_plane.velocity.magnitude, 2) * _planeProperties.RotationSpeed * (rollComponent + pitchComponent + yawComponent);
             _plane.AddRelativeTorque(torque, ForceMode.Force);
         }
 

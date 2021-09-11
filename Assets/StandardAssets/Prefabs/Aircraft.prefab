@@ -96,11 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66a86c6aed64ba429311fd930df3b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _plane: {fileID: 7626520303407911630}
   _planeProperties:
-    _maxAcceleration: 40
-    _throttleIncreasePerSecond: 0.5
-    _torqueMultiplier: 0.747
+    _maxThrottle: 40
+    _rotationSpeed: 5
     _stallAngle: 20
     _maxLiftCf: 0.8
     _minDragCf: 5
