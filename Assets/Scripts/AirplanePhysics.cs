@@ -6,10 +6,10 @@ namespace AirRace.Player
     {
         private float[,] _liftCoefficientTable;
 
-        private PlanePropertiesSO _planeProperties;
+        private AirplaneProperties _planeProperties;
         private Rigidbody _plane;
 
-        public AirplanePhysics(Rigidbody plane, PlanePropertiesSO planeProperties)
+        public AirplanePhysics(Rigidbody plane, AirplaneProperties planeProperties)
         {
             _plane = plane;
             _planeProperties = planeProperties;

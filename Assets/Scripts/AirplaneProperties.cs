@@ -1,9 +1,10 @@
+﻿using System.Collections;
 using UnityEngine;
 
-namespace AirRace.Player
+namespace AirRace
 {
-    [CreateAssetMenu(menuName = "ScriptableObjects/PlaneProperties")]
-    public class PlanePropertiesSO : ScriptableObject
+    [System.Serializable]
+    public class AirplaneProperties
     {
         [SerializeField] [Tooltip("Acceleration in m/s^2")] [Min(0)] private float _maxAcceleration;
         [SerializeField] [Range(0, 1)] private float _throttleIncreasePerSecond;
@@ -25,5 +26,3 @@ namespace AirRace.Player
         public float MaxDragCf { get => _maxDragCf; }
     }
 }
-
-

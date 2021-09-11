@@ -97,7 +97,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _plane: {fileID: 7626520303407911630}
-  _planeProperties: {fileID: 11400000, guid: 6528b0c59c4227f429536c10ce78213a, type: 2}
+  _planeProperties:
+    _maxAcceleration: 40
+    _throttleIncreasePerSecond: 0.5
+    _torqueMultiplier: 0.747
+    _stallAngle: 20
+    _maxLiftCf: 0.8
+    _minDragCf: 5
+    _maxDragCf: 17.39
+  _playerInput: {fileID: 0}
 --- !u!1 &6174436668702038168
 GameObject:
   m_ObjectHideFlags: 0
