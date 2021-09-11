@@ -25,7 +25,7 @@ namespace AirRace.UI
         public void ShowPanel()
         {
             _timeText.text = _raceController.Chronometer.Time.ToString("F2");
-            _leaderboardUI.Initialize(_leaderboard);
+            _leaderboardUI.SetLeaderboard(_leaderboard);
 
             gameObject.SetActive(true);
         }

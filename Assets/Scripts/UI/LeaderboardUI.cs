@@ -8,7 +8,7 @@ namespace AirRace.UI
     {
         [SerializeField] private TextMeshProUGUI _leaderboardText;
 
-        public void Initialize(Leaderboard leaderboard)
+        public void SetLeaderboard(Leaderboard leaderboard)
         {
             StringBuilder sb = new StringBuilder();
 

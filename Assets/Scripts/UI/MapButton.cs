@@ -10,17 +10,17 @@ namespace AirRace.UI
         [SerializeField] private Image _image;
         [SerializeField] private TextMeshProUGUI _nameLabel;
 
-        private MapInfoSO _map;
+        private Map _map;
 
-        public event Action<MapInfoSO> MapSelected;
+        public event Action<Map> MapSelected;
 
 
-        public void Initialize(MapInfoSO mapInfo)
+        public void Initialize(Map map)
         {
-            _nameLabel.text = mapInfo.MapName;
-            _image.sprite = mapInfo.Image;
+            _nameLabel.text = map.Name;
+            _image.sprite = map.Image;
 
-            _map = mapInfo;
+            _map = map;
         }
 
         public void OnButtonClicked()
