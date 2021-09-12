@@ -96,13 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66a86c6aed64ba429311fd930df3b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _planeProperties:
-    _maxThrottle: 40
-    _rotationSpeed: 5
-    _stallAngle: 20
-    _maxLiftCf: 0.8
-    _minDragCf: 5
-    _maxDragCf: 17.39
+  _maxThrottle: 150
+  _rollSpeed: 2
+  _pitchSpeed: 1
+  _dragCoefficient: 20
   _playerInput: {fileID: 0}
 --- !u!1 &6174436668702038168
 GameObject:
