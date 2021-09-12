@@ -1,5 +1,4 @@
-﻿using AirRace.Player;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace AirRace.Race
 {
