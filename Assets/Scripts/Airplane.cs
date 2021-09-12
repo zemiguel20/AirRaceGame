@@ -88,7 +88,7 @@ namespace AirRace
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Goal")) GoalHit?.Invoke(other.gameObject);
+            GoalHit?.Invoke(other.gameObject);
         }
 
         public void EnablePhysics(bool value)
