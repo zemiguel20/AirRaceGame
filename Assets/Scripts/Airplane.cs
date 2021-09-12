@@ -69,8 +69,8 @@ namespace AirRace
         private void ApplyThrustForce()
         {
             float magnitude = _maxThrottle * _throttle;
-            Vector3 direction = Vector3.forward;
-            _rigidbody.AddRelativeForce(_rigidbody.mass * magnitude * direction, ForceMode.Force);
+            Vector3 direction = transform.forward;
+            _rigidbody.AddForce(_rigidbody.mass * magnitude * direction, ForceMode.Force);
         }
 
         private void ApplyDragForce()
