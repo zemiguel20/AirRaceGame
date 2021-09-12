@@ -96,8 +96,7 @@ namespace AirRace
             _rigidbody.isKinematic = !value;
         }
 
-        public Vector3 Position { get => _rigidbody.position; set => _rigidbody.position = value; }
-        public Quaternion Rotation { get => _rigidbody.rotation; set => _rigidbody.rotation = value; }
+        public Rigidbody Rigidbody { get => _rigidbody; }
         public Vector3 Velocity { get => _rigidbody.velocity; }
         public float Throttle { get => _throttle; }
     }

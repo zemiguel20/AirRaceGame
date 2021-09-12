@@ -13,8 +13,8 @@ namespace AirRace.Race
         public PlayerRespawner(Airplane player)
         {
             _player = player;
-            respawnPoint = _player.Position;
-            respawnRotation = _player.Rotation;
+            respawnPoint = _player.transform.position;
+            respawnRotation = _player.transform.rotation;
         }
 
         public void UpdateRespawn(GameObject goal)
@@ -25,8 +25,8 @@ namespace AirRace.Race
 
         public void Respawn()
         {
-            _player.Position = respawnPoint;
-            _player.Rotation = respawnRotation;
+            _player.Rigidbody.position = respawnPoint;
+            _player.Rigidbody.rotation = respawnRotation;
         }
     }
 }
