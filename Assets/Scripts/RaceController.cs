@@ -14,6 +14,7 @@ namespace AirRace.Race
         public Airplane Airplane { get => _airplane; }
 
         private Path _path;
+        public Path Path { get => _path; }
 
         private Chronometer _chronometer;
         public Chronometer Chronometer { get => _chronometer; }
