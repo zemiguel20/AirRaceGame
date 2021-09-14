@@ -141,10 +141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66a86c6aed64ba429311fd930df3b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxThrottle: 150
+  _maxThrottle: 250
   _rollSpeed: 2
   _pitchSpeed: 1
-  _dragCoefficient: 20
+  _dragCoefficient: 13
   _playerInput: {fileID: 0}
 --- !u!1 &5397264455491415882
 GameObject:
