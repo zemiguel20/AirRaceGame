@@ -30,8 +30,14 @@ namespace AirRace.UI
             gameObject.SetActive(true);
         }
 
-        public void OnExitButtonPressed(){
+        public void OnExitButtonPressed()
+        {
             _raceController.ExitRace();
+        }
+
+        public void OnRestartButtonPressed()
+        {
+            _raceController.RestartRace();
         }
     }
 }
