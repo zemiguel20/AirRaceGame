@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using AirRace.Utils;
 using System.Collections.Generic;
 
 namespace AirRace
@@ -33,7 +32,7 @@ namespace AirRace
             }
             else
             {
-                GameLogger.Debug("File not found: " + filepath);
+                Debug.Log("File not found: " + filepath);
                 return null;
             }
         }

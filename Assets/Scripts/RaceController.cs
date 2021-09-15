@@ -70,7 +70,7 @@ namespace AirRace.Race
             {
                 yield return new WaitForSeconds(1);
                 _countdownTimer.TickSeconds(1);
-                GameLogger.Debug(_countdownTimer.RemaingSeconds.ToString());
+                Debug.Log(_countdownTimer.RemaingSeconds.ToString());
             }
             CountdownFinished?.Invoke();
 
@@ -79,7 +79,7 @@ namespace AirRace.Race
 
         private void StartRacePhase()
         {
-            GameLogger.Debug("Race Started!");
+            Debug.Log("Race Started!");
 
             _path.Initialize();
 
@@ -95,7 +95,7 @@ namespace AirRace.Race
 
         private void OnGoalPassed(GameObject goal)
         {
-            GameLogger.Debug("Passed goal");
+            Debug.Log("Passed goal");
             _path.NextGoal();
 
             _respawner.UpdateRespawn(goal);
@@ -105,7 +105,7 @@ namespace AirRace.Race
 
         private void EndRacePhase()
         {
-            GameLogger.Debug("Race Finished: " + _chronometer.Time);
+            Debug.Log("Race Finished: " + _chronometer.Time);
 
             _airplane.EnablePhysics(false);
             _isRacing = false;

@@ -171,7 +171,7 @@ namespace AirRace
 
         private void QuitGame()
         {
-            GameLogger.Debug("Game Quit!");
+            Debug.Log("Game Quit!");
             Application.Quit();
         }
     }
