@@ -1,5 +1,4 @@
 ﻿using System;
-using AirRace.Utils;
 using UnityEngine;
 
 namespace AirRace
@@ -53,6 +52,8 @@ namespace AirRace
             Vector2 input = _playerInput.RotateInput;
 
             float velocityFactor = Mathf.Log(_rigidbody.velocity.magnitude, 30);
+            if (velocityFactor == float.NegativeInfinity) { velocityFactor = 0; }
+
             Vector3 rollAxis = transform.forward;
             Vector3 pitchAxis = transform.right;
             Vector3 rollRotation = -input.x * _rollSpeed * velocityFactor * rollAxis;
