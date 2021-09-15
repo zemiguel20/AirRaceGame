@@ -11,6 +11,7 @@ namespace AirRace
         [SerializeField] [Min(0)] private float _maxThrottle;
         [SerializeField] [Min(0)] private float _rollSpeed;
         [SerializeField] [Min(0)] private float _pitchSpeed;
+        [SerializeField] [Min(0)] private float _yawSpeed;
         [SerializeField] [Min(0)] private float _dragCoefficient;
 
         [Space(10)]
@@ -49,17 +50,20 @@ namespace AirRace
 
         private void UpdatePlaneRotation()
         {
-            Vector2 input = _playerInput.RotateInput;
+            Vector3 input = _playerInput.RotateInput;
 
             float velocityFactor = Mathf.Log(_rigidbody.velocity.magnitude, 30);
             if (velocityFactor == float.NegativeInfinity) { velocityFactor = 0; }
 
             Vector3 rollAxis = transform.forward;
             Vector3 pitchAxis = transform.right;
+            Vector3 yawAxis = transform.up;
             Vector3 rollRotation = -input.x * _rollSpeed * velocityFactor * rollAxis;
             Vector3 pitchRotation = input.y * _pitchSpeed * velocityFactor * pitchAxis;
+            Vector3 yawRotation = input.z * _yawSpeed * velocityFactor * yawAxis;
 
-            _rigidbody.angularVelocity = Vector3.Lerp(_rigidbody.angularVelocity, rollRotation + pitchRotation, 0.5f);
+
+            _rigidbody.angularVelocity = Vector3.Lerp(_rigidbody.angularVelocity, rollRotation + pitchRotation + yawRotation, 0.5f);
         }
 
         private void UpdateForces()

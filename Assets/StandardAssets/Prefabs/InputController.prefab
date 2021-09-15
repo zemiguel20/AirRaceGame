@@ -99,6 +99,62 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Rotate Plane
       m_Flags: 0
+  yawAction:
+    m_Name: Yaw
+    m_Type: 0
+    m_ExpectedControlType: Axis
+    m_Id: d0538de5-3a74-40bb-9fa7-fea378d15727
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: QE
+      m_Id: 508ebdfc-c19b-41c9-877f-b68b63507e45
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Yaw
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 97951dc4-40c2-4e2f-9d6d-70906a75da4c
+      m_Path: <Keyboard>/q
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Yaw
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 4bf9b2b0-e784-41fc-9820-a63f64c684f5
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Yaw
+      m_Flags: 8
+    - m_Name: RB/LB
+      m_Id: 52a7c62e-86f0-482b-93ca-cd2863ad8e06
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Yaw
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: d1bdc221-a268-4f89-9290-46ecb9f62abf
+      m_Path: <Gamepad>/leftShoulder
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Yaw
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: b4e90f79-0628-4ec2-a0f6-31774ac811c3
+      m_Path: <Gamepad>/rightShoulder
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Yaw
+      m_Flags: 8
   changeThrottleAction:
     m_Name: Change Throttle
     m_Type: 0
