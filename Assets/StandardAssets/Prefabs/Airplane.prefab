@@ -144,6 +144,7 @@ MonoBehaviour:
   _maxThrottle: 250
   _rollSpeed: 2
   _pitchSpeed: 1
+  _yawSpeed: 1
   _dragCoefficient: 13
   _playerInput: {fileID: 0}
 --- !u!1 &5397264455491415882

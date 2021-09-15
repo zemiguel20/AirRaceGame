@@ -7,10 +7,12 @@ namespace AirRace
     public class PlayerInput : MonoBehaviour
     {
         [SerializeField] private InputAction rotatePlaneAction;
+        [SerializeField] private InputAction yawAction;
         [SerializeField] private InputAction changeThrottleAction;
         [SerializeField] private InputAction pauseUnpauseGameAction;
 
-        public Vector2 RotateInput { get; private set; }
+        private Vector3 _rotateInput;
+        public Vector3 RotateInput { get => _rotateInput; }
         public float ThrottleInput { get; private set; }
 
         public event Action PauseInputTriggered;
@@ -21,6 +23,8 @@ namespace AirRace
             changeThrottleAction.Enable();
             pauseUnpauseGameAction.Enable();
             pauseUnpauseGameAction.started += OnPauseUnpauseGame;
+
+            yawAction.Enable();
         }
 
         private void OnDisable()
@@ -29,11 +33,14 @@ namespace AirRace
             changeThrottleAction.Disable();
             pauseUnpauseGameAction.Disable();
             pauseUnpauseGameAction.started -= OnPauseUnpauseGame;
+
+            yawAction.Disable();
         }
 
         private void Update()
         {
-            RotateInput = rotatePlaneAction.ReadValue<Vector2>();
+            _rotateInput = rotatePlaneAction.ReadValue<Vector2>();
+            _rotateInput.z = yawAction.ReadValue<float>();
             ThrottleInput = changeThrottleAction.ReadValue<float>();
         }
 
