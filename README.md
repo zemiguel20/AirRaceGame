@@ -13,4 +13,5 @@ Download AirRace.zip from [Releases](https://github.com/zemiguel20/AirRaceGame/r
 |L-Shift| Right stick Down | increase throttle |
 |W / S | Left stick Vertical | Pitch |
 |A / D | Left stick Horizontal | Roll |
+|Q / E| LB / RB | Yaw |
 | Escape | Start | Pause/Resume |  
