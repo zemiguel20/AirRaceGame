@@ -11,11 +11,7 @@ namespace AirRace
         [SerializeField] private InputAction changeThrottleAction;
         [SerializeField] private InputAction pauseUnpauseGameAction;
 
-        private Vector3 _rotateInput;
-        public Vector3 RotateInput { get => _rotateInput; }
-        public float ThrottleInput { get; private set; }
-
-        public event Action PauseInputTriggered;
+        [SerializeField] private InputData inputData;
 
         private void OnEnable()
         {
@@ -39,14 +35,15 @@ namespace AirRace
 
         private void Update()
         {
-            _rotateInput = rotatePlaneAction.ReadValue<Vector2>();
-            _rotateInput.z = yawAction.ReadValue<float>();
-            ThrottleInput = changeThrottleAction.ReadValue<float>();
+            inputData.RotateValues.x = rotatePlaneAction.ReadValue<Vector2>().x;
+            inputData.RotateValues.y = rotatePlaneAction.ReadValue<Vector2>().y;
+            inputData.RotateValues.z = yawAction.ReadValue<float>();
+            inputData.ThrottleValue = changeThrottleAction.ReadValue<float>();
         }
 
         public void OnPauseUnpauseGame(InputAction.CallbackContext context)
         {
-            PauseInputTriggered?.Invoke();
+            inputData.InvokePauseTriggeredEvent();
         }
     }
 }

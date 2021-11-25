@@ -68,7 +68,7 @@ MonoBehaviour:
   _pitchSpeed: 1
   _yawSpeed: 1
   _dragCoefficient: 13
-  _playerInput: {fileID: 0}
+  inputData: {fileID: 11400000, guid: 44a520b2a8121844abac202039f8d1d3, type: 2}
 --- !u!1 &7577588387972004351
 GameObject:
   m_ObjectHideFlags: 0

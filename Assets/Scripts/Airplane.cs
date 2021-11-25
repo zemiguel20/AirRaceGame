@@ -16,7 +16,7 @@ namespace AirRace
 
         [Space(10)]
 
-        [SerializeField] private PlayerInput _playerInput;
+        [SerializeField] private InputData inputData;
 
         private Rigidbody _rigidbody;
 
@@ -35,22 +35,19 @@ namespace AirRace
 
         private void Update()
         {
-            _throttle += _playerInput.ThrottleInput * Time.deltaTime * THROTTLE_INCREASE_PER_SEC;
+            _throttle += inputData.ThrottleValue * Time.deltaTime * THROTTLE_INCREASE_PER_SEC;
             _throttle = Mathf.Clamp01(_throttle);
         }
 
         private void FixedUpdate()
         {
-            if (_playerInput != null)
-            {
-                UpdatePlaneRotation();
-            }
+            UpdatePlaneRotation();
             UpdateForces();
         }
 
         private void UpdatePlaneRotation()
         {
-            Vector3 input = _playerInput.RotateInput;
+            Vector3 input = inputData.RotateValues;
 
             float velocityFactor = Mathf.Log(_rigidbody.velocity.magnitude, 30);
             if (velocityFactor == float.NegativeInfinity) { velocityFactor = 0; }

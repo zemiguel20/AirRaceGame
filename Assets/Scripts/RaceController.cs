@@ -85,7 +85,7 @@ namespace AirRace.Race
 
             _airplane.GoalHit += OnGoalPassed;
             _airplane.TerrainHit += OnPlayerTerrainHit;
-            _playerInput.PauseInputTriggered += PauseResumeGame;
+           // _playerInput.PauseInputTriggered += PauseResumeGame;
 
             _isRacing = true;
             _airplane.EnablePhysics(true);
@@ -112,7 +112,7 @@ namespace AirRace.Race
             _leaderboard.AddEntry(_chronometer.Time);
             RaceEnded?.Invoke();
 
-            _playerInput.PauseInputTriggered -= PauseResumeGame;
+           // _playerInput.PauseInputTriggered -= PauseResumeGame;
         }
 
         private void OnPlayerTerrainHit()
