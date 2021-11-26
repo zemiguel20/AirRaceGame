@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3017332513764320711}
   - component: {fileID: 663822741058888517}
   - component: {fileID: 8606819384512531887}
+  - component: {fileID: 7940013948028322707}
   m_Layer: 0
   m_Name: Airplane
   m_TagString: Untagged
@@ -63,12 +64,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b66a86c6aed64ba429311fd930df3b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxThrottle: 250
+  _throttle: 100
   _rollSpeed: 2
   _pitchSpeed: 1
   _yawSpeed: 1
-  _dragCoefficient: 13
+  _dragCoefficient: 0.01
   inputData: {fileID: 11400000, guid: 44a520b2a8121844abac202039f8d1d3, type: 2}
+  airplaneRigidbody: {fileID: 663822741058888517}
+--- !u!114 &7940013948028322707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524623987743468384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ecf96396fe3ff54394529ef8c4164aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  airplaneMovement: {fileID: 8606819384512531887}
 --- !u!1 &7577588387972004351
 GameObject:
   m_ObjectHideFlags: 0

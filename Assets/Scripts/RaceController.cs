@@ -19,8 +19,6 @@ namespace AirRace.Race
         private Chronometer _chronometer;
         public Chronometer Chronometer { get => _chronometer; }
 
-        private PlayerRespawner _respawner;
-
         private Leaderboard _leaderboard;
 
         private PlayerInput _playerInput;
@@ -53,7 +51,6 @@ namespace AirRace.Race
 
             _countdownTimer = new Timer(5);
             _chronometer = new Chronometer();
-            _respawner = new PlayerRespawner(_airplane);
         }
 
         public void StartRace()
@@ -63,7 +60,7 @@ namespace AirRace.Race
 
         private IEnumerator StartCountdownPhase()
         {
-            _airplane.EnablePhysics(false);
+            _airplane.SetEnabled(false);
 
             CountdownStarted?.Invoke();
             while (_countdownTimer.IsFinished == false)
@@ -83,12 +80,11 @@ namespace AirRace.Race
 
             _path.Initialize();
 
-            _airplane.GoalHit += OnGoalPassed;
-            _airplane.TerrainHit += OnPlayerTerrainHit;
-           // _playerInput.PauseInputTriggered += PauseResumeGame;
+            //_airplane.GoalHit += OnGoalPassed;
+            // _playerInput.PauseInputTriggered += PauseResumeGame;
 
             _isRacing = true;
-            _airplane.EnablePhysics(true);
+            _airplane.SetEnabled(true);
 
             RaceStarted?.Invoke();
         }
@@ -98,8 +94,6 @@ namespace AirRace.Race
             Debug.Log("Passed goal");
             _path.NextGoal();
 
-            _respawner.UpdateRespawn(goal);
-
             if (_path.IsFinished()) EndRacePhase();
         }
 
@@ -107,26 +101,12 @@ namespace AirRace.Race
         {
             Debug.Log("Race Finished: " + _chronometer.Time);
 
-            _airplane.EnablePhysics(false);
+            _airplane.SetEnabled(false);
             _isRacing = false;
             _leaderboard.AddEntry(_chronometer.Time);
             RaceEnded?.Invoke();
 
-           // _playerInput.PauseInputTriggered -= PauseResumeGame;
-        }
-
-        private void OnPlayerTerrainHit()
-        {
-            StartCoroutine(RespawnSequence());
-        }
-
-        private IEnumerator RespawnSequence()
-        {
-            _airplane.EnablePhysics(false);
-            yield return new WaitForSeconds(0.3f);
-            _respawner.Respawn();
-            yield return new WaitForSeconds(0.3f);
-            _airplane.EnablePhysics(true);
+            // _playerInput.PauseInputTriggered -= PauseResumeGame;
         }
 
         public void PauseResumeGame()

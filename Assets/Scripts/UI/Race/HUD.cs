@@ -61,11 +61,11 @@ namespace AirRace.UI
 
             _altitudeLabel.text = "ALT: " + _raceController.Airplane.transform.position.y.ToString("F0") + " m";
 
-            int kmPerH = Mathf.RoundToInt(_raceController.Airplane.Velocity.magnitude * 3.6f);
-            _velocityLabel.text = "SPD: " + kmPerH + " km/h";
+            //int kmPerH = Mathf.RoundToInt(_raceController.Airplane.Velocity.magnitude * 3.6f);
+            //_velocityLabel.text = "SPD: " + kmPerH + " km/h";
 
-            int throttlePercent = Mathf.RoundToInt(_raceController.Airplane.Throttle * 100);
-            _throttleLabel.text = "THR: " + throttlePercent + "%";
+            //int throttlePercent = Mathf.RoundToInt(_raceController.Airplane.Throttle * 100);
+            //_throttleLabel.text = "THR: " + throttlePercent + "%";
 
             UpdateWaypoint();
 
