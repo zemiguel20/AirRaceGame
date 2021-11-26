@@ -10,8 +10,8 @@ namespace AirRace.Race
         private Timer _countdownTimer;
         public Timer Timer { get => _countdownTimer; }
 
-        private Airplane _airplane;
-        public Airplane Airplane { get => _airplane; }
+        private AirplaneMovement _airplane;
+        public AirplaneMovement Airplane { get => _airplane; }
 
         private Path _path;
         public Path Path { get => _path; }
@@ -42,7 +42,7 @@ namespace AirRace.Race
             if (_isRacing) _chronometer.Tick(Time.deltaTime);
         }
 
-        public void Initialize(Airplane player, Path path, Leaderboard leaderboard, PlayerInput playerInput)
+        public void Initialize(AirplaneMovement player, Path path, Leaderboard leaderboard, PlayerInput playerInput)
         {
             _airplane = player;
             _path = path;

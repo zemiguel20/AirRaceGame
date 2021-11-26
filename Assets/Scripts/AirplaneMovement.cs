@@ -2,7 +2,7 @@
 
 namespace AirRace
 {
-    public class Airplane : MonoBehaviour
+    public class AirplaneMovement : MonoBehaviour
     {
         [SerializeField] [Min(0)] private float _throttle;
         [SerializeField] [Min(0)] private float _rollSpeed;

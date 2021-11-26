@@ -132,7 +132,7 @@ namespace AirRace
 
             PlayerInput input = FindObjectOfType<PlayerInput>();
 
-            Airplane player = FindObjectOfType<Airplane>();
+            AirplaneMovement player = FindObjectOfType<AirplaneMovement>();
 
             Path path = Instantiate(loadedMap.PathPrefab);
 

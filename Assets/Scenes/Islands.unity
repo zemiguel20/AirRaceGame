@@ -22366,37 +22366,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1507636620937791777, guid: 7097ba7ba649e1f41bba232312bdcbd8, type: 3}
   m_PrefabInstance: {fileID: 1127801369}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1128954108
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1128954109}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1128954109
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1128954108}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -446.0902, y: 112.88247, z: -139.1417}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1131115191
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42050,10 +42019,6 @@ PrefabInstance:
     - target: {fileID: 7524623987743468384, guid: f3228acce75dfdf44b1474f788b5dfc6, type: 3}
       propertyPath: m_Name
       value: Airplane
-      objectReference: {fileID: 0}
-    - target: {fileID: 8606819384512531887, guid: f3228acce75dfdf44b1474f788b5dfc6, type: 3}
-      propertyPath: _dragCoefficient
-      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3228acce75dfdf44b1474f788b5dfc6, type: 3}

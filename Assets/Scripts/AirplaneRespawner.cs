@@ -5,7 +5,7 @@ namespace AirRace
 {
     public class AirplaneRespawner : MonoBehaviour
     {
-        [SerializeField] private Airplane airplaneMovement;
+        [SerializeField] private AirplaneMovement airplaneMovement;
         private Vector3 respawnPoint;
         private Quaternion respawnRotation;
 
