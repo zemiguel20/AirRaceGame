@@ -59,7 +59,7 @@ namespace AirRace.UI
 
             _chronometerLabel.text = "CHRONO: " + _raceController.Chronometer.Time.ToString("F2");
 
-            _altitudeLabel.text = "ALT: " + _raceController.Airplane.transform.position.y.ToString("F0") + " m";
+           // _altitudeLabel.text = "ALT: " + _raceController.Airplane.transform.position.y.ToString("F0") + " m";
 
             //int kmPerH = Mathf.RoundToInt(_raceController.Airplane.Velocity.magnitude * 3.6f);
             //_velocityLabel.text = "SPD: " + kmPerH + " km/h";
@@ -74,17 +74,17 @@ namespace AirRace.UI
         private void UpdateWaypoint()
         {
             Vector3 goalWorldPosition = _raceController.Path.GetCurrentGoal().transform.position;
-            Vector3 playerWorldPosition = _raceController.Airplane.transform.position;
+           // Vector3 playerWorldPosition = _raceController.Airplane.transform.position;
 
             Vector3 goalLocalPositionRelativeToCamera = _playerCamera.transform.InverseTransformPoint(goalWorldPosition);
-            Vector3 playerLocalPositionRelativeToCamera = _playerCamera.transform.InverseTransformPoint(playerWorldPosition);
+           // Vector3 playerLocalPositionRelativeToCamera = _playerCamera.transform.InverseTransformPoint(playerWorldPosition);
 
             /*
              * Waypoint "mirrors" Camera position.
              * Target position relative to Waypoint.
              */
-            Vector3 target = goalLocalPositionRelativeToCamera - playerLocalPositionRelativeToCamera + _waypoint.transform.position;
-            _waypoint.transform.LookAt(target);
+           // Vector3 target = goalLocalPositionRelativeToCamera - playerLocalPositionRelativeToCamera + _waypoint.transform.position;
+          //  _waypoint.transform.LookAt(target);
         }
 
 

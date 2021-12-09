@@ -10,8 +10,8 @@ namespace AirRace.Race
         private Timer _countdownTimer;
         public Timer Timer { get => _countdownTimer; }
 
-        private AirplaneMovement _airplane;
-        public AirplaneMovement Airplane { get => _airplane; }
+        //private AirplaneMovement _airplane;
+        //public AirplaneMovement Airplane { get => _airplane; }
 
         private Path _path;
         public Path Path { get => _path; }
@@ -42,9 +42,9 @@ namespace AirRace.Race
             if (_isRacing) _chronometer.Tick(Time.deltaTime);
         }
 
-        public void Initialize(AirplaneMovement player, Path path, Leaderboard leaderboard, PlayerInput playerInput)
+        public void Initialize(/*AirplaneMovement player,*/ Path path, Leaderboard leaderboard, PlayerInput playerInput)
         {
-            _airplane = player;
+           // _airplane = player;
             _path = path;
             _leaderboard = leaderboard;
             _playerInput = playerInput;
@@ -60,7 +60,7 @@ namespace AirRace.Race
 
         private IEnumerator StartCountdownPhase()
         {
-            _airplane.SetEnabled(false);
+          //  _airplane.SetEnabled(false);
 
             CountdownStarted?.Invoke();
             while (_countdownTimer.IsFinished == false)
@@ -84,7 +84,7 @@ namespace AirRace.Race
             // _playerInput.PauseInputTriggered += PauseResumeGame;
 
             _isRacing = true;
-            _airplane.SetEnabled(true);
+            //_airplane.SetEnabled(true);
 
             RaceStarted?.Invoke();
         }
@@ -101,7 +101,7 @@ namespace AirRace.Race
         {
             Debug.Log("Race Finished: " + _chronometer.Time);
 
-            _airplane.SetEnabled(false);
+           // _airplane.SetEnabled(false);
             _isRacing = false;
             _leaderboard.AddEntry(_chronometer.Time);
             RaceEnded?.Invoke();

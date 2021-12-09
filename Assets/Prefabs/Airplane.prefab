@@ -10,8 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3017332513764320711}
   - component: {fileID: 663822741058888517}
-  - component: {fileID: 8606819384512531887}
-  - component: {fileID: 7940013948028322707}
+  - component: {fileID: 2064186019078260565}
   m_Layer: 0
   m_Name: Airplane
   m_TagString: Untagged
@@ -44,7 +43,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7524623987743468384}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 700
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -52,7 +51,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8606819384512531887
+--- !u!114 &2064186019078260565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -61,29 +60,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7524623987743468384}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88c2e0d18b97ce04eb521d7c89628597, type: 3}
+  m_Script: {fileID: 11500000, guid: e58bece3a4098964d86cf6bef4490854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _throttle: 100
-  _rollSpeed: 2
-  _pitchSpeed: 1
-  _yawSpeed: 1
-  _dragCoefficient: 0.01
-  inputData: {fileID: 11400000, guid: 44a520b2a8121844abac202039f8d1d3, type: 2}
   airplaneRigidbody: {fileID: 663822741058888517}
---- !u!114 &7940013948028322707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7524623987743468384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ecf96396fe3ff54394529ef8c4164aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  airplaneMovement: {fileID: 8606819384512531887}
+  throttle: 150
+  stallAngle: 20
+  maxLiftCoefficient: 2
+  minDragCoefficient: 12
+  dragCoefficientAtStallAngle: 15
+  rollSpeed: 2
+  pitchSpeed: 1
+  yawSpeed: 0.5
 --- !u!1 &7577588387972004351
 GameObject:
   m_ObjectHideFlags: 0
