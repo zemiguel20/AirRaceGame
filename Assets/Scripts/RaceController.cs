@@ -21,7 +21,7 @@ namespace AirRace.Race
 
         private Leaderboard _leaderboard;
 
-        private PlayerInput _playerInput;
+       // private PlayerInput _playerInput;
 
         private bool _isPaused = false;
         private bool _isRacing = false;
@@ -42,12 +42,12 @@ namespace AirRace.Race
             if (_isRacing) _chronometer.Tick(Time.deltaTime);
         }
 
-        public void Initialize(/*AirplaneMovement player,*/ Path path, Leaderboard leaderboard, PlayerInput playerInput)
+        public void Initialize(/*AirplaneMovement player,*/ Path path, Leaderboard leaderboard/*, PlayerInput playerInput*/)
         {
            // _airplane = player;
             _path = path;
             _leaderboard = leaderboard;
-            _playerInput = playerInput;
+           // _playerInput = playerInput;
 
             _countdownTimer = new Timer(5);
             _chronometer = new Chronometer();

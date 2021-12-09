@@ -130,7 +130,7 @@ namespace AirRace
         {
             // Initialize race
 
-            PlayerInput input = FindObjectOfType<PlayerInput>();
+           // PlayerInput input = FindObjectOfType<PlayerInput>();
 
            // AirplaneMovement player = FindObjectOfType<AirplaneMovement>();
 
