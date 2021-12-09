@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3017332513764320711}
   - component: {fileID: 663822741058888517}
   - component: {fileID: 2064186019078260565}
+  - component: {fileID: 5238794260291541396}
   m_Layer: 0
   m_Name: Airplane
   m_TagString: Untagged
@@ -72,6 +73,18 @@ MonoBehaviour:
   rollSpeed: 2
   pitchSpeed: 1
   yawSpeed: 0.5
+--- !u!114 &5238794260291541396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7524623987743468384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cfadc17974db7a4299e8d241e6941c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7577588387972004351
 GameObject:
   m_ObjectHideFlags: 0
