@@ -46,7 +46,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
+                    "name": "positive",
                     "id": "ce4d8f8a-536c-4dcc-b84d-d6429ab9a5a8",
                     "path": "<Keyboard>/a",
                     "interactions": "",
@@ -57,7 +57,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
+                    "name": "negative",
                     "id": "c44de685-ceaf-4b53-b85c-ad69795fbf9f",
                     "path": "<Keyboard>/d",
                     "interactions": "",
@@ -68,26 +68,70 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "93d1eea0-ac0f-4c2c-b22a-7103f3e56511",
-                    "path": "",
+                    "name": "WS",
+                    "id": "951976c5-b2b9-49af-a8c3-d6979e179472",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Pitch",
-                    "isComposite": false,
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "2a7627f1-aa2d-4a5d-a64d-8d29288726ba",
-                    "path": "",
+                    "name": "positive",
+                    "id": "da22b767-2fa5-4717-84c1-686516ce2f7f",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pitch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "negative",
+                    "id": "f8fff1ff-c03b-4aaa-9eea-9febb2d9c240",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pitch",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "QE",
+                    "id": "48191037-90be-4f3b-a1ac-4e8b39d096ca",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Yaw",
-                    "isComposite": false,
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "f9687c20-7047-40c3-99e5-57747a73a621",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Yaw",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "4cc9b37e-599e-4c6d-9f31-13d3e4dce1da",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Yaw",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },
