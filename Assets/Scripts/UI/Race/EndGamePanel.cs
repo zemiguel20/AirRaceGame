@@ -19,12 +19,12 @@ namespace AirRace.UI
             _raceController = raceController;
             _leaderboard = leaderboard;
 
-            _raceController.RaceEnded += ShowPanel;
+            // _raceController.RaceEnded += ShowPanel;
         }
 
         public void ShowPanel()
         {
-            _timeText.text = _raceController.Chronometer.Time.ToString("F2");
+            // _timeText.text = _raceController.Chronometer.Time.ToString("F2");
             _leaderboardUI.SetLeaderboard(_leaderboard);
 
             gameObject.SetActive(true);
@@ -32,12 +32,12 @@ namespace AirRace.UI
 
         public void OnExitButtonPressed()
         {
-            _raceController.ExitRace();
+            //_raceController.ExitRace();
         }
 
         public void OnRestartButtonPressed()
         {
-            _raceController.RestartRace();
+            //_raceController.RestartRace();
         }
     }
 }

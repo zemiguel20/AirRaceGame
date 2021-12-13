@@ -15,8 +15,8 @@ namespace AirRace.UI
 
             _raceController = raceController;
 
-            _raceController.GamePaused += OnPause;
-            _raceController.GameResumed += OnResume;
+            //_raceController.GamePaused += OnPause;
+            //_raceController.GameResumed += OnResume;
         }
 
         private void OnPause()
@@ -31,17 +31,17 @@ namespace AirRace.UI
 
         public void ResumePressed()
         {
-            _raceController.PauseResumeGame();
+            //_raceController.PauseResumeGame();
         }
 
         public void RestartPressed()
         {
-            _raceController.RestartRace();
+            // _raceController.RestartRace();
         }
 
         public void ExitPressed()
         {
-            _raceController.ExitRace();
+            //  _raceController.ExitRace();
         }
 
     }

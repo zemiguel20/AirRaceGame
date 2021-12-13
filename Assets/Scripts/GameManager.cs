@@ -130,9 +130,9 @@ namespace AirRace
         {
             // Initialize race
 
-           // PlayerInput input = FindObjectOfType<PlayerInput>();
+            // PlayerInput input = FindObjectOfType<PlayerInput>();
 
-           // AirplaneMovement player = FindObjectOfType<AirplaneMovement>();
+            // AirplaneMovement player = FindObjectOfType<AirplaneMovement>();
 
             Path path = Instantiate(loadedMap.PathPrefab);
 
@@ -151,11 +151,11 @@ namespace AirRace
             pauseMenu.Initialize(controller);
 
             // events
-            controller.RaceExited += OnRaceExited;
-            controller.RaceRestarted += OnRaceRestart;
+            // controller.RaceExited += OnRaceExited;
+            // controller.RaceRestarted += OnRaceRestart;
 
             // start race
-            controller.StartRace();
+            //  controller.StartRace();
         }
 
         private void OnRaceExited()
