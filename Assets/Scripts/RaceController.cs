@@ -6,12 +6,14 @@ namespace AirRace.Race
     public class RaceController : MonoBehaviour
     {
         private Timer countdownTimer;
-
         [SerializeField] private int countdownTimeSeconds;
+
+        private AirplanePhysics airplanePhysics;
 
         private void Awake()
         {
             countdownTimer = GetComponent<Timer>();
+            airplanePhysics = FindObjectOfType<AirplanePhysics>();
         }
 
         private void Start()
@@ -21,6 +23,8 @@ namespace AirRace.Race
 
         private IEnumerator StartCountdown()
         {
+            airplanePhysics.SetEnabled(false);
+
             Debug.Log("Timer Started");
 
             //Start the Timer
@@ -30,6 +34,8 @@ namespace AirRace.Race
             yield return new WaitUntil(() => countdownTimer.IsFinished);
 
             Debug.Log("Timer Finished");
+
+            airplanePhysics.SetEnabled(true);
         }
     }
 }

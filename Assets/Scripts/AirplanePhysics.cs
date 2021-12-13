@@ -65,8 +65,6 @@ namespace AirRace
             float magnitude2 = dragCoefficient * Mathf.Pow(airplaneRigidbody.velocity.magnitude, 2) / 2;
             Vector3 direction2 = airplaneRigidbody.velocity.normalized * -1;
             airplaneRigidbody.AddForce(magnitude2 * direction2);
-
-            Debug.Log("AoA: " + angleOfAttack + " | L: " + liftCoefficient + " | D: " + dragCoefficient);
         }
 
         private float CalculateLiftCoefficient(float angleOfAttack)
@@ -89,6 +87,12 @@ namespace AirRace
             //a = (y-k) / x^2 , where (x,y) is (stall angle, drag coefficient at stall angle)
             float a = ((dragCoefficientAtStallAngle - minDragCoefficient) / Mathf.Pow(stallAngle, 2));
             return a * Mathf.Pow(angleOfAttack, 2) + minDragCoefficient;
+        }
+
+        public void SetEnabled(bool v)
+        {
+            airplaneRigidbody.isKinematic = !v;
+            enabled = v;
         }
     }
 }
