@@ -134,7 +134,7 @@ namespace AirRace
 
             // AirplaneMovement player = FindObjectOfType<AirplaneMovement>();
 
-            Path path = Instantiate(loadedMap.PathPrefab);
+            //Path path = Instantiate(loadedMap.PathPrefab);
 
             RaceController controller = FindObjectOfType<RaceController>();
             //controller.Initialize(player, path, loadedMap.Leaderboard, input);
