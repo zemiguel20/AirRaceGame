@@ -5,36 +5,59 @@ namespace AirRace
 {
     public class AirplaneRespawner : MonoBehaviour
     {
-        //[SerializeField] private AirplaneMovement airplaneMovement;
-        //private Vector3 respawnPoint;
-        //private Quaternion respawnRotation;
+        private AirplanePhysics airplanePhysics;
+        private Transform airplaneTransform;
 
-        //private void Start()
-        //{
-        //    respawnPoint = this.transform.position;
-        //    respawnRotation = this.transform.rotation;
-        //}
+        private Vector3 respawnPoint;
+        private Quaternion respawnRotation;
 
-        //private void OnCollisionEnter(Collision other)
-        //{
-        //    StartCoroutine(RespawnSequence());
-        //}
+        private void Awake()
+        {
+            airplanePhysics = FindObjectOfType<AirplanePhysics>();
+            airplaneTransform = airplanePhysics.transform;
+        }
 
-        //private IEnumerator RespawnSequence()
-        //{
-        //    airplaneMovement.SetEnabled(false);
-        //    yield return new WaitForSeconds(0.3f);
-        //    this.transform.position = respawnPoint;
-        //    this.transform.rotation = respawnRotation;
-        //    yield return new WaitForSeconds(0.3f);
-        //    airplaneMovement.SetEnabled(true);
-        //}
+        private void Start()
+        {
+            respawnPoint = airplaneTransform.position;
+            respawnRotation = airplaneTransform.rotation;
 
-        //private void OnTriggerEnter(Collider other)
-        //{
-        //    GameObject goal = other.gameObject;
-        //    respawnPoint = goal.transform.position;
-        //    respawnRotation = goal.transform.rotation;
-        //}
+            AirplaneCollision.collided += OnAirplaneCollision;
+            Goal.passed += OnGoalPassed;
+        }
+
+        private void OnAirplaneCollision()
+        {
+            StartCoroutine(RespawnSequence());
+        }
+
+        private IEnumerator RespawnSequence()
+        {
+            airplanePhysics.SetEnabled(false);
+
+            yield return new WaitForSeconds(0.3f);
+
+            airplaneTransform.position = respawnPoint;
+            airplaneTransform.rotation = respawnRotation;
+
+            yield return new WaitForSeconds(0.3f);
+
+            airplanePhysics.SetEnabled(true);
+        }
+
+        private void OnGoalPassed(Goal goal)
+        {
+            //Update the respawn transform to the passed goal
+            respawnPoint = goal.transform.position;
+            respawnRotation = goal.transform.rotation;
+        }
+
+        //Cleanup on object destroy
+        private void OnDestroy()
+        {
+            //Unsub from events
+            AirplaneCollision.collided -= OnAirplaneCollision;
+            Goal.passed -= OnGoalPassed;
+        }
     }
 }
