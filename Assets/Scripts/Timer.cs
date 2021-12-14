@@ -14,6 +14,9 @@ namespace AirRace
                 seconds = 0;
             }
             time = seconds;
+
+            //Enable Update
+            enabled = true;
         }
 
         private void Update()
@@ -22,6 +25,11 @@ namespace AirRace
             {
                 time -= Time.deltaTime;
                 Debug.Log("Timer: " + RemaingSeconds);
+            }
+            else
+            {
+                //Disable Update
+                enabled = false;
             }
         }
 
