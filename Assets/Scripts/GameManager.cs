@@ -140,7 +140,7 @@ namespace AirRace
             // Initialize UI
 
             HUD hud = FindObjectOfType<HUD>();
-            hud.Initialize(controller);
+            //hud.Initialize(controller);
 
             EndGamePanel endGamePanel = FindObjectOfType<EndGamePanel>();
             endGamePanel.Initialize(controller, loadedMap.Leaderboard);

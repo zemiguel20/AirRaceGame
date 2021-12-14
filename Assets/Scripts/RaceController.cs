@@ -1,17 +1,20 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 namespace AirRace
 {
     public class RaceController : MonoBehaviour
     {
+        public static event Action<Timer> countdownStarted;
+
         private Timer countdownTimer;
         [SerializeField] private int countdownTimeSeconds;
 
         private AirplanePhysics airplanePhysics;
 
         [SerializeField] private Goal[] path;
-        private int goalsPassedCount;
+        private int _goalsPassedCount;
 
         private Chronometer chronometer;
 
@@ -20,6 +23,8 @@ namespace AirRace
             countdownTimer = GetComponent<Timer>();
             airplanePhysics = FindObjectOfType<AirplanePhysics>();
             chronometer = GetComponent<Chronometer>();
+
+            Goal.passed += OnGoalPassed;
         }
 
         private void Start()
@@ -31,8 +36,7 @@ namespace AirRace
             }
             path[0].gameObject.SetActive(true);
 
-            goalsPassedCount = 0;
-            Goal.passed += OnGoalPassed;
+            _goalsPassedCount = 0;
 
             chronometer.ResetTime();
 
@@ -43,16 +47,16 @@ namespace AirRace
         {
             //Set passed goal inactive and increment count
             obj.gameObject.SetActive(false);
-            goalsPassedCount++;
+            _goalsPassedCount++;
 
-            if (goalsPassedCount == path.Length)
+            if (_goalsPassedCount == path.Length)
             {
                 EndRace();
             }
             else
             {
                 //Set next Goal active, goalsPassedCount can be used as index since indexing starts at 0
-                path[goalsPassedCount].gameObject.SetActive(true);
+                path[_goalsPassedCount].gameObject.SetActive(true);
             }
         }
 
@@ -62,6 +66,7 @@ namespace AirRace
 
             //Start the Countdown
             countdownTimer.Run(countdownTimeSeconds);
+            countdownStarted?.Invoke(countdownTimer);
             //Yield execution until Countdown finished
             yield return new WaitUntil(() => countdownTimer.IsFinished);
 
@@ -73,8 +78,21 @@ namespace AirRace
         {
             chronometer.StopCounting();
             airplanePhysics.SetEnabled(false);
+        }
 
-            Debug.Log(chronometer.time);
+        public int pathLength { get => path.Length; }
+        public int goalsPassedCount { get => _goalsPassedCount; }
+        public Goal currentGoal
+        {
+            get
+            {
+                //goalsPassedCount can be used as index since indexing starts at 0
+                //If all goals passed, return the last one
+                if (_goalsPassedCount < path.Length)
+                    return path[_goalsPassedCount];
+                else
+                    return path[path.Length - 1];
+            }
         }
 
         //Clean up when object is destroyed

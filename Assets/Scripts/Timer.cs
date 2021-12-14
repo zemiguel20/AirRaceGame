@@ -24,7 +24,6 @@ namespace AirRace
             if (time > 0)
             {
                 time -= Time.deltaTime;
-                Debug.Log("Timer: " + RemaingSeconds);
             }
             else
             {
