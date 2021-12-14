@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace AirRace.Race
+namespace AirRace
 {
     public class RaceController : MonoBehaviour
     {
@@ -13,10 +13,13 @@ namespace AirRace.Race
         [SerializeField] private Goal[] path;
         private int goalsPassedCount;
 
+        private Chronometer chronometer;
+
         private void Awake()
         {
             countdownTimer = GetComponent<Timer>();
             airplanePhysics = FindObjectOfType<AirplanePhysics>();
+            chronometer = GetComponent<Chronometer>();
         }
 
         private void Start()
@@ -30,6 +33,8 @@ namespace AirRace.Race
 
             goalsPassedCount = 0;
             Goal.passed += OnGoalPassed;
+
+            chronometer.ResetTime();
 
             StartCoroutine(StartCountdown());
         }
@@ -65,11 +70,14 @@ namespace AirRace.Race
             Debug.Log("Timer Finished");
 
             airplanePhysics.SetEnabled(true);
+            chronometer.StartCounting();
         }
 
         private void EndRace()
         {
             Debug.Log("Race Ended");
+            chronometer.StopCounting();
+            Debug.Log(chronometer.time);
             airplanePhysics.SetEnabled(false);
         }
     }

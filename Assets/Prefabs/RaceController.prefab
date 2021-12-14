@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2964862523595640346}
   - component: {fileID: 2964862523595640347}
   - component: {fileID: 2964862523595640341}
+  - component: {fileID: 5109404850927923078}
   m_Layer: 0
   m_Name: RaceController
   m_TagString: Untagged
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownTimeSeconds: 5
+  path: []
 --- !u!114 &2964862523595640341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,5 +58,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98a38096bcc24ab4c8c4caf338f7f11e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5109404850927923078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2964862523595640344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2ab41940960953418846cac91d3430c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
