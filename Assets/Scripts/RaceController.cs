@@ -36,11 +36,12 @@ namespace AirRace
 
             chronometer.ResetTime();
 
-            StartCoroutine(StartCountdown());
+            StartCoroutine(StartRace());
         }
 
         private void OnGoalPassed(Goal obj)
         {
+            //Set passed goal inactive and increment count
             obj.gameObject.SetActive(false);
             goalsPassedCount++;
 
@@ -55,19 +56,14 @@ namespace AirRace
             }
         }
 
-        private IEnumerator StartCountdown()
+        private IEnumerator StartRace()
         {
             airplanePhysics.SetEnabled(false);
 
-            Debug.Log("Timer Started");
-
-            //Start the Timer
+            //Start the Countdown
             countdownTimer.Run(countdownTimeSeconds);
-
-            //Yield execution until timer finished
+            //Yield execution until Countdown finished
             yield return new WaitUntil(() => countdownTimer.IsFinished);
-
-            Debug.Log("Timer Finished");
 
             airplanePhysics.SetEnabled(true);
             chronometer.StartCounting();
@@ -75,10 +71,17 @@ namespace AirRace
 
         private void EndRace()
         {
-            Debug.Log("Race Ended");
             chronometer.StopCounting();
-            Debug.Log(chronometer.time);
             airplanePhysics.SetEnabled(false);
+
+            Debug.Log(chronometer.time);
+        }
+
+        //Clean up when object is destroyed
+        private void OnDestroy()
+        {
+            //Unsubscribe from events
+            Goal.passed -= OnGoalPassed;
         }
     }
 }
