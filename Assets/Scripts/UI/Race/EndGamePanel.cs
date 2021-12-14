@@ -1,5 +1,3 @@
-using System.Text;
-using AirRace.Race;
 using TMPro;
 using UnityEngine;
 

@@ -1,8 +1,6 @@
 using UnityEngine;
 using TMPro;
-using AirRace.Race;
 using System.Collections;
-using System;
 
 namespace AirRace.UI
 {

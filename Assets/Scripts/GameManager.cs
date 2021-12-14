@@ -4,7 +4,6 @@ using AirRace.UI;
 using AirRace.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using AirRace.Race;
 
 namespace AirRace
 {
