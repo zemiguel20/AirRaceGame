@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using AirRace.UI;
-using AirRace.Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
