@@ -145,8 +145,8 @@ namespace AirRace
             EndGamePanel endGamePanel = FindObjectOfType<EndGamePanel>();
             endGamePanel.Initialize(controller, loadedMap.Leaderboard);
 
-            PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
-            pauseMenu.Initialize(controller);
+            //PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
+            //pauseMenu.Initialize(controller);
 
             // events
             // controller.RaceExited += OnRaceExited;

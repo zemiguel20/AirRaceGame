@@ -1,44 +1,84 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
-namespace AirRace.UI
+namespace AirRace
 {
     public class PauseMenu : MonoBehaviour
     {
-        private RaceController _raceController;
+        [SerializeField] private UIDocument document;
+        private Button resumeButton;
+        private Button restartButton;
+        private Button quitButton;
 
-        public void Initialize(RaceController raceController)
+        private PauseController pauseController;
+
+        private void Awake()
         {
-            gameObject.SetActive(false);
+            pauseController = FindObjectOfType<PauseController>();
+            PauseController.pauseStateChanged += OnPauseStateChange;
 
-            _raceController = raceController;
+            //Pause menu should not be active when race ends, as the results panel is shown
+            RaceController.raceFinished += DisableMenuActivation;
 
-            //_raceController.GamePaused += OnPause;
-            //_raceController.GameResumed += OnResume;
+            resumeButton = document.rootVisualElement.Query<Button>("resume");
+            resumeButton.RegisterCallback<MouseOverEvent, Color>(SetBackgroundColor, Color.red);
+            resumeButton.RegisterCallback<MouseOutEvent, Color>(SetBackgroundColor, Color.white);
+            resumeButton.RegisterCallback<ClickEvent>(ResumePressed);
+
+            restartButton = document.rootVisualElement.Query<Button>("restart");
+            restartButton.RegisterCallback<MouseOverEvent, Color>(SetBackgroundColor, Color.red);
+            restartButton.RegisterCallback<MouseOutEvent, Color>(SetBackgroundColor, Color.white);
+            restartButton.RegisterCallback<ClickEvent>(RestartPressed);
+
+            quitButton = document.rootVisualElement.Query<Button>("quit");
+            quitButton.RegisterCallback<MouseOverEvent, Color>(SetBackgroundColor, Color.red);
+            quitButton.RegisterCallback<MouseOutEvent, Color>(SetBackgroundColor, Color.white);
+            quitButton.RegisterCallback<ClickEvent>(QuitPressed);
         }
 
-        private void OnPause()
+        private void Start()
         {
-            gameObject.SetActive(true);
+            //Game running by default
+            document.rootVisualElement.visible = false;
         }
 
-        private void OnResume()
+        private void OnPauseStateChange(bool paused)
         {
-            gameObject.SetActive(false);
+            document.rootVisualElement.visible = paused;
         }
 
-        public void ResumePressed()
+        private void DisableMenuActivation()
         {
-            //_raceController.PauseResumeGame();
+            PauseController.pauseStateChanged -= OnPauseStateChange;
         }
 
-        public void RestartPressed()
+        private void SetBackgroundColor(EventBase evt, Color color)
         {
-            // _raceController.RestartRace();
+            (evt.currentTarget as Button).style.backgroundColor = color;
         }
 
-        public void ExitPressed()
+        public void ResumePressed(ClickEvent evt)
         {
-            //  _raceController.ExitRace();
+            pauseController.ResumeGame();
+        }
+
+        public void RestartPressed(ClickEvent evt)
+        {
+            //TODO: reload current map
+        }
+
+        public void QuitPressed(ClickEvent evt)
+        {
+            //TODO: quit to main menu
+        }
+
+
+        //Cleanup on object destroy
+        private void OnDestroy()
+        {
+            //Unsub from events
+            PauseController.pauseStateChanged -= OnPauseStateChange;
+            RaceController.raceFinished -= DisableMenuActivation;
         }
 
     }

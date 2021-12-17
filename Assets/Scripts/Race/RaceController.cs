@@ -7,6 +7,7 @@ namespace AirRace
     public class RaceController : MonoBehaviour
     {
         public static event Action<Timer> countdownStarted;
+        public static event Action raceFinished;
 
         private Timer countdownTimer;
         [SerializeField] private int countdownTimeSeconds;
@@ -78,6 +79,8 @@ namespace AirRace
         {
             chronometer.StopCounting();
             airplanePhysics.SetEnabled(false);
+
+            raceFinished?.Invoke();
         }
 
         public int pathLength { get => path.Length; }
