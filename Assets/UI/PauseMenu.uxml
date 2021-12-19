@@ -5,9 +5,9 @@
             <ui:Label text="Game Paused" display-tooltip-when-elided="true" class="text" />
         </ui:VisualElement>
         <ui:VisualElement name="menu" style="align-items: center;">
-            <ui:Button text="Resume" display-tooltip-when-elided="true" name="resume" class="vertical-list-button" style="width: 200px;" />
-            <ui:Button text="Restart" display-tooltip-when-elided="true" name="restart" class="vertical-list-button" style="width: 200px;" />
-            <ui:Button text="Quit" display-tooltip-when-elided="true" name="quit" class="vertical-list-button" style="width: 200px;" />
+            <ui:Button text="Resume" display-tooltip-when-elided="true" name="resume" class="button" style="width: 200px;" />
+            <ui:Button text="Restart" display-tooltip-when-elided="true" name="restart" class="button" style="width: 200px;" />
+            <ui:Button text="Quit" display-tooltip-when-elided="true" name="quit" class="button" style="width: 200px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

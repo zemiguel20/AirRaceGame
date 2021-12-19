@@ -11,8 +11,8 @@
                     <ui:Label text="14.05" display-tooltip-when-elided="true" name="player-time" class="text" />
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-direction: row; align-items: stretch; justify-content: space-around; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
-                    <ui:Button text="Quit" display-tooltip-when-elided="true" name="quit" class="vertical-list-button" style="width: 40%;" />
-                    <ui:Button text="Restart" display-tooltip-when-elided="true" name="restart" class="vertical-list-button" style="width: 40%;" />
+                    <ui:Button text="Quit" display-tooltip-when-elided="true" name="quit" class="button" style="width: 40%;" />
+                    <ui:Button text="Restart" display-tooltip-when-elided="true" name="restart" class="button" style="width: 40%;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement style="width: 50%;">

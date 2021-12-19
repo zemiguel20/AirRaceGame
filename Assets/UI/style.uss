@@ -3,7 +3,7 @@
     color: rgb(255, 255, 255);
 }
 
-.vertical-list-button {
+.button {
     font-size: 28px;
     color: rgba(0, 0, 0, 255);
     -unity-text-align: middle-center;
@@ -13,7 +13,7 @@
     margin-bottom: 10px;
 }
 
-.vertical-list-button:hover {
+.button:hover {
     background-color: rgb(236, 0, 0);
     color: rgb(0, 0, 0);
     font-size: 28px;
@@ -24,7 +24,7 @@
     margin-bottom: 10px;
 }
 
-.vertical-list-button:focus {
+.button:focus {
     background-color: rgb(236, 0, 0);
     color: rgb(0, 0, 0);
     font-size: 28px;
