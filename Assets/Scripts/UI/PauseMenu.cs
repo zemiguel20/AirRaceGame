@@ -21,19 +21,13 @@ namespace AirRace
             RaceController.raceFinished += DisableMenuActivation;
 
             resumeButton = document.rootVisualElement.Query<Button>("resume");
-            resumeButton.RegisterCallback<MouseOverEvent, Color>(SetBackgroundColor, Color.red);
-            resumeButton.RegisterCallback<MouseOutEvent, Color>(SetBackgroundColor, Color.white);
-            resumeButton.RegisterCallback<ClickEvent>(ResumePressed);
+            resumeButton.clicked += ResumePressed;
 
             restartButton = document.rootVisualElement.Query<Button>("restart");
-            restartButton.RegisterCallback<MouseOverEvent, Color>(SetBackgroundColor, Color.red);
-            restartButton.RegisterCallback<MouseOutEvent, Color>(SetBackgroundColor, Color.white);
-            restartButton.RegisterCallback<ClickEvent>(RestartPressed);
+            restartButton.clicked += RestartPressed;
 
             quitButton = document.rootVisualElement.Query<Button>("quit");
-            quitButton.RegisterCallback<MouseOverEvent, Color>(SetBackgroundColor, Color.red);
-            quitButton.RegisterCallback<MouseOutEvent, Color>(SetBackgroundColor, Color.white);
-            quitButton.RegisterCallback<ClickEvent>(QuitPressed);
+            quitButton.clicked += QuitPressed;
         }
 
         private void Start()
@@ -52,22 +46,17 @@ namespace AirRace
             PauseController.pauseStateChanged -= OnPauseStateChange;
         }
 
-        private void SetBackgroundColor(EventBase evt, Color color)
-        {
-            (evt.currentTarget as Button).style.backgroundColor = color;
-        }
-
-        public void ResumePressed(ClickEvent evt)
+        private void ResumePressed()
         {
             pauseController.ResumeGame();
         }
 
-        public void RestartPressed(ClickEvent evt)
+        private void RestartPressed()
         {
             //TODO: reload current map
         }
 
-        public void QuitPressed(ClickEvent evt)
+        private void QuitPressed()
         {
             //TODO: quit to main menu
         }

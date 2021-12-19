@@ -4,8 +4,23 @@
 }
 
 .vertical-list-button {
-    background-color: rgba(164, 161, 161, 255);
+    font-size: 28px;
     color: rgba(0, 0, 0, 255);
+    width: 100%;
+    -unity-text-align: middle-center;
+}
+
+.vertical-list-button:hover {
+    background-color: rgb(236, 0, 0);
+    color: rgb(0, 0, 0);
+    font-size: 28px;
+    width: 100%;
+    -unity-text-align: middle-center;
+}
+
+.vertical-list-button:focus {
+    background-color: rgb(236, 0, 0);
+    color: rgb(0, 0, 0);
     font-size: 28px;
     width: 100%;
     -unity-text-align: middle-center;
