@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=7a0872cdef9bd764a8a69743a0519ed9&amp;type=3#style" />
+    <ui:VisualElement name="background" style="background-color: rgb(171, 159, 159); width: 90%; height: 90%; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;">
+        <ui:VisualElement name="header" style="align-items: center; margin-top: 20px; margin-left: 20px; margin-right: 20px; margin-bottom: 20px;">
+            <ui:Label text="GAME OVER" display-tooltip-when-elided="true" class="text" />
+        </ui:VisualElement>
+        <ui:VisualElement name="body" style="flex-grow: 1; flex-shrink: 0; flex-direction: row;">
+            <ui:VisualElement style="width: 50%;">
+                <ui:VisualElement style="flex-shrink: 0; flex-grow: 1; align-items: center; justify-content: center;">
+                    <ui:Label text="Time" display-tooltip-when-elided="true" class="text" />
+                    <ui:Label text="14.05" display-tooltip-when-elided="true" name="player-time" class="text" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-direction: row; align-items: stretch; justify-content: space-around; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+                    <ui:Button text="Quit" display-tooltip-when-elided="true" name="quit" class="vertical-list-button" style="width: 40%;" />
+                    <ui:Button text="Restart" display-tooltip-when-elided="true" name="restart" class="vertical-list-button" style="width: 40%;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="width: 50%;">
+                <ui:Label text="Label" display-tooltip-when-elided="true" name="leaderboard" class="text" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

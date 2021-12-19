@@ -142,8 +142,8 @@ namespace AirRace
             HUD hud = FindObjectOfType<HUD>();
             //hud.Initialize(controller);
 
-            EndGamePanel endGamePanel = FindObjectOfType<EndGamePanel>();
-            endGamePanel.Initialize(controller, loadedMap.Leaderboard);
+            //EndGamePanel endGamePanel = FindObjectOfType<EndGamePanel>();
+            //endGamePanel.Initialize(controller, loadedMap.Leaderboard);
 
             //PauseMenu pauseMenu = FindObjectOfType<PauseMenu>();
             //pauseMenu.Initialize(controller);
