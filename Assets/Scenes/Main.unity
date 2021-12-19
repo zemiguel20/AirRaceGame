@@ -399,7 +399,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 860282297334044341, guid: 367c5a7b637693a4a9c29ad722f99279, type: 3}
   m_TrackedDevicePositionAction: {fileID: 4193127813450697004, guid: 367c5a7b637693a4a9c29ad722f99279, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 8631719650647752779, guid: 367c5a7b637693a4a9c29ad722f99279, type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
 --- !u!1001 &4316171430087299611
 PrefabInstance:
