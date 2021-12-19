@@ -1,11 +1,13 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=7a0872cdef9bd764a8a69743a0519ed9&amp;type=3#style" />
-    <ui:VisualElement style="background-color: rgba(0, 0, 0, 0.59); width: 100%; height: 100%;">
-        <ui:Label text="GAME PAUSED" display-tooltip-when-elided="true" class="text" style="position: absolute; top: 10%; left: 40%;" />
-        <ui:VisualElement style="position: absolute; height: 362px; width: 240px; top: 36%; left: 43%; align-items: center; justify-content: space-around;">
-            <ui:Button text="Resume" display-tooltip-when-elided="true" name="resume" class="vertical-list-button" />
-            <ui:Button text="Restart" display-tooltip-when-elided="true" name="restart" class="vertical-list-button" />
-            <ui:Button text="Quit" display-tooltip-when-elided="true" name="quit" class="vertical-list-button" />
+    <ui:VisualElement name="background" style="background-color: rgba(0, 0, 0, 0.59); width: 100%; height: 100%;">
+        <ui:VisualElement name="header" style="align-items: center; margin-top: 5%; margin-bottom: 5%;">
+            <ui:Label text="Game Paused" display-tooltip-when-elided="true" class="text" />
+        </ui:VisualElement>
+        <ui:VisualElement name="menu" style="align-items: center;">
+            <ui:Button text="Resume" display-tooltip-when-elided="true" name="resume" class="vertical-list-button" style="width: 200px;" />
+            <ui:Button text="Restart" display-tooltip-when-elided="true" name="restart" class="vertical-list-button" style="width: 200px;" />
+            <ui:Button text="Quit" display-tooltip-when-elided="true" name="quit" class="vertical-list-button" style="width: 200px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
