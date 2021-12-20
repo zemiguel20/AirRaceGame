@@ -1,71 +1,39 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
-namespace AirRace.UI
+namespace AirRace
 {
     public class MainMenu : MonoBehaviour
     {
-        [SerializeField] private GridLayoutGroup grid;
-        [SerializeField] private MapButton mapButtonPrefab;
+        [SerializeField] private UIDocument mainMenuPanel;
+        [SerializeField] private UIDocument mapPanel;
 
-        [SerializeField] private GameObject menuPanel;
-        [SerializeField] private GameObject mapSelectionPanel;
-        [SerializeField] private MapInfoPanel mapInfoPanel;
-
-        public event Action<Map> MapChosen;
-        public event Action QuitPressed;
-
-        public void Initialize(List<Map> maps)
+        private void Awake()
         {
-            LoadMapButtons(maps);
-            mapInfoPanel.PlayMapPressed += OnPlayMapPressed;
-            ShowMenuPanel();
+            Button playButton = mainMenuPanel.rootVisualElement.Query<Button>("play");
+            playButton.clicked += SwitchToMapPanel;
+
+            Button backButton = mapPanel.rootVisualElement.Query<Button>("back");
+            backButton.clicked += SwitchToMainPanel;
         }
 
-        private void LoadMapButtons(List<Map> maps)
+        private void Start()
         {
-            foreach (Map map in maps)
-            {
-                MapButton instance = Instantiate(mapButtonPrefab);
-                instance.transform.SetParent(grid.transform);
-                instance.Initialize(map);
-                instance.MapSelected += ShowMapInfoPanel;
-            }
+            SwitchToMainPanel();
         }
 
-        public void ShowMenuPanel()
+        private void SwitchToMainPanel()
         {
-            menuPanel.SetActive(true);
-            mapSelectionPanel.SetActive(false);
-            mapInfoPanel.gameObject.SetActive(false);
+            mainMenuPanel.rootVisualElement.visible = true;
+            mapPanel.rootVisualElement.visible = false;
         }
 
-        public void ShowMapSelectionPanel()
+        private void SwitchToMapPanel()
         {
-            menuPanel.SetActive(false);
-            mapSelectionPanel.SetActive(true);
-            mapInfoPanel.gameObject.SetActive(false);
+            mainMenuPanel.rootVisualElement.visible = false;
+            mapPanel.rootVisualElement.visible = true;
         }
-
-        public void ShowMapInfoPanel(Map map)
-        {
-            menuPanel.SetActive(false);
-            mapSelectionPanel.SetActive(false);
-            mapInfoPanel.gameObject.SetActive(true);
-
-            mapInfoPanel.Initialize(map);
-        }
-
-        public void OnPlayMapPressed(Map map)
-        {
-            MapChosen?.Invoke(map);
-        }
-
-        public void OnQuitGamePressed(){
-            QuitPressed?.Invoke();
-        }
-
     }
 }

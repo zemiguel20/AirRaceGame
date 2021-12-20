@@ -68,9 +68,9 @@ namespace AirRace
         private void InitializeMainMenu()
         {
             MainMenu mainMenu = FindObjectOfType<MainMenu>();
-            mainMenu.Initialize(_maps);
-            mainMenu.MapChosen += OnMapChosen;
-            mainMenu.QuitPressed += QuitGame;
+            //mainMenu.Initialize(_maps);
+            //mainMenu.MapChosen += OnMapChosen;
+            //mainMenu.QuitPressed += QuitGame;
         }
 
         private void OnMapChosen(Map map)
