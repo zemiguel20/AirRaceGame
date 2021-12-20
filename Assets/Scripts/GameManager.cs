@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using AirRace.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -26,10 +25,10 @@ namespace AirRace
         {
             foreach (var map in _maps)
             {
-                List<float> values = SaveManager.LoadLeaderboard(map.Name);
+                List<float> values = SaveManager.LoadLeaderboard(map.name);
                 if (values != null)
                 {
-                    map.Leaderboard.SetTimes(values);
+                    //map.Leaderboard.SetTimes(values);
                 }
             }
         }
@@ -44,7 +43,7 @@ namespace AirRace
                 while (operation.isDone == false)
                     yield return null;
 
-                operation = SceneManager.UnloadSceneAsync(loadedMap.SceneName);
+                operation = SceneManager.UnloadSceneAsync(loadedMap.name);
                 while (operation.isDone == false)
                     yield return null;
 
@@ -88,7 +87,7 @@ namespace AirRace
                 while (operation.isDone == false)
                     yield return null;
 
-                operation = SceneManager.UnloadSceneAsync(loadedMap.SceneName);
+                operation = SceneManager.UnloadSceneAsync(loadedMap.name);
                 while (operation.isDone == false)
                     yield return null;
 
@@ -104,11 +103,11 @@ namespace AirRace
 
             loadingScreen.SetActive(true);
 
-            operation = SceneManager.LoadSceneAsync(map.SceneName, LoadSceneMode.Additive);
+            operation = SceneManager.LoadSceneAsync(map.name, LoadSceneMode.Additive);
             while (operation.isDone == false)
                 yield return null;
 
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(map.SceneName));
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(map.name));
 
             operation = SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
             while (operation.isDone == false)
@@ -158,7 +157,7 @@ namespace AirRace
 
         private void OnRaceExited()
         {
-            SaveManager.SaveLeaderboard(loadedMap.Leaderboard.Times, loadedMap.Name);
+            //SaveManager.SaveLeaderboard(loadedMap.Leaderboard.Times, loadedMap.Name);
             StartCoroutine(LoadMainMenu());
         }
 
