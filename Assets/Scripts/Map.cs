@@ -1,20 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace AirRace
 {
-    [System.Serializable]
+    [Serializable]
     public class Map
     {
-        [SerializeField] private string _mapName;
-        public string Name { get => _mapName; }
-
+        [SerializeField] private string _name;
         [SerializeField] private Sprite _image;
-        public Sprite Image { get => _image; }
 
-        private Leaderboard _leaderboard = new Leaderboard();
-        public Leaderboard Leaderboard { get => _leaderboard; }
-
-        [SerializeField] private string _sceneName;
-        public string SceneName { get => _sceneName; }
+        public string name { get { return _name; } }
+        public Sprite image { get { return _image; } }
     }
 }
