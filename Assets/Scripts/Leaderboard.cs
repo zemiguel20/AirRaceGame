@@ -4,10 +4,10 @@ namespace AirRace
 {
     public class Leaderboard
     {
-        public static readonly int SIZE = 10;
+        public const int SIZE = 10;
 
         private List<float> _times;
-        public List<float> Times { get => new List<float>(_times); }
+        public List<float> times { get => new List<float>(_times); }
 
         public Leaderboard()
         {
