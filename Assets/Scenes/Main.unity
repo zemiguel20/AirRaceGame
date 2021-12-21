@@ -349,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maps:
   - _name: Islands
-    _image: {fileID: 21300000, guid: 8c3140bafcad43e4a9bc483ca0dce760, type: 3}
+    _image: {fileID: 2800000, guid: 8c3140bafcad43e4a9bc483ca0dce760, type: 3}
 --- !u!4 &856166482
 Transform:
   m_ObjectHideFlags: 0
