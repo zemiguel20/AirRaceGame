@@ -29,6 +29,7 @@ namespace AirRace
             restartButton.clicked += RestartPressed;
 
             RaceController.raceFinished += ShowPanel;
+            LeaderboardUpdater.leaderboardUpdated += UpdatePanelInfo;
 
             sceneLoader = FindObjectOfType<SceneLoader>();
         }
@@ -51,15 +52,25 @@ namespace AirRace
 
         private void ShowPanel()
         {
-            playerTimeLabel.text = chronometer.time.ToString("F2");
-            //TODO: set leaderboard text
             document.rootVisualElement.visible = true;
+        }
+
+        private void UpdatePanelInfo(Leaderboard leaderboard)
+        {
+            playerTimeLabel.text = chronometer.time.ToString("F2");
+
+            leaderboardLabel.text = "";
+            for (int i = 0; i < leaderboard.times.Count; i++)
+            {
+                leaderboardLabel.text += (i + 1) + ": " + leaderboard.times[i].ToString("F2") + "\n";
+            }
         }
 
         private void OnDestroy()
         {
             //Unsub from events on destroy
             RaceController.raceFinished -= ShowPanel;
+            LeaderboardUpdater.leaderboardUpdated -= UpdatePanelInfo;
         }
     }
 }

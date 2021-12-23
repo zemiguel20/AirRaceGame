@@ -16,7 +16,8 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement style="width: 50%;">
-                <ui:Label text="Label" display-tooltip-when-elided="true" name="leaderboard" class="text" />
+                <ui:Label text="LEADERBOARD" display-tooltip-when-elided="true" class="text" style="-unity-text-align: upper-center;" />
+                <ui:Label text="Label" display-tooltip-when-elided="true" name="leaderboard" class="text" style="-unity-text-align: middle-center;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

@@ -77,7 +77,7 @@ namespace AirRace
                 {
                     for (int i = 0; i < selectedMap.leaderboard.times.Count; i++)
                     {
-                        leaderboardLabel.text += i + ": " + selectedMap.leaderboard.times[i] + "\n";
+                        leaderboardLabel.text += (i + 1) + ": " + selectedMap.leaderboard.times[i].ToString("F2") + "\n";
                     }
                 }
                 else
@@ -87,7 +87,7 @@ namespace AirRace
             }
             else
             {
-                leaderboardLabel.text = "(No leaderboard selected)";
+                leaderboardLabel.text = "(No map selected)";
             }
 
         }

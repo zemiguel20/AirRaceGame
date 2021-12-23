@@ -8,8 +8,9 @@
             <ui:VisualElement name="map-list-container" style="width: 50%;">
                 <ui:ListView focusable="true" name="map-list" fixed-item-height="130" style="flex-grow: 1;" />
             </ui:VisualElement>
-            <ui:VisualElement name="leaderboard-container" style="width: 50%; align-items: center; justify-content: center;">
-                <ui:Label text="no map selected" display-tooltip-when-elided="true" name="leaderboard" class="text" />
+            <ui:VisualElement name="leaderboard-container" style="width: 50%;">
+                <ui:Label text="LEADERBOARD" display-tooltip-when-elided="true" class="text" style="-unity-text-align: upper-center;" />
+                <ui:Label text="no map selected" display-tooltip-when-elided="true" name="leaderboard" class="text" style="-unity-text-align: middle-center; flex-grow: 1;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="buttons" style="flex-grow: 0; flex-direction: row; align-items: stretch; justify-content: center;">
