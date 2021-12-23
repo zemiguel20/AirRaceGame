@@ -56,8 +56,9 @@ namespace AirRace
         //Cleanup on object destroy
         private void OnDestroy()
         {
-            //Reset timescale
+            //In case the game is paused, reset time scale and action map
             Time.timeScale = 1;
+            playerInput.SwitchCurrentActionMap("Player");
 
             //Unsub from events
             playerInput.actions.FindAction("PauseGame").performed -= OnPauseGame;

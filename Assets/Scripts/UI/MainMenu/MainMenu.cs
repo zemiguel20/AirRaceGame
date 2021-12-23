@@ -18,6 +18,8 @@ namespace AirRace
 
         private MapListViewController mapListController;
 
+        private SceneLoader sceneLoader;
+
         private void Awake()
         {
             //MainMenuPanel
@@ -31,6 +33,8 @@ namespace AirRace
             MapRepository mapRepository = FindObjectOfType<MapRepository>();
             ListView mapListView = mapPanel.rootVisualElement.Query<ListView>("map-list");
             mapListController = new MapListViewController(mapListView, mapRepository, mapEntryTemplate);
+
+            sceneLoader = FindObjectOfType<SceneLoader>();
         }
 
         private void Start()
@@ -39,6 +43,7 @@ namespace AirRace
             menuQuitButton.clicked += QuitGame;
 
             mapPanelBackButton.clicked += SwitchToMainPanel;
+            mapPanelPlayButton.clicked += LoadSelectedMap;
 
             mapListController.selectedMapChanged += UpdateMapPanel;
             mapListController.InitializeMapList();
@@ -85,6 +90,11 @@ namespace AirRace
                 leaderboardLabel.text = "(No leaderboard selected)";
             }
 
+        }
+
+        private void LoadSelectedMap()
+        {
+            sceneLoader.LoadMap(mapListController.selectedMap);
         }
 
         private void QuitGame()

@@ -12,6 +12,8 @@ namespace AirRace
 
         private PauseController pauseController;
 
+        private SceneLoader sceneLoader;
+
         private void Awake()
         {
             pauseController = FindObjectOfType<PauseController>();
@@ -28,6 +30,8 @@ namespace AirRace
 
             quitButton = document.rootVisualElement.Query<Button>("quit");
             quitButton.clicked += QuitPressed;
+
+            sceneLoader = FindObjectOfType<SceneLoader>();
         }
 
         private void Start()
@@ -53,12 +57,12 @@ namespace AirRace
 
         private void RestartPressed()
         {
-            //TODO: reload current map
+            sceneLoader.LoadMap(sceneLoader.loadedMap);
         }
 
         private void QuitPressed()
         {
-            //TODO: quit to main menu
+            sceneLoader.LoadMainMenu();
         }
 
 

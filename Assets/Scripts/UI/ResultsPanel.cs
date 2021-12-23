@@ -13,6 +13,8 @@ namespace AirRace
 
         private Chronometer chronometer;
 
+        private SceneLoader sceneLoader;
+
         private void Awake()
         {
             chronometer = FindObjectOfType<Chronometer>();
@@ -27,6 +29,8 @@ namespace AirRace
             restartButton.clicked += RestartPressed;
 
             RaceController.raceFinished += ShowPanel;
+
+            sceneLoader = FindObjectOfType<SceneLoader>();
         }
 
         private void Start()
@@ -37,12 +41,12 @@ namespace AirRace
 
         private void RestartPressed()
         {
-            //TODO:
+            sceneLoader.LoadMap(sceneLoader.loadedMap);
         }
 
         private void QuitPressed()
         {
-            //TODO:
+            sceneLoader.LoadMainMenu();
         }
 
         private void ShowPanel()

@@ -9,6 +9,8 @@ namespace AirRace
     {
         private Scene currentScene;
 
+        public Map loadedMap { get; private set; }
+
         private void Awake()
         {
             LoadMainMenu();
@@ -16,11 +18,13 @@ namespace AirRace
 
         public void LoadMainMenu()
         {
+            loadedMap = null;
             StartCoroutine(LoadScene("MainMenu"));
         }
 
         public void LoadMap(Map map)
         {
+            loadedMap = map;
             StartCoroutine(LoadScene(map.name));
         }
 
