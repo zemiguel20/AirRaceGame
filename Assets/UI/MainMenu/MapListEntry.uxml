@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=7a0872cdef9bd764a8a69743a0519ed9&amp;type=3#style" />
     <ui:VisualElement style="width: 100%; flex-direction: row; align-items: center; justify-content: flex-start;">
-        <ui:VisualElement name="map-image" style="background-image: url(&apos;project://database/Assets/StandardAssets/Maps/islands_map_image.png?fileID=2800000&amp;guid=8c3140bafcad43e4a9bc483ca0dce760&amp;type=3#islands_map_image&apos;); width: 128px; height: 128px;" />
+        <ui:VisualElement name="map-image" style="width: 128px; height: 128px; background-color: rgba(0, 0, 0, 255);" />
         <ui:Label text="Map name" display-tooltip-when-elided="true" name="map-name" class="text" />
     </ui:VisualElement>
 </ui:UXML>
