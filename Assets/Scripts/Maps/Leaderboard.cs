@@ -1,12 +1,15 @@
 using System.Collections.Generic;
+using System;
+using UnityEngine;
 
 namespace AirRace
 {
+    [Serializable]
     public class Leaderboard
     {
         public const int SIZE = 10;
 
-        private List<float> _times;
+        [SerializeField] private List<float> _times;
         public List<float> times { get => new List<float>(_times); }
 
         public Leaderboard()
