@@ -1,19 +1,19 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=7a0872cdef9bd764a8a69743a0519ed9&amp;type=3#style" />
     <ui:VisualElement name="background" style="flex-grow: 1; background-color: rgb(38, 102, 49);">
-        <ui:VisualElement name="header" style="align-items: center; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px;">
+        <ui:VisualElement name="header" style="align-items: center; margin-left: 20px; margin-right: 20px; margin-top: 20px; margin-bottom: 20px; flex-grow: 1; justify-content: center;">
             <ui:Label text="Choose a map" display-tooltip-when-elided="true" class="text" />
         </ui:VisualElement>
-        <ui:VisualElement name="maps" style="flex-grow: 1; flex-direction: row;">
-            <ui:VisualElement name="map-list-container" style="width: 50%;">
-                <ui:ListView focusable="true" name="map-list" fixed-item-height="130" style="flex-grow: 1;" />
+        <ui:VisualElement name="maps" style="flex-grow: 10; flex-direction: row;">
+            <ui:VisualElement name="map-list-container" style="width: 50%; justify-content: center; align-items: center;">
+                <ui:ListView focusable="true" name="map-list" fixed-item-height="130" show-border="true" class="listview" style="width: 90%; height: 90%;" />
             </ui:VisualElement>
             <ui:VisualElement name="leaderboard-container" style="width: 50%;">
                 <ui:Label text="LEADERBOARD" display-tooltip-when-elided="true" class="text" style="-unity-text-align: upper-center;" />
                 <ui:Label text="no map selected" display-tooltip-when-elided="true" name="leaderboard" class="text" style="-unity-text-align: middle-center; flex-grow: 1;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="buttons" style="flex-grow: 0; flex-direction: row; align-items: stretch; justify-content: center;">
+        <ui:VisualElement name="buttons" style="flex-direction: row; align-items: center; justify-content: center; flex-grow: 1;">
             <ui:Button text="Back" display-tooltip-when-elided="true" name="back" class="button text" style="width: 100px; height: 50px;" />
             <ui:Button text="Play" display-tooltip-when-elided="true" name="play" class="button text" style="width: 100px; height: 50px;" />
         </ui:VisualElement>

@@ -9,16 +9,16 @@
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-    color: rgba(0, 0, 0, 255);
+    color: rgb(0, 0, 0);
     border-right-width: 2px;
     border-bottom-width: 5px;
     border-left-width: 2px;
     border-top-width: 1px;
-    border-left-color: rgba(58, 58, 58, 255);
-    border-right-color: rgba(58, 58, 58, 255);
-    border-top-color: rgba(58, 58, 58, 255);
-    border-bottom-color: rgba(58, 58, 58, 255);
-    background-color: rgba(209, 205, 175, 255);
+    border-left-color: rgb(58, 58, 58);
+    border-right-color: rgb(58, 58, 58);
+    border-top-color: rgb(58, 58, 58);
+    border-bottom-color: rgb(58, 58, 58);
+    background-color: rgb(209, 205, 175);
 }
 
 .button:hover {
@@ -27,4 +27,27 @@
 
 .button:focus {
     background-color: rgb(236, 0, 0);
+}
+
+.listview {
+    border-left-color: rgb(48, 48, 48);
+    border-right-color: rgb(48, 48, 48);
+    border-top-color: rgb(48, 48, 48);
+    border-bottom-color: rgb(48, 48, 48);
+    border-left-width: 8px;
+    border-right-width: 8px;
+    border-top-width: 8px;
+    border-bottom-width: 8px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: rgb(87, 87, 71);
+}
+
+.listview:focus {
+    border-left-color: rgba(236, 0, 0, 255);
+    border-right-color: rgba(236, 0, 0, 255);
+    border-top-color: rgba(236, 0, 0, 255);
+    border-bottom-color: rgba(236, 0, 0, 255);
 }
