@@ -31,7 +31,6 @@ namespace AirRace
         public void SaveLeaderboard(Leaderboard leaderboard, string mapName)
         {
             string filepath = Application.persistentDataPath + "/" + mapName + ".leaderboard";
-            Debug.Log(JsonUtility.ToJson(leaderboard));
             File.WriteAllText(filepath, JsonUtility.ToJson(leaderboard));
         }
 
