@@ -36,6 +36,10 @@ namespace AirRace
 
         private void Start()
         {
+            //Focusing and Unfocusing random element on this Scene fixes the navigation not working
+            resumeButton.Focus();
+            resumeButton.Blur();
+
             //Game running by default
             document.rootVisualElement.visible = false;
         }

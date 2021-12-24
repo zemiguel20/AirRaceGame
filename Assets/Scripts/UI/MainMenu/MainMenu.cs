@@ -8,6 +8,7 @@ namespace AirRace
         [SerializeField] private UIDocument mainMenuPanel;
         private Button menuPlayButton;
         private Button menuQuitButton;
+        private Label versionLabel;
 
         [SerializeField] private UIDocument mapPanel;
         private Button mapPanelBackButton;
@@ -25,6 +26,9 @@ namespace AirRace
             //MainMenuPanel
             menuPlayButton = mainMenuPanel.rootVisualElement.Query<Button>("play");
             menuQuitButton = mainMenuPanel.rootVisualElement.Query<Button>("quit");
+
+            versionLabel = mainMenuPanel.rootVisualElement.Query<Label>("version");
+
             //MapPanel
             mapPanelBackButton = mapPanel.rootVisualElement.Query<Button>("back");
             mapPanelPlayButton = mapPanel.rootVisualElement.Query<Button>("play");
@@ -48,6 +52,11 @@ namespace AirRace
             mapListController.selectedMapChanged += UpdateMapPanel;
             mapListController.InitializeMapList();
 
+            versionLabel.text = "Version " + Application.version;
+
+            //Focusing and Unfocusing random element on this Scene fixes the navigation not working
+            menuPlayButton.Focus();
+            menuPlayButton.Blur();
 
             SwitchToMainPanel();
         }

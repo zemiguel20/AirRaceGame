@@ -1,12 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/style.uss?fileID=7433441132597879392&amp;guid=7a0872cdef9bd764a8a69743a0519ed9&amp;type=3#style" />
-    <ui:VisualElement name="background" style="flex-grow: 1; background-color: rgba(38, 101, 49, 255);">
+    <ui:VisualElement name="background" style="flex-grow: 1; background-color: rgb(38, 101, 49);">
         <ui:VisualElement name="title" style="align-items: center; margin-left: 30px; margin-right: 30px; margin-top: 30px; margin-bottom: 30px;">
             <ui:Label text="AIR RACE" display-tooltip-when-elided="true" class="text" style="font-size: 90px;" />
         </ui:VisualElement>
         <ui:VisualElement style="align-items: center; justify-content: center; flex-grow: 1;">
             <ui:Button text="Play" display-tooltip-when-elided="true" name="play" class="button text" style="width: 200px; height: 70px;" />
             <ui:Button text="Quit" display-tooltip-when-elided="true" name="quit" class="button text" style="width: 200px; height: 70px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="footer">
+            <ui:Label text="Version 0.0.0.0-something" display-tooltip-when-elided="true" name="version" class="text" style="font-size: 16px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
